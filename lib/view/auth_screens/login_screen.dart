@@ -1,0 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:sky_diving/components/auth_button.dart';
+import 'package:sky_diving/components/custom_textfield.dart';
+import 'package:sky_diving/components/label_text.dart';
+import 'package:sky_diving/components/social_button.dart';
+import 'package:sky_diving/constants/app_colors.dart';
+import 'package:sky_diving/constants/routes_name.dart';
+import '../../constants/app_images.dart';
+import '../../constants/app_svg_icons.dart';
+
+class LoginScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      body: Container(
+        height: screenHeight,
+        width: screenWidth,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppImages.backgroundImage),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: screenHeight * 0.1), // Dynamic spacing
+              SvgPicture.asset(
+                AppSvgIcons.text,
+                width: screenWidth * 0.6,
+                height: screenHeight * 0.1,
+              ),
+              SizedBox(height: screenHeight * 0.08),
+              Text(
+                "Welcome Back",
+                style: TextStyle(
+                  fontSize: screenWidth * 0.07,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: screenHeight * 0.04),
+              CustomTextField(hintText: "Email Address"),
+              SizedBox(height: screenHeight * 0.02),
+              CustomTextField(hintText: "Password", obscureText: true),
+              SizedBox(height: screenHeight * 0.02),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  child: LabelText(
+                    text: "Forgot your password?",
+                    textAlign: TextAlign.right,
+                    textColor: AppColors.primaryColor,
+                  ),
+                  onTap: ()=>Get.toNamed(RouteName.changePassword),
+                ),
+              ),
+              Expanded(child: SizedBox()), // Pushes the button to the bottom
+              AuthButton(buttonText: "Login", onPressed: () {}, isLoading: false.obs),
+              SizedBox(height: screenHeight * 0.05),
+              SocialLoginButton(
+                text: "Login with Apple",
+                iconPath: AppImages.apple,
+                onPressed: () {},
+                buttonColor: const Color.fromARGB(255, 26, 25, 25),
+                textColor: Colors.white,
+              ),
+              SizedBox(height: screenHeight * 0.03),
+              SocialLoginButton(
+                text: "Login with Google",
+                iconPath: AppImages.google,
+                onPressed: () {},
+                textColor: Colors.black,
+              ),
+              SizedBox(height: screenHeight * 0.03),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteName.signup);
+                    // Navigate to Sign Up Page
+                  },
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Not a member?",
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.035,
+                        color: Colors.white,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: " Sign up",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.02),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
