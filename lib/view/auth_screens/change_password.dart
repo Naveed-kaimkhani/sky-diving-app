@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
+import 'package:sky_diving/view/home/home_screen.dart';
 
 class ChangePassword extends StatelessWidget {
   @override
@@ -57,7 +58,13 @@ class ChangePassword extends StatelessWidget {
             // Continue Button
             AuthButton(
               buttonText: "Continue",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => HomeScreen()),
+);
+
+              },
               isLoading: false.obs,
             ),
             SizedBox(height: screenHeight * 0.05), // 4% of screen height

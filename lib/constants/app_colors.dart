@@ -28,8 +28,8 @@ class AppColors {
     end: Alignment.bottomCenter,
     stops: [0.0, 0.2379, 0.4902, 0.7474, 1.0], // Gradient stops
   );
-static const grey = Colors.grey
-; // New background color
+static const grey =  Color.fromARGB(255, 26, 25, 25);
+ // New background color
   static const black =  Colors.black;
   static const yellow = Color(0xFFE0B23A);
   static final mediumPink =  Colors.pinkAccent.withOpacity(0.4);
