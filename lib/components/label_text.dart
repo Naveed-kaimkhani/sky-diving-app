@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:sky_diving/constants/app_colors.dart';
 class LabelText extends StatelessWidget {
   final String text;
   final FontWeight weight;
@@ -23,7 +22,7 @@ class LabelText extends StatelessWidget {
     this.maxLine,
     this.fontSize=16,
     this.textAlign = TextAlign.start,
-    this.textColor = AppColors.black,
+    this.textColor = Colors.white,
     this.decoration = TextDecoration.none,
     this.decorationColor,
     this.height,

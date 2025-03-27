@@ -1,14 +1,14 @@
-
-
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sky_diving/components/custom_button.dart';
 import 'package:sky_diving/components/line_chart.dart';
 import 'package:sky_diving/components/navigation_button.dart';
 import 'package:sky_diving/components/referral_card.dart';
 import 'package:sky_diving/components/reward_balance_card.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
-import 'package:sky_diving/test.dart';
+import 'package:sky_diving/components/custom_AppBar.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -58,13 +58,16 @@ class HomeScreen extends StatelessWidget {
                 confettiImage: AppSvgIcons.confettiImage,
               ),
               SizedBox(height: screenHeight * 0.02),
-              RewardBalanceCard(
-                width: screenWidth * 0.18,
-                height: screenHeight * 0.08,
-                rewardText: "Scan to Refer a Friend",
-                balance: "3 Completed",
-                coinImage: null,
-                confettiImage: AppSvgIcons.scan,
+              GestureDetector(
+                onTap: ()=>Get.toNamed(RouteName.qrCode ),
+                child: RewardBalanceCard(
+                  width: screenWidth * 0.18,
+                  height: screenHeight * 0.08,
+                  rewardText: "Scan to Refer a Friend",
+                  balance: "3 Completed",
+                  coinImage: null,
+                  confettiImage: AppSvgIcons.scan,
+                ),
               ),
               SizedBox(height: screenHeight * 0.02),
               Row(

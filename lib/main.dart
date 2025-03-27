@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_routes.dart';
-import 'package:sky_diving/constants/routes_name.dart';
-import 'package:sky_diving/test.dart';
+import 'package:sky_diving/view/QRCode_screen/qr_code.dart';
+import 'package:sky_diving/view/QRCode_screen/referral_history.dart';
+import 'package:sky_diving/view/QRCode_screen/reward_screen.dart';
 import 'package:sky_diving/view/home/home_screen.dart';
+import 'package:sky_diving/view/profile_screens/profile.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() {
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home:SplashScreen(),
-      initialRoute: RouteName.splashScreen,
+      // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
     );
   }

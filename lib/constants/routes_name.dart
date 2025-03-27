@@ -10,8 +10,15 @@ class RouteName {
 
 
 
- static const String oTPScreen = '/OTPScreen';
 
+ static const String profileScreen = '/ProfileScreen';
+ static const String oTPScreen = '/OTPScreen';
+ 
+ static const String referralHistory = '/ReferralHistory';
+ 
+ static const String qrCode = '/QrCode';
+
+ static const String rewardScreen = '/RewardScreen';
 
 //  static const String changePassword = '/ChangePassword';
 }
