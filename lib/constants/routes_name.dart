@@ -8,7 +8,17 @@ class RouteName {
 
  static const String forgetPassword = '/ForgetPassword';
 
+ static const String fAQScreen = '/FAQScreen';
 
+ static const String termsAndPrivacyScreen = '/TermsAndPrivacyScreen';
+
+ static const String rentalScreen = '/RentalScreen';
+
+ static const String notificationsScreen = '/NotificationsScreen';
+
+ static const String updateProfile = '/UpdateProfile';
+
+ static const String bottomNavigation = '/BottomNavigation';
 
 
  static const String profileScreen = '/ProfileScreen';

@@ -7,6 +7,7 @@ import 'package:sky_diving/components/label_text.dart';
 import 'package:sky_diving/components/social_button.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/navigation_bar.dart';
 import 'package:sky_diving/view/home/home_screen.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_svg_icons.dart';
@@ -61,17 +62,20 @@ class LoginScreen extends StatelessWidget {
                     textAlign: TextAlign.right,
                     textColor: AppColors.primaryColor,
                   ),
-                  onTap: ()=>Get.toNamed(RouteName.changePassword),
+                  onTap: () => Get.toNamed(RouteName.changePassword),
                 ),
               ),
               Expanded(child: SizedBox()), // Pushes the button to the bottom
-              AuthButton(buttonText: "Login", onPressed: () {
-                                Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => HomeScreen()),
-);
-
-              }, isLoading: false.obs),
+              AuthButton(
+                  buttonText: "Login",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BottomNavigation()),
+                    );
+                  },
+                  isLoading: false.obs),
               SizedBox(height: screenHeight * 0.05),
               SocialLoginButton(
                 text: "Login with Apple",

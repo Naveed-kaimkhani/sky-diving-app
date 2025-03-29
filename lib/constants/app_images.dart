@@ -1,10 +1,13 @@
 class AppImages {
   //AppImages
   static String backgroundImage = "assets/png/background.png";
-  static String splashImg = "assets/png/splash_background.jpeg";
+  static String splashImg = "assets/png/background1.jpeg";
   
  
     static String apple = "assets/png/apple.png";
+
+    static String scan = "assets/png/scan.svg";
+    static String cam = "assets/png/cam.svg";
     
     // static String apple = "assets/png/apple.png";
     static String done = "assets/png/done.png";

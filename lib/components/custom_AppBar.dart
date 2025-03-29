@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String username;
@@ -22,21 +25,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           ClipOval(
-            child:  Image.asset(
-              height: 40,
-              width: 40,
-              profileImage,
-            )
-            //  CachedNetworkImage(
-            //   imageUrl: profileImage,
-            //   width: 40,
-            //   height: 40,
-            //   fit: BoxFit.cover,
-            //   placeholder: (context, url) =>
-            //       CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-            //   errorWidget: (context, url, error) => Icon(Icons.error, color: Colors.white),
-            // ),
-          ),
+              child: Image.asset(
+            height: 40,
+            width: 40,
+            profileImage,
+          )
+              //  CachedNetworkImage(
+              //   imageUrl: profileImage,
+              //   width: 40,
+              //   height: 40,
+              //   fit: BoxFit.cover,
+              //   placeholder: (context, url) =>
+              //       CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+              //   errorWidget: (context, url, error) => Icon(Icons.error, color: Colors.white),
+              // ),
+              ),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,34 +63,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           const Spacer(),
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.white ,size: 22,),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 22,
+            ),
             onPressed: () {},
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Stack(
             children: [
               // IconButton(
               //   icon: const Icon(Icons.notifications_none, color: Colors.white),
               //   onPressed: () {},
               // ),
-              SvgPicture.asset(
-                AppSvgIcons.noti,
-                color: Colors.white,
-                height: 22,
-                width: 22,
+              GestureDetector(
+                onTap: () => Get.toNamed(RouteName.notificationsScreen),
+                child: SvgPicture.asset(
+                  AppSvgIcons.noti,
+                  color: Colors.white,
+                  height: 22,
+                  width: 22,
+                ),
               ),
-              // Positioned(
-              //   top: 10,
-              //   right: 10,
-              //   child: Container(
-              //     width: 8,
-              //     height: 8,
-              //     decoration: BoxDecoration(
-              //       color: Colors.green,
-              //       shape: BoxShape.circle,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ],

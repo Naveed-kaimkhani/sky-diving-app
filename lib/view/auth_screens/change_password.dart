@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
+import 'package:sky_diving/navigation_bar.dart';
 import 'package:sky_diving/view/home/home_screen.dart';
 
 class ChangePassword extends StatelessWidget {
@@ -19,9 +20,11 @@ class ChangePassword extends StatelessWidget {
         leading: GestureDetector(
           onTap: () => Get.back(),
           child: Icon(Icons.arrow_back, color: Colors.white),
-      ),),
+        ),
+      ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06), // 6% of screen width
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.06), // 6% of screen width
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -60,10 +63,9 @@ class ChangePassword extends StatelessWidget {
               buttonText: "Continue",
               onPressed: () {
                 Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => HomeScreen()),
-);
-
+                  context,
+                  MaterialPageRoute(builder: (context) => BottomNavigation()),
+                );
               },
               isLoading: false.obs,
             ),

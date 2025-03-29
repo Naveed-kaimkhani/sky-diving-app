@@ -6,7 +6,7 @@ class RewardBalanceCard extends StatelessWidget {
   final String balance;
   final String rewardText;
   final String? coinImage;
-  final String confettiImage;
+  final String? confettiImage;
   final double width;
     final double height;
   const RewardBalanceCard({
@@ -57,12 +57,12 @@ class RewardBalanceCard extends StatelessWidget {
           // Confetti and coin image
           Stack(
             children: [
-              Image.asset(
+             confettiImage!=null? Image.asset(
                 fit: BoxFit.cover,  
-                confettiImage,
+                confettiImage??"",
                 width: width,
                 height: height,
-              ),
+              ):SizedBox(),
           coinImage!=null?    Positioned(
                 right: 5,
                 bottom: 5,

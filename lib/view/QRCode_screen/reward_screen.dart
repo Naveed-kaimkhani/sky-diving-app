@@ -1,86 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:sky_diving/components/auth_button.dart';
-// import 'package:sky_diving/components/custom_button.dart';
-// import 'package:sky_diving/components/label_text.dart';
-// import 'package:sky_diving/components/line_chart.dart';
-// import 'package:sky_diving/components/navigation_button.dart';
-// import 'package:sky_diving/components/referral_card.dart';
-// import 'package:sky_diving/components/reward_balance_card.dart';
-// import 'package:sky_diving/components/reward_card.dart';
-// import 'package:sky_diving/components/rewards_tab_bar.dart';
-// import 'package:sky_diving/constants/app_images.dart';
-// import 'package:sky_diving/constants/app_svg_icons.dart';
-// import 'package:sky_diving/components/custom_AppBar.dart';
-// import 'package:sky_diving/testt.dart';
-
-// class RewardScreen extends StatelessWidget {
-//   const RewardScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final screenWidth = MediaQuery.of(context).size.width;
-//     final screenHeight = MediaQuery.of(context).size.height;
-//     final isSmallScreen = screenWidth < 400;
-
-//     return Scaffold(
-//       backgroundColor: Colors.black, // Dark background color
-//       appBar: CustomAppBar(username: "Jaydon Bator", profileImage: AppSvgIcons.profile),
-//       body: Padding(
-//         padding: EdgeInsets.only(
-//           left: isSmallScreen ? 10.0 : 20.0,
-//           right: isSmallScreen ? 10.0 : 20.0,
-//         ),
-//         child: SingleChildScrollView(
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-          
-//               SizedBox(height: screenHeight * 0.02),
-//               RewardBalanceCard(
-//                 height: screenHeight * 0.08,
-//                 width: screenWidth * 0.56,
-//                 balance: "\$50.00",
-//                 coinImage: AppSvgIcons.coin,
-//                 confettiImage: AppSvgIcons.confettiImage,
-//               ),
-              
-//               SizedBox(height: 32),
-//               LabelText(text: "Rewards", fontSize: 18,weight: FontWeight.bold,),
-//               SizedBox(height: 12),
-//            AuthButton(buttonText: "Redeem", onPressed: (){}, isLoading: false.obs),
-                
-//               SizedBox(height: 20),
-//                     SizedBox(
-//                   width: 300,
-//                   height: 70,
-//                   child: RewardsTabBar()),
-//               // SizedBox(height: 20),
-//                     RewardCard(
-//               title: "\$10 Cashback",
-//               status: "Claimed",
-//               date: "12 Jan 2025",
-//               statusIcon: AppImages.done, // Claimed
-//               statusColor: Colors.green,
-//             ),
-//             RewardCard(
-//               title: "Free Gear Rental",
-//               status: "Pending",
-//               date: "12 Jan 2025",
-//               statusIcon: AppImages.timer, // Pending
-//               statusColor: Colors.yellow,
-//             ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
@@ -126,7 +43,7 @@ class RewardScreen extends StatelessWidget {
               // Reward Balance Card (Responsive)
               RewardBalanceCard(
                 height: screenHeight * 0.10, // Adjusted height
-                width: screenWidth * 0.55, // Adjusted width
+                width: screenWidth * 0.52, // Adjusted width
                 balance: "\$50.00",
                 coinImage: AppSvgIcons.coin,
                 confettiImage: AppSvgIcons.confettiImage,
@@ -152,12 +69,13 @@ class RewardScreen extends StatelessWidget {
 
               SizedBox(height: screenHeight * 0.025),
 
-            Center(child:   SizedBox(
-                width: screenWidth * 0.75, // Responsive width
-                height: screenHeight * 0.09, // Responsive height
-                child: RewardsTabBar(),
-              ),)
-,
+              Center(
+                child: SizedBox(
+                  width: screenWidth * 0.75, // Responsive width
+                  height: screenHeight * 0.1, // Responsive height
+                  child: RewardsTabBar(),
+                ),
+              ),
               // SizedBox(height: screenHeight * 0.02),
 
               // Rewards List (Responsive)
