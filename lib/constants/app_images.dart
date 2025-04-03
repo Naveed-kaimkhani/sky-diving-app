@@ -3,7 +3,16 @@ class AppImages {
   static String backgroundImage = "assets/png/background.png";
   static String splashImg = "assets/png/background1.jpeg";
   
- 
+  static String groupProfile = "assets/png/group_image.png";
+
+  
+  static String appIcon = "assets/png/app_icon.png";
+
+  
+  static String email = "assets/png/email.svg";
+
+ static String message = "assets/png/message.svg";
+  
     static String apple = "assets/png/apple.png";
 
     static String scan = "assets/png/scan.svg";
