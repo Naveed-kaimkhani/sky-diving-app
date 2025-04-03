@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     bodySmall: TextStyle(fontFamily: 'Gilroy'),
   ),
 ),
-      home: ProfileScreen(),
+      home: SplashScreen(),
       
       
 //       GroupChatScreen(

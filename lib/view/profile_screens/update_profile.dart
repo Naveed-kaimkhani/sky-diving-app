@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/profile_item.dart';
+import 'package:sky_diving/components/title_appbar.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
@@ -19,6 +20,10 @@ class UpdateProfile extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: TitleAppBar(
+        onBackPressed: () => Get.back(),
+        title: "Update Profile",
+      ), 
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth * 0.05, // Responsive padding

@@ -189,7 +189,7 @@ void showContactBottomSheet(BuildContext context) {
             ),
             onTap: () {
               // Handle email action
-              Get.back();
+         
             },
           ),
         ],
