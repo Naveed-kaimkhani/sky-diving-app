@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/navigation_bar.dart';
+import 'package:sky_diving/view/FAQ/email_support.dart';
 import 'package:sky_diving/view/FAQ/faq_screen.dart';
 import 'package:sky_diving/view/FAQ/terms_and_privacy.dart';
 import 'package:sky_diving/view/QRCode_screen/qr_code.dart';
@@ -22,6 +23,11 @@ class AppRoutes {
         GetPage(
             name: RouteName.signup,
             page: () => SignupScreen(),
+            transition: Transition.cupertino),
+            
+        GetPage(
+            name: RouteName.emailSupportScreen,
+            page: () => EmailSupportScreen(),
             transition: Transition.cupertino),
         GetPage(
             name: RouteName.referralHistory,

@@ -125,9 +125,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:sky_diving/components/custom_button.dart';
-import 'package:sky_diving/components/line_chart.dart';
 import 'package:sky_diving/components/navigation_button.dart';
 import 'package:sky_diving/components/referral_card.dart';
 import 'package:sky_diving/components/reward_balance_card.dart';
@@ -196,6 +193,7 @@ class HomeScreen extends StatelessWidget {
               //   width: screenWidth * 0.9,
               // ),
               RewardBalanceCard(
+                onTap: () => Get.toNamed(RouteName.rentalScreen),
                 width: screenWidth * 0.18,
                 height: screenHeight * 0.08,
                 rewardText: "Order Your Rental ",

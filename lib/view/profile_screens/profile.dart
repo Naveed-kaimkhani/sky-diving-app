@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sky_diving/components/profile_item.dart';
-import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 
@@ -87,7 +85,10 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteName.termsAndPrivacyScreen);
                   }),
-              ProfileMenuItem(title: "Help & Support", onTap: () {}),
+              ProfileMenuItem(title: "Help & Support", onTap: () {
+                
+                    Get.toNamed(RouteName.emailSupportScreen);
+              }),
               ProfileMenuItem(title: "Logout", onTap: () {}),
             ],
           ),

@@ -2,6 +2,8 @@ class RouteName {
   static const String splashScreen = '/splashScreen';
   static const String login = '/LoginPage';
  static const String signup = '/SignupScreen';
+ 
+ static const String emailSupportScreen = '/EmailSupportScreen';
 
  
  static const String changePassword = '/ChangePassword';
