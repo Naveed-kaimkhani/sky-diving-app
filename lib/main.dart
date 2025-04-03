@@ -1,13 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sky_diving/chat_screen/chat_screen.dart';
-import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_routes.dart';
-import 'package:sky_diving/navigation_bar.dart';
-import 'package:sky_diving/view/FAQ/email_support.dart';
-import 'package:sky_diving/view/home/rental_screen.dart';
-import 'package:sky_diving/view/profile_screens/profile.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() {

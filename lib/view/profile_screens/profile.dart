@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: screenHeight * 0.08),
+             SizedBox(height: screenHeight * 0.06),
 
               // Profile Image
               Center(
@@ -93,7 +93,8 @@ class ProfileScreen extends StatelessWidget {
                     Get.toNamed(RouteName.emailSupportScreen);
               }),
               ProfileMenuItem(title: "Logout", onTap: () {}),
-             SizedBox(height:65 ,),
+             
+              SizedBox(height: screenHeight * 0.02),
    IconWidget(screenHeight: screenHeight)
             ],
           ),
