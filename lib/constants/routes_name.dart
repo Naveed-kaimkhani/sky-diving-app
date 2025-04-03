@@ -4,6 +4,8 @@ class RouteName {
  static const String signup = '/SignupScreen';
  
  static const String emailSupportScreen = '/EmailSupportScreen';
+ 
+ static const String chatScreen = '/GroupChatScreen';
 
  
  static const String changePassword = '/ChangePassword';

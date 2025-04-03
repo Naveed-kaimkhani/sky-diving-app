@@ -175,10 +175,10 @@ void showContactBottomSheet(BuildContext context) {
             ),
             onTap: () {
               // Handle message action
-              Get.back();
+       Get.toNamed(RouteName.chatScreen);
             },
           ),
-          Divider(color: Colors.white24),
+          Divider(color: AppColors.grey),
           ListTile(
             leading: SvgPicture.asset(
               AppImages.email,

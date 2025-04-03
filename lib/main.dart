@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
 
 // ],
 //         profileImage: AppImages.groupProfile,
-//       ),
+      // ),
       // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
     );
