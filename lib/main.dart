@@ -1,20 +1,25 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_routes.dart';
+import 'package:sky_diving/firebase_options.dart'; 
 import 'package:sky_diving/view/splash_screen.dart';
 
-void main() {
-  //  Get.put(UserController());
-  runApp(
-    MyApp(),
-    // DevicePreview(
-    //   enabled: true, // Enable DevicePreview for testing
-    //   builder: (context) =>  MyApp()
-    // ),
-  );
-}
+// void main() {
+//   //  Get.put(UserController());
+//   runApp(
+//     MyApp(),
+//   );
+// }
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,43 +35,11 @@ class MyApp extends StatelessWidget {
   ),
 ),
       home: SplashScreen(),
-      
-      
-//       GroupChatScreen(
-//         memberCount:2,
-//         groupName: 'Customer Support',
-//         initialMessages:[
-//     ChatMessage(
-//       text: "Hello everyone!",
-//       sender: "Alice",
-//       isMe: false,
-//       timestamp: DateTime.now().subtract(Duration(minutes: 30)),
-// ),
-
-//     ChatMessage(
-//       text: "Hi Alice! How are you?",
-//       sender: "Bob",
-//       isMe: false,
-//       timestamp: DateTime.now().subtract(Duration(minutes: 25)),
-// ),
-//     ChatMessage(
-//       text: "I'm good, thanks!",
-//       sender: "Alice",
-//       isMe: true,
-//       timestamp: DateTime.now().subtract(Duration(minutes: 20)),
-// ),
-//     ChatMessage(
-//       text: "Great to hear!",
-//       sender: "Bob",
-//       isMe: false,
-//       timestamp: DateTime.now().subtract(Duration(minutes: 15)),
-// ),
-
-// ],
-//         profileImage: AppImages.groupProfile,
-      // ),
+ 
       // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
     );
   }
 } 
+
+
