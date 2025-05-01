@@ -16,6 +16,8 @@ class RouteName {
 
  static const String termsAndPrivacyScreen = '/TermsAndPrivacyScreen';
 
+//  static const String oTPScreen = '/OTPScreen';
+
  static const String rentalScreen = '/RentalScreen';
 
  static const String notificationsScreen = '/NotificationsScreen';

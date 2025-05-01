@@ -4,12 +4,16 @@ import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/phone_number_field.dart';
+import 'package:sky_diving/components/scan_qr_code_button.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/view_model/auth_controller.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_svg_icons.dart';
 
 class SignupScreen extends StatelessWidget {
+  final AuthController authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -61,9 +65,14 @@ class SignupScreen extends StatelessWidget {
                 CustomTextField(hintText: "Confirm Password", obscureText: true),
             
                       SizedBox(height: screenSize.height * 0.03),
-                AuthButton(buttonText: "Register", onPressed: () {
-                  Get.toNamed(RouteName.oTPScreen);
-                }, isLoading: false.obs),
+                AuthButton(
+                  buttonText: "Register",
+                   onPressed: () {
+    String phone = "+923103443527"; // format properly
+    authController.sendOtp(phone);
+  },
+                
+                isLoading: authController.isLoading),
                 // SizedBox(height: screenSize.height * 0.02),
                 SizedBox(height: screenSize.height * 0.02),
                 ScanQRCodeButton(buttonWidth: buttonWidth, buttonHeight: buttonHeight, screenSize: screenSize),
@@ -105,44 +114,3 @@ class SignupScreen extends StatelessWidget {
   }
 }
 
-class ScanQRCodeButton extends StatelessWidget {
-  const ScanQRCodeButton({
-    super.key,
-    required this.buttonWidth,
-    required this.buttonHeight,
-    required this.screenSize,
-  });
-
-  final double buttonWidth;
-  final double buttonHeight;
-  final Size screenSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: buttonWidth,
-      height: buttonHeight,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 26, 25, 25),
-          padding: EdgeInsets.symmetric(
-            vertical: screenSize.height * 0.015,
-            horizontal: screenSize.width * 0.04,
-          ),
-               shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              // side: BorderSide(color: Colors.grey.shade300), // Optional: Add a border if needed
-            ),
-        ),
-        onPressed: () {},
-        child: Text(
-          "Scan QR Code",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: screenSize.width * 0.05,
-          ),
-        ),
-      ),
-    );
-  }
-}
