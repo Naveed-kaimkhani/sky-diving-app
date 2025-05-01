@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -6,16 +7,18 @@ import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/resend_button.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
-
-
+import 'package:sky_diving/models/user_model.dart';
+import 'package:sky_diving/view_model/auth_controller.dart';
 
 class OTPScreen extends StatelessWidget {
   final TextEditingController otpControllerField = TextEditingController();
+  final AuthController authController = Get.find<AuthController>();
 
+  final String verificationId = Get.arguments ?? "";
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-
+    log(verificationId.toString());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -60,9 +63,48 @@ class OTPScreen extends StatelessWidget {
             AuthButton(
               buttonText: "Continue",
               onPressed: () {
-                Get.toNamed(RouteName.changePassword);
+                final otp = otpControllerField.text.trim();
+                if (otp.length == 6) {
+
+                      authController.registerUser(
+ user: UserModel(
+    name: authController.nameController.text,
+    email: authController.emailController.text,
+    password: authController.passwordController.text,
+    phone: authController.phoneNumber.value,
+    // verificationId: "", // you can fill this after OTP
+  ),
+);
+
+
+//                   authController.verifyOtp(
+//                     verificationId: verificationId,
+//                     otpCode: otp,
+//                     // onSuccess: () => Get.toNamed(RouteName.bottomNavigation),
+//                     onSuccess: (){
+//                       authController.registerUser(
+//  user: UserModel(
+//     name: authController.nameController.text,
+//     email: authController.emailController.text,
+//     password: authController.passwordController.text,
+//     phone: authController.phoneNumber.value,
+//     // verificationId: "", // you can fill this after OTP
+//   ),
+// );
+
+//                     },
+           
+//                     onError: (message) => Get.snackbar("Error", message),
+//                   );
+
+
+
+
+                } else {
+                  Get.snackbar("Invalid OTP", "Please enter a 6-digit OTP");
+                }
               },
-              isLoading: false.obs,
+              isLoading: authController.isLoading,
             ),
 
             SizedBox(height: screenSize.height * 0.04),
