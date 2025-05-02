@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/app_text_styles.dart';
@@ -9,11 +8,12 @@ import 'package:sky_diving/components/title_appbar.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/view_model/rental_view_model.dart';
 
+import '../../components/custom_textfield.dart';
 import '../../constants/custom_drop_down.dart';
 import '../../constants/routes_name.dart';
 
 class RentalScreen extends StatelessWidget {
-  const RentalScreen({super.key});
+  RentalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,8 @@ class RentalScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildProductImage(screenSize),
+            buildBagLi(screenSize),
+            // _buildProductImage(screenSize),
             SizedBox(
               height: 10,
             ),
@@ -69,17 +70,68 @@ class RentalScreen extends StatelessWidget {
       ),
     );
   }
+  Widget buildBagLi(Size screenSize) {
+    List<String> bagLi = [
+      "assets/png/bag1.png",
+      // "assets/bg_image/bg_1.png",
+      "assets/bg_image/bg_2.png",
+      "assets/bg_image/bg_3.png",
+      "assets/bg_image/bg_4.png",
+      "assets/bg_image/bg_5.png",
+      "assets/bg_image/bg_6.png",
+      "assets/bg_image/bg_7.png",
+    ];
 
-  Widget _buildProductImage(Size screenSize) {
-    return Center(
-      child: Image.asset(
-        'assets/png/bag1.png',
-        height: screenSize.height * 0.4,
-        width: screenSize.width * 0.65,
-        fit: BoxFit.contain,
+    return SizedBox(
+      // height:200,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: bagLi.map((imgPath) {
+            return _buildProductImage(screenSize, imgPath);
+          }).toList(),
+        ),
       ),
     );
   }
+
+  Widget _buildProductImage(Size screenSize, String img) {
+    return Padding(
+      padding: const EdgeInsets.all(0),
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black, // Border color
+              width: 10,           // Border width
+            ),
+            borderRadius: BorderRadius.circular(8), // Optional
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8), // Match the borderRadius above
+            child: Image.asset(
+              img,
+              height: screenSize.height * 0.4,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  // Widget _buildProductImage(Size screenSize,String img) {
+  //   return
+  //     Padding(padding:EdgeInsets.all(10) ,child: Center(
+  //       child: Image.asset(
+  //         img,
+  //         height: screenSize.height * 0.4,
+  //         // width: screenSize.width * 0.65,
+  //         fit: BoxFit.contain,
+  //       ),
+  //     ),);
+  // }
 
   Widget _buildProductTitle() {
     return Column(
@@ -119,18 +171,24 @@ class RentalScreen extends StatelessWidget {
     return Obx(() => Column(
           children: [
             SizedBox(height: 15),
+            CustomTextField(hintText: "Date of first day rental",onChanged:(val){
+              viewModel.addCardModel.update((model) {
+                model?.dateOfFirst = val.toString();
+              });
+
+            }),
+            SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
-                'Date of first day of rental',
                 'Pickup at longmont Co location',
                 'Shipped to your location contact us at 720-352-2151 to discuss'
                     ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
               ],
               // label: 'Select an Option',
-              selectedItem: viewModel.addCardModel.value.dateOfFirst,
+              selectedItem: viewModel.addCardModel.value.deliveryOption,
               onChanged: (value) {
                 viewModel.addCardModel.update((model) {
-                  model?.dateOfFirst = value;
+                  model?.deliveryOption = value;
                 });
               },
             ),
@@ -151,29 +209,29 @@ class RentalScreen extends StatelessWidget {
                 '3 Month rental(30) (+\$530.00)'
               ],
               // label: 'Select an Option',
-              selectedItem: viewModel.addCardModel.value.dateOfFirst,
+              selectedItem: viewModel.addCardModel.value.rentalPeriod,
               onChanged: (value) {
                 viewModel.addCardModel.update((model) {
                   model?.rentalPeriod = value;
                 });
               },
             ),
-            SizedBox(height: 15),
-            CustomDropdown<String>(
-              items: [
-                'Date of first day of rental',
-                'Pickup at longmont Co location',
-                'Shipped to your location contact us at 720-352-2151 to discuss'
-                    ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
-              ],
-              // label: 'Select an Option',
-              selectedItem: viewModel.addCardModel.value.dateOfFirst,
-              onChanged: (value) {
-                viewModel.addCardModel.update((model) {
-                  model?.deliveryOption = value;
-                });
-              },
-            ),
+            // SizedBox(height: 15),
+            // CustomDropdown<String>(
+            //   items: [
+            //     'Date of first day of rental',
+            //     'Pickup at longmont Co location',
+            //     'Shipped to your location contact us at 720-352-2151 to discuss'
+            //         ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
+            //   ],
+            //   // label: 'Select an Option',
+            //   selectedItem: viewModel.addCardModel.value.deliveryOption,
+            //   onChanged: (value) {
+            //     viewModel.addCardModel.update((model) {
+            //       model?.deliveryOption = value;
+            //     });
+            //   },
+            // ),
             // ExpandableTile(
             //   title: "Delivery Option",
             //   content: "Choose delivery method",
@@ -197,7 +255,7 @@ class RentalScreen extends StatelessWidget {
                 'Navigator 260',
               ],
               // label: 'Select an Option',
-              selectedItem: viewModel.addCardModel.value.dateOfFirst,
+              selectedItem: viewModel.addCardModel.value.Canopy,
               onChanged: (value) {
                 viewModel.addCardModel.update((model) {
                   model?.Canopy = value;
@@ -220,13 +278,31 @@ class RentalScreen extends StatelessWidget {
   }
 
   Widget _buildAddToCartButton() {
+    final viewModel = Get.find<RentalViewModel>();
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: AuthButton(
         buttonText: "Add to Cart",
         isLoading: false.obs,
         onPressed: () {
-          Get.toNamed(RouteName.addOrderCard);
+          if(viewModel.addCardModel.value.dateOfFirst != "") {
+            Get.toNamed(RouteName.addOrderCard);
+          }else{
+            Get.snackbar(
+              "Error", // still required for accessibility
+              "Please Enter Date of first day rental",
+              backgroundColor: Colors.black, // Optional: dark background for contrast
+              titleText: const Text(
+                "Error",
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              messageText: const Text(
+                "Date of first day rental",
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+
+          }
           // Handle add to cart
         },
       ),

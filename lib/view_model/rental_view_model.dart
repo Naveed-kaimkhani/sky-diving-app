@@ -8,10 +8,24 @@ class RentalViewModel extends GetxController {
   final QuantityController quantityController = Get.put(QuantityController());
 
   Rx<AddCardModel> addCardModel = AddCardModel().obs;
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    setAddCard();
+  }
   void cardOnj(){
     addCardModel.value.quantity=quantityController.quantity.value.toString();
   }
-
+ void setAddCard(){
+   addCardModel.value = AddCardModel(
+       dateOfFirst: "",
+       deliveryOption:"Pickup at longmont Co location",
+       rentalPeriod:"Daily rental",
+       Canopy:"Spectre 150",
+       quantity:quantityController.quantity.value.toString()
+   );
+ }
 // Other rental-related state and business logic would go here
   // For example:
   // - Selected rental options

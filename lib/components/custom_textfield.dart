@@ -24,13 +24,14 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
+      style: const TextStyle(color: Colors.white), // 👈 This sets the entered text color
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.white, fontSize: 14),
+        hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
         filled: true,
         fillColor: const Color.fromARGB(255, 26, 25, 25),
-    
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
         ),

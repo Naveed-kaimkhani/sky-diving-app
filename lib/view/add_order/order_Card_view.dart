@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../components/app_text_styles.dart';
 import '../../components/auth_button.dart';
+import '../../components/custom_textfield.dart';
 import '../../components/quantity_selector.dart';
 import '../../components/title_appbar.dart';
 import '../../constants/app_colors.dart';
@@ -30,6 +31,7 @@ class _AddOrderCardState extends State<AddOrderCard> {
     );
   }
 }
+
 Widget _buildAddToCartButton() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 20),
@@ -43,40 +45,92 @@ Widget _buildAddToCartButton() {
     ),
   );
 }
+
 Widget _buildBody(Size screenSize) {
   return Padding(
-    padding: EdgeInsets.symmetric(
-      horizontal: screenSize.width * 0.05,
-      vertical: screenSize.height * 0.02,
-    ),
-    child:SingleChildScrollView(
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-  _buildProductImage(screenSize),
-  SizedBox(
-  height: 10,
-  ),
-  _buildProductTitle(screenSize),
-    _buildPriceAndQuantityRow(screenSize),
-    SizedBox(height: 30,),
-    buildSelectorValue(screenSize),
-    _buildAddToCartButton()
-  ])));
+      padding: EdgeInsets.symmetric(
+        horizontal: screenSize.width * 0.05,
+        // vertical: screenSize.height * 0.01,
+      ),
+      child: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        _buildProductImage(screenSize),
+        SizedBox(
+          height: 10,
+        ),
+        _buildProductTitle(screenSize),
+        _buildPriceAndQuantityRow(screenSize),
+        SizedBox(
+          height: 30,
+        ),
+        buildSelectorValue(screenSize),
+        buildGiftIt(screenSize),
+        _buildAddToCartButton()
+      ])));
 }
-Widget buildSelectorValue( Size screenSize){
-  final viewModel = Get.find<RentalViewModel>();
-  viewModel.cardOnj();
-  return Obx(()=>Column(
+
+Widget buildGiftIt(Size screenSize) {
+  return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-    cartTill("Skydiving Gear Rental", "\$70.00", screenSize),
-              cartTill("Date of First Day of Rental", viewModel.addCardModel.value.dateOfFirst!, screenSize),
-              cartTill("Delivery Option", viewModel.addCardModel.value.deliveryDesSub!, screenSize),
-              cartTill("Rental Period", viewModel.addCardModel.value.rentalPeriod!, screenSize),
-              cartTill("Canopy Type and Size", viewModel.addCardModel.value.Canopy!, screenSize),
-  ],));
+      SizedBox(height: 8),
+      Text(
+        "How To Get It",
+        style: AppTextStyles.titleMedium,
+      ),
+      SizedBox(height: 8),
+      CustomTextField(
+          hintText: "Add Coupon or gift card",
+          onChanged: (val) {
+            // viewModel.addCardModel.update((model) {
+            //   model?.dateOfFirst = val.toString();
+            // });
+          }),
+      SizedBox(height: 15),
+      calculatedCartTill("Subtotal", "\$${70.00 * 70}", screenSize),
+      calculatedCartTill("Estimated taxes", "\$70.00", screenSize),
+      calculatedCartTill("Estimated order total", "\$70.00", screenSize),
+      calculatedCartTill("Skydiving Gear Rental", "\$70.00", screenSize),
+    ],
+  );
 }
+Widget calculatedCartTill(String title, String subTitle, Size screenSize) {
+  return Padding(
+    padding: EdgeInsets.only(bottom: screenSize.height * 0.015),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // crossAxisAlignment: CrossAxisAlignment.s,
+      children: [
+        Text(title!, style: AppTextStyles.bodyMedium),
+        Text(subTitle!, style: AppTextStyles.bodyMedium),
+      ],
+    ),
+  );
+}
+Widget buildSelectorValue(Size screenSize) {
+  final viewModel = Get.find<RentalViewModel>();
+  viewModel.cardOnj();
+  return Obx(() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          cartTill("Skydiving Gear Rental", "\$70.00", screenSize),
+          cartTill("Date of First Day of Rental",
+              viewModel.addCardModel.value.dateOfFirst.toString(), screenSize),
+          cartTill(
+              "Delivery Option",
+              viewModel.addCardModel.value.deliveryOption!.toString(),
+              screenSize),
+          cartTill(
+              "Rental Period",
+              viewModel.addCardModel.value.rentalPeriod!.toString(),
+              screenSize),
+          cartTill("Canopy Type and Size",
+              viewModel.addCardModel.value.Canopy!.toString(), screenSize),
+        ],
+      ));
+}
+
 Widget cartTill(String title, String subTitle, Size screenSize) {
   return Padding(
     padding: EdgeInsets.only(bottom: screenSize.height * 0.015),
@@ -89,14 +143,14 @@ Widget cartTill(String title, String subTitle, Size screenSize) {
     ),
   );
 }
+
 Widget _buildPriceAndQuantityRow(Size screenSize) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
         "US\$70.00",
-        style:
-        AppTextStyles.priceLarge.copyWith(color: AppColors.primaryColor),
+        style: AppTextStyles.priceLarge.copyWith(color: AppColors.primaryColor),
       ),
       QuantitySelector(
         iconSize: screenSize.width * 0.05,
@@ -106,7 +160,8 @@ Widget _buildPriceAndQuantityRow(Size screenSize) {
     ],
   );
 }
-Widget _buildProductTitle( Size screenSize) {
+
+Widget _buildProductTitle(Size screenSize) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -118,6 +173,7 @@ Widget _buildProductTitle( Size screenSize) {
     ],
   );
 }
+
 Widget _buildProductImage(Size screenSize) {
   return Center(
     child: Image.asset(
