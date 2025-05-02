@@ -7,6 +7,8 @@ class RouteName {
  
  static const String chatScreen = '/GroupChatScreen';
 
+ static const String addOrderCard = '/AddOrderCard';
+
  
  static const String changePassword = '/ChangePassword';
 

@@ -52,6 +52,7 @@ dependencies:
   email_validator: ^3.0.0
   qr_flutter: ^4.1.0
   qr_code_scanner: ^1.0.1
+  dropdown_search: ^6.0.2
   # font_awesome_flutter: ^10.8.0
 
 dev_dependencies:
@@ -80,6 +81,7 @@ flutter:
   assets:
     - assets/svg/
     - assets/png/
+    - assets/bg_image/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
