@@ -34,6 +34,8 @@ class RouteName {
  
  static const String qrCode = '/QrCode';
 
+ static const String qRCodeScanner = '/QRCodeScanner';
+
  static const String rewardScreen = '/RewardScreen';
 
 //  static const String changePassword = '/ChangePassword';

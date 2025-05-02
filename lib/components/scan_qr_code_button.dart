@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 
 class ScanQRCodeButton extends StatelessWidget {
   const ScanQRCodeButton({
@@ -24,12 +26,13 @@ class ScanQRCodeButton extends StatelessWidget {
             vertical: screenSize.height * 0.015,
             horizontal: screenSize.width * 0.04,
           ),
-               shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              // side: BorderSide(color: Colors.grey.shade300), // Optional: Add a border if needed
-            ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(RouteName.qRCodeScanner);
+        },
         child: Text(
           "Scan QR Code",
           style: TextStyle(

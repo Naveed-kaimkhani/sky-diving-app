@@ -1,45 +1,47 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/label_text.dart';
 import 'package:sky_diving/constants/app_colors.dart';
-import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/view_model/user_controller.dart';
 
 class QrCode extends StatelessWidget {
-  const QrCode({super.key});
+  QrCode({super.key});
 
+  final UserController userController = Get.find<UserController>();
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final shortestSide = screenSize.shortestSide;
-    
+
     // Define breakpoints for different screen sizes
     final bool isSmallScreen = shortestSide < 400;
     final bool isMediumScreen = shortestSide >= 400 && shortestSide < 600;
-    
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: CustomAppBar(
-        username: "Jaydon Bator", 
-        profileImage: AppSvgIcons.profile
-      ),
+          username: userController.user.value!.name,
+          profileImage: AppSvgIcons.profile),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: isSmallScreen ? 16.0 : 
-                       isMediumScreen ? 24.0 : 32.0,
+            horizontal: isSmallScreen
+                ? 16.0
+                : isMediumScreen
+                    ? 24.0
+                    : 32.0,
           ),
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: screenSize.height - 
-                          MediaQuery.of(context).padding.top - 
-                          kToolbarHeight,
+                minHeight: screenSize.height -
+                    MediaQuery.of(context).padding.top -
+                    kToolbarHeight,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,23 +54,26 @@ class QrCode extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           LabelText(
-                            text: "Your Unique Referral Code", 
+                            text: "Your Unique Referral Code",
                             fontSize: isSmallScreen ? 16 : 18,
                           ),
                           LabelText(
-                            text: "Scan QR", 
+                            text: "Scan QR",
                             fontSize: isSmallScreen ? 12 : 14,
                             textColor: AppColors.primaryColor,
                           ),
                         ],
                       ),
                       SizedBox(height: screenSize.height * 0.02),
-                      Container(
-                        width: shortestSide * 0.8, // Responsive QR size
+                      SizedBox(
+                        width: shortestSide * 0.8,
                         height: shortestSide * 0.8,
-                        child: Image.asset(
-                          AppImages.qr,
-                          fit: BoxFit.contain,
+                        child: QrImageView(
+                          data: userController.user.value!.refId ??
+                              "", // or use your dynamic value
+                          version: QrVersions.auto,
+                          size: shortestSide * 0.8,
+                          backgroundColor: Colors.white,
                         ),
                       ),
                     ],
@@ -79,16 +84,15 @@ class QrCode extends StatelessWidget {
                       top: screenSize.height * 0.035,
                     ),
                     child: AuthButton(
-                      buttonText: "Share QR Code", 
-                      onPressed: (){
+                      buttonText: "Share QR Code",
+                      onPressed: () {
                         Get.toNamed(RouteName.referralHistory);
-                      }, 
+                      },
                       isLoading: false.obs,
                       // width: screenSize.width * 0.9, // Responsive button width
                     ),
                   ),
-                  
-                      SizedBox(height: screenSize.height * 0.3),
+                  SizedBox(height: screenSize.height * 0.3),
                 ],
               ),
             ),

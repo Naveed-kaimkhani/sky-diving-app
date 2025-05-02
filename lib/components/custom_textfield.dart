@@ -25,6 +25,8 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       onChanged: onChanged,
+      cursorColor: Colors.white, 
+       style: const TextStyle(color: Colors.white), 
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white, fontSize: 14),

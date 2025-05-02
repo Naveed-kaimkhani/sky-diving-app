@@ -75,6 +75,11 @@
 	<string>This app needs access to your camera for verification.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to your photo library.</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to your camera to scan QR codes.</string>
+
 
 </dict>
 </plist>

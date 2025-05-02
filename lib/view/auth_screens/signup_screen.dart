@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,34 +9,62 @@ import 'package:sky_diving/components/phone_number_field.dart';
 import 'package:sky_diving/components/scan_qr_code_button.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/models/user_model.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_svg_icons.dart';
 
 class SignupScreen extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
-  //  bool _isValidEmail(String email) {
-  //   return _validEmailDomains.any((domain) => email.endsWith(domain));
-  // }
 
-  // bool _validateFields() {
-  //   if (authController.nameController.text.isEmpty) {
-  //     // _showValidationError("Name is required", "Please enter your name");
-  //     Get.snackbar("Error", "Please enter name");
-  //     return false;
-  //   }
-  //   if (_emailController.text.isEmpty) {
-  //     _showValidationError("Email is required", "Please enter your email");
-  //     return false;
-  //   }
-  //   if (_phoneNumberController.text.isNotEmpty &&
-  //       _phoneNumberController.text.length > 10) {
-  //     _showValidationError("Warning", "Phone Number must be 10 digits");
-  //     return false;
-  //   }
-  
-  //   return true;
-  // }
+  bool _validateFields() {
+    if (authController.nameController.text.isEmpty) {
+      // _showValidationError("Name is required", "Please enter your name");
+      Get.snackbar(
+        "Error",
+        "Please enter name",
+        colorText: Colors.white,
+      );
+      return false;
+    }
+    if (authController.emailController.text.isEmpty) {
+      Get.snackbar(
+        "Error",
+        "Please enter email",
+        colorText: Colors.white,
+      );
+      return false;
+    }
+    if (!EmailValidator.validate(authController.emailController.text.trim())) {
+      Get.snackbar(
+        "Error",
+        "Please enter a valid email",
+        colorText: Colors.white,
+      );
+      return false;
+    }
+    if (authController.phoneNumber.value.isEmpty) {
+      Get.snackbar(
+        "Error",
+        "Please enter Phone",
+        colorText: Colors.white,
+      );
+      return false;
+    }
+    if (authController.passwordController.text.length < 6) {
+      Get.snackbar("Error", "Password must be at least 6 characters",
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (authController.confirmPasswordController.text !=
+        authController.passwordController.text) {
+      Get.snackbar("Error", "Passwords do not match", colorText: Colors.white);
+      return false;
+    }
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +118,7 @@ class SignupScreen extends StatelessWidget {
                 SizedBox(height: screenSize.height * 0.02),
                 PhoneNumberField(
                   onPhoneChanged: (value) {
+                    log(value);
                     authController.phoneNumber.value = value;
                   },
                 ),
@@ -107,10 +138,30 @@ class SignupScreen extends StatelessWidget {
                 AuthButton(
                     buttonText: "Register",
                     onPressed: () {
-                      String phone = "+923422179919";
+                      String phone = authController.phoneNumber.value;
 
                       // String phone = "+19724218407"; // format properly
-                      authController.sendOtp(phone);
+                if (_validateFields()) {
+                        authController.sendOtp(phone);
+                }
+                      // if (true) {
+                      //   authController.registerUser(
+                      //     user: UserModel(
+                      //       name: authController.nameController.text,
+                      //       email: authController.emailController.text,
+                      //       password: authController.passwordController.text,
+                      //       phone: authController.phoneNumber.value,
+                      //       // name: "naveed",
+                      //       // email: "tester2861@example.com",
+                      //       // password: "111111",
+                      //       // phone: "+17787646679",
+                      //       // refId: authController.referralCode.value,
+                      //       // refId: "ref-671459"
+                      //       // verificationId: "", // you can fill this after OTP
+                      //     ),
+                      //   );
+                      //   // Get.snackbar("info", authController.referralCode.value);
+                      // }
                     },
                     isLoading: authController.isLoading),
                 // SizedBox(height: screenSize.height * 0.02),

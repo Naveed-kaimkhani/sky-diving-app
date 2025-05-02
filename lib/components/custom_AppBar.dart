@@ -9,7 +9,7 @@ import 'package:sky_diving/constants/routes_name.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String username;
   final String profileImage;
-
+//  bool isShow
   const CustomAppBar({
     super.key,
     required this.username,
@@ -22,6 +22,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black, // Dark background color
       elevation: 0,
       automaticallyImplyLeading: false,
+      // leading: GestureDetector(
+      //   onTap: () => Get.back(),
+      //   child: Icon(Icons.arrow_back, color: Colors.white),
+      // ),
       title: Row(
         children: [
           ClipOval(
@@ -29,17 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: 40,
             width: 40,
             profileImage,
-          )
-              //  CachedNetworkImage(
-              //   imageUrl: profileImage,
-              //   width: 40,
-              //   height: 40,
-              //   fit: BoxFit.cover,
-              //   placeholder: (context, url) =>
-              //       CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-              //   errorWidget: (context, url, error) => Icon(Icons.error, color: Colors.white),
-              // ),
-              ),
+          )),
           const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

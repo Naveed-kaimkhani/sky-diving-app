@@ -9,14 +9,15 @@ import 'package:sky_diving/services/auth_respository.dart';
 
 class AuthController extends GetxController {
   final AuthRepository _authRepo = Get.find<AuthRepository>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final AuthRepository _authRepo = Get.put(AuthRepository());
+
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 var phoneNumber = ''.obs;
-
+var referralCode = ''.obs; 
   RxBool isLoading = false.obs;
 
   void sendOtp(String phoneNumber) {
@@ -32,7 +33,7 @@ var phoneNumber = ''.obs;
       onFailed: (e) {
         isLoading.value = false;
         log(e.toString());
-        Get.snackbar("Error", e.message ?? "OTP failed");
+        Get.snackbar("Error", e.message ?? "OTP failed",colorText: Colors.white);
       },
     );
   }
@@ -69,14 +70,37 @@ required UserModel user
     user:user,
     onSuccess: () {
       isLoading.value = false;
-      Get.snackbar("Success", "Registered successfully");
+      Get.snackbar("Success", "Registered successfully",colorText: Colors.white);
       Get.toNamed(RouteName.bottomNavigation); // Navigate or trigger OTP logic
     },
     onError: (message) {
       isLoading.value = false;
-      Get.snackbar("Error", message);
+      Get.snackbar("Error", message,colorText: Colors.white);
     },
   );
 }
+
+// auth_controller.dart
+void loginUser({
+  required String email,
+  required String password,
+}) {
+  isLoading.value = true;
+
+  _authRepo.loginUser(
+    email: email,
+    password: password,
+    onSuccess: () {
+      isLoading.value = false;
+      Get.snackbar("Success", "Login successful",colorText: Colors.white);
+      Get.offAllNamed(RouteName.bottomNavigation); // Navigate to home or dashboard after login
+    },
+    onError: (message) {
+      isLoading.value = false;
+      Get.snackbar("Error", message,colorText: Colors.white);
+    },
+  );
+}
+
 
 }

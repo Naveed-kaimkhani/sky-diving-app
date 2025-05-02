@@ -6,6 +6,7 @@ import 'package:sky_diving/navigation_bar.dart';
 import 'package:sky_diving/view/FAQ/email_support.dart';
 import 'package:sky_diving/view/FAQ/faq_screen.dart';
 import 'package:sky_diving/view/FAQ/terms_and_privacy.dart';
+import 'package:sky_diving/view/QRCode_screen/QRCode_scanner.dart';
 import 'package:sky_diving/view/QRCode_screen/qr_code.dart';
 import 'package:sky_diving/view/QRCode_screen/referral_history.dart';
 import 'package:sky_diving/view/QRCode_screen/reward_screen.dart';
@@ -26,49 +27,51 @@ class AppRoutes {
             name: RouteName.signup,
             page: () => SignupScreen(),
             transition: Transition.cupertino),
-            
+        GetPage(
+            name: RouteName.qrCode,
+            page: () => QrCode(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: RouteName.qRCodeScanner,
+            page: () => QRCodeScanner(),
+            transition: Transition.cupertino),
         GetPage(
             name: RouteName.emailSupportScreen,
             page: () => EmailSupportScreen(),
             transition: Transition.cupertino),
-
-            
         GetPage(
             name: RouteName.chatScreen,
             page: () => GroupChatScreen(
-              
-        memberCount:2,
-        groupName: 'Customer Support',
-        initialMessages:[
-    ChatMessage(
-      text: "Hello everyone!",
-      sender: "Alice",
-      isMe: false,
-      timestamp: DateTime.now().subtract(Duration(minutes: 30)),
-),
-
-    ChatMessage(
-      text: "Hi Alice! How are you?",
-      sender: "Bob",
-      isMe: false,
-      timestamp: DateTime.now().subtract(Duration(minutes: 25)),
-),
-    ChatMessage(
-      text: "I'm good, thanks!",
-      sender: "Alice",
-      isMe: true,
-      timestamp: DateTime.now().subtract(Duration(minutes: 20)),
-),
-    ChatMessage(
-      text: "Great to hear!",
-      sender: "Bob",
-      isMe: false,
-      timestamp: DateTime.now().subtract(Duration(minutes: 15)),
-),
-
-],
-        profileImage: AppImages.groupProfile,
-            ),
+                  memberCount: 2,
+                  groupName: 'Customer Support',
+                  initialMessages: [
+                    ChatMessage(
+                      text: "Hello everyone!",
+                      sender: "Alice",
+                      isMe: false,
+                      timestamp: DateTime.now().subtract(Duration(minutes: 30)),
+                    ),
+                    ChatMessage(
+                      text: "Hi Alice! How are you?",
+                      sender: "Bob",
+                      isMe: false,
+                      timestamp: DateTime.now().subtract(Duration(minutes: 25)),
+                    ),
+                    ChatMessage(
+                      text: "I'm good, thanks!",
+                      sender: "Alice",
+                      isMe: true,
+                      timestamp: DateTime.now().subtract(Duration(minutes: 20)),
+                    ),
+                    ChatMessage(
+                      text: "Great to hear!",
+                      sender: "Bob",
+                      isMe: false,
+                      timestamp: DateTime.now().subtract(Duration(minutes: 15)),
+                    ),
+                  ],
+                  profileImage: AppImages.groupProfile,
+                ),
             transition: Transition.cupertino),
         GetPage(
             name: RouteName.referralHistory,
