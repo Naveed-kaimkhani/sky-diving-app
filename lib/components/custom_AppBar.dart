@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 
@@ -29,10 +28,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           ClipOval(
-              child: Image.asset(
-            height: 40,
-            width: 40,
-            profileImage,
+              child:
+                  //     Image.asset(
+                  //   height: 40,
+                  //   width: 40,
+                  //   profileImage,
+                  // )
+
+                  Icon(
+            Icons.person,
+            size: 34,
+            color: Colors.white,
           )),
           const SizedBox(width: 10),
           Column(

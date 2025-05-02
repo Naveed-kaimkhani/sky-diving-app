@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +43,7 @@ class OTPScreen extends StatelessWidget {
             ),
             SizedBox(height: screenSize.height * 0.015),
             Text(
-              "Please enter the 6-digit code we have sent you on your phone +123 456789",
+              "Please enter the 6-digit code we have sent you on your phone ${authController.phoneNumber.value}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: screenSize.width * 0.04,
@@ -64,34 +63,27 @@ class OTPScreen extends StatelessWidget {
               onPressed: () {
                 final otp = otpControllerField.text.trim();
                 if (otp.length == 6) {
-
-
-
                   authController.verifyOtp(
                     verificationId: verificationId,
                     otpCode: otp,
                     // onSuccess: () => Get.toNamed(RouteName.bottomNavigation),
-                    onSuccess: (){
+                    onSuccess: () {
                       authController.registerUser(
- user: UserModel(
-    name: authController.nameController.text,
-    email: authController.emailController.text,
-    password: authController.passwordController.text,
-    phone: authController.phoneNumber.value,
-    // verificationId: "", // you can fill this after OTP
-  ),
-);
-
+                        user: UserModel(
+                          name: authController.nameController.text,
+                          email: authController.emailController.text,
+                          password: authController.passwordController.text,
+                          phone: authController.phoneNumber.value,
+                          // verificationId: "", // you can fill this after OTP
+                        ),
+                      );
                     },
-           
+
                     onError: (message) => Get.snackbar("Error", message),
                   );
-
-
-
-
                 } else {
-                  Get.snackbar("Invalid OTP", "Please enter a 6-digit OTP",colorText:Colors.white);
+                  Get.snackbar("Invalid OTP", "Please enter a 6-digit OTP",
+                      colorText: Colors.white);
                 }
               },
               isLoading: authController.isLoading,

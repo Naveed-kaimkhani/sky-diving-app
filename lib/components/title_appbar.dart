@@ -4,7 +4,7 @@ import 'package:sky_diving/constants/app_colors.dart';
 class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
-  
+
   final bool? showSubTitle;
   final List<Widget>? actions;
   final VoidCallback? onBackPressed;
@@ -24,7 +24,7 @@ class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black,
       leading: showBackButton
           ? IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
               onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
             )
           : null,
@@ -34,10 +34,13 @@ class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
             title,
             style: const TextStyle(color: Colors.white, fontSize: 20),
           ),
-  (showSubTitle == true) ? Text(
-            "support@skydiving.com",
-            style: const TextStyle(color: AppColors.primaryColor, fontSize: 10),
-          ) :SizedBox()
+          (showSubTitle == true)
+              ? Text(
+                  "support@skydiving.com",
+                  style: const TextStyle(
+                      color: AppColors.primaryColor, fontSize: 10),
+                )
+              : SizedBox()
         ],
       ),
       centerTitle: true,

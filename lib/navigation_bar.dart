@@ -10,9 +10,9 @@ import 'package:sky_diving/view/home/home_screen.dart';
 import 'package:sky_diving/view/profile_screens/profile.dart';
 import 'package:sky_diving/view_model/bottom_navigation_controller.dart';
 
-
 class BottomNavigation extends StatelessWidget {
-  final BottomNavigationController controller = Get.put(BottomNavigationController());
+  final BottomNavigationController controller =
+      Get.put(BottomNavigationController());
 
   // List of pages
   List<Widget> _widgetOptions() {
@@ -20,7 +20,7 @@ class BottomNavigation extends StatelessWidget {
       HomeScreen(),
       RewardScreen(),
       ReferralHistory(),
-      const ProfileScreen(),
+      ProfileScreen(),
     ];
   }
 
@@ -42,9 +42,9 @@ class BottomNavigation extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Obx(() => IndexedStack(
-        index: controller.bottomNavIndex.value,
-        children: _widgetOptions(),
-      )),
+            index: controller.bottomNavIndex.value,
+            children: _widgetOptions(),
+          )),
       floatingActionButton: Container(
         height: fabSize,
         width: fabSize,
@@ -75,22 +75,22 @@ class BottomNavigation extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Obx(() => AnimatedBottomNavigationBar(
-        icons: iconList,
-        activeIndex: controller.bottomNavIndex.value,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        onTap: controller.changeIndex,
-        backgroundColor: AppColors.grey,
-        activeColor: AppColors.primaryColor,
-        inactiveColor: Colors.grey[600],
-        splashColor: Colors.black,
-        shadow: BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 2,
-          spreadRadius: 1,
-        ),
-        iconSize: iconSize,
-      )),
+            icons: iconList,
+            activeIndex: controller.bottomNavIndex.value,
+            gapLocation: GapLocation.center,
+            notchSmoothness: NotchSmoothness.softEdge,
+            onTap: controller.changeIndex,
+            backgroundColor: AppColors.grey,
+            activeColor: AppColors.primaryColor,
+            inactiveColor: Colors.grey[600],
+            splashColor: Colors.black,
+            shadow: BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 2,
+              spreadRadius: 1,
+            ),
+            iconSize: iconSize,
+          )),
     );
   }
 }

@@ -74,17 +74,6 @@ class HomeScreen extends StatelessWidget {
                 confettiImage: AppSvgIcons.confettiImage,
               ),
               SizedBox(height: screenHeight * 0.02),
-              // GestureDetector(
-              //   onTap: () => Get.toNamed(RouteName.qrCode),
-              //   child: RewardBalanceCard(
-              //     width: screenWidth * 0.18,
-              //     height: screenHeight * 0.08,
-              //     rewardText: "Scan to Refer a Friend",
-              //     balance: "3 Completed",
-              //     coinImage: null,
-              //     confettiImage: AppSvgIcons.scan,
-              //   ),
-              // ),
               SizedBox(height: screenHeight * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

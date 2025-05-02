@@ -5,6 +5,8 @@ import 'package:sky_diving/models/user_model.dart';
 
 class UserController extends GetxController {
   late SharedPreferences prefs;
+var showGetStarted = false.obs;
+var token = ''.obs;
 
 Rxn<UserModel> user = Rxn<UserModel>();
 
@@ -33,6 +35,9 @@ Rxn<UserModel> user = Rxn<UserModel>();
     final name = prefs.getString('name');
     final email = prefs.getString('email');
     final phone = prefs.getString('phone');
+    token.value = prefs.getString('token') ?? '';
+showGetStarted.value = token.value.isEmpty;
+
     final squareUserId = prefs.getString('square_user_id');
     final refId = prefs.getString('ref_id');
     final invitedRefIds = prefs.getString('invited_ref_ids');

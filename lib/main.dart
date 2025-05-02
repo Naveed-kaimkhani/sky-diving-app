@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_routes.dart';
 import 'package:sky_diving/firebase_options.dart';
 import 'package:sky_diving/services/api_client.dart';
-import 'package:sky_diving/services/auth_respository.dart'; 
+import 'package:sky_diving/services/auth_respository.dart';
+import 'package:sky_diving/view/auth_screens/login_screen.dart'; 
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() async {
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
   ),
 ),
       home: SplashScreen(),
+
+      // home: LoginScreen(),
  
       // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),

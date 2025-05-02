@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/profile_item.dart';
+import 'package:sky_diving/components/title_appbar.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/view_model/user_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
+
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,52 +21,53 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: TitleAppBar(
+        onBackPressed: () => Get.back(),
+        title: "Profile",
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05, // Responsive padding
-          vertical: screenHeight * 0.02,
+          horizontal: screenWidth * 0.05,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-             SizedBox(height: screenHeight * 0.06),
+              SizedBox(height: screenHeight * 0.03),
 
               // Profile Image
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      width: screenWidth * 0.24, // Responsive width
-                      height: screenWidth * 0.24, // Responsive height
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.green, width: 2),
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          AppSvgIcons.profile, // Replace with actual image
-                          fit: BoxFit.cover,
-                        ),
+              Column(
+                children: [
+                  Container(
+                    width: screenWidth * 0.24, // Responsive width
+                    height: screenWidth * 0.24, // Responsive height
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.green, width: 2),
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        AppSvgIcons.profile, // Replace with actual image
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.015),
-                    Text(
-                      "Welcome",
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontSize: screenWidth * 0.035, // Responsive font size
-                      ),
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Text(
+                    "Welcome",
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: screenWidth * 0.035, // Responsive font size
                     ),
-                    Text(
-                      "Jaydon Bator",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: screenWidth * 0.045, // Responsive font size
-                        fontWeight: FontWeight.bold,
-                      ),
+                  ),
+                  Text(
+                    userController.user.value!.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenWidth * 0.045, // Responsive font size
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
 
               SizedBox(height: screenHeight * 0.03),
@@ -88,14 +93,15 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteName.termsAndPrivacyScreen);
                   }),
-              ProfileMenuItem(title: "Help & Support", onTap: () {
-                
+              ProfileMenuItem(
+                  title: "Help & Support",
+                  onTap: () {
                     Get.toNamed(RouteName.emailSupportScreen);
-              }),
+                  }),
               ProfileMenuItem(title: "Logout", onTap: () {}),
-             
+
               SizedBox(height: screenHeight * 0.02),
-   IconWidget(screenHeight: screenHeight)
+              IconWidget(screenHeight: screenHeight)
             ],
           ),
         ),
@@ -117,31 +123,27 @@ class IconWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
-     decoration: BoxDecoration(
-       shape: BoxShape.circle,
-       border: Border.all(
-         
-         color: Color.fromARGB(255, 39, 87, 43), // Your desired border color
-         width: 2.0, // Border width
-       ),
-     ),
-     child: GestureDetector(
-        onTap: () {
-          showContactBottomSheet(context);
-        },
-       child: CircleAvatar(
-         radius: screenHeight * 0.035, // Responsive radius
-         backgroundColor: AppColors.grey,
-         child: Image.asset(AppImages.appIcon),
-       ),
-     ),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Color.fromARGB(255, 39, 87, 43), // Your desired border color
+            width: 2.0, // Border width
+          ),
+        ),
+        child: GestureDetector(
+          onTap: () {
+            showContactBottomSheet(context);
+          },
+          child: CircleAvatar(
+            radius: screenHeight * 0.035, // Responsive radius
+            backgroundColor: AppColors.grey,
+            child: Image.asset(AppImages.appIcon),
+          ),
+        ),
       ),
     );
   }
 }
-
-
-
 
 void showContactBottomSheet(BuildContext context) {
   Get.bottomSheet(
@@ -161,7 +163,7 @@ void showContactBottomSheet(BuildContext context) {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color:AppColors.primaryColor, // Green accent like the image
+              color: AppColors.primaryColor, // Green accent like the image
               borderRadius: BorderRadius.circular(10),
             ),
           ),
@@ -176,7 +178,7 @@ void showContactBottomSheet(BuildContext context) {
             ),
             onTap: () {
               // Handle message action
-       Get.toNamed(RouteName.chatScreen);
+              Get.toNamed(RouteName.chatScreen);
             },
           ),
           Divider(color: AppColors.grey),
@@ -190,7 +192,6 @@ void showContactBottomSheet(BuildContext context) {
             ),
             onTap: () {
               // Handle email action
-         
             },
           ),
         ],

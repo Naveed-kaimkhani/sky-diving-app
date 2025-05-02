@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:sky_diving/components/auth_button.dart';
-import 'package:sky_diving/components/custom_button.dart';
-import 'package:sky_diving/components/custom_toggle_tabs.dart';
 import 'package:sky_diving/components/label_text.dart';
-import 'package:sky_diving/components/line_chart.dart';
-import 'package:sky_diving/components/navigation_button.dart';
-import 'package:sky_diving/components/referral_card.dart';
 import 'package:sky_diving/components/referral_item.dart';
-import 'package:sky_diving/components/reward_balance_card.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/testt.dart';
+import 'package:sky_diving/view_model/user_controller.dart';
 
 class ReferralHistory extends StatelessWidget {
-  const ReferralHistory({super.key});
+  ReferralHistory({super.key});
+
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class ReferralHistory extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: CustomAppBar(
-        username: "Jaydon Bator",
+        username: userController.user.value?.name ?? "",
         profileImage: AppSvgIcons.profile,
       ),
       body: Padding(
