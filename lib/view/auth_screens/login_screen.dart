@@ -114,18 +114,19 @@ class LoginScreen extends StatelessWidget {
                   buttonText: "Login",
                   onPressed: () {
                     // Call the login function when the button is pressed
-                    if (_validateFields()) {
-                      authController.loginUser(
-                        email: authController.emailController.text,
-                        password: authController.passwordController.text,
-                      );
-                    }
-                    // if (true) {
+                    // if (_validateFields()) {
                     //   authController.loginUser(
-                    //     email: "tester255@example.com",
-                    //     password: "password123",
+                    //     email: authController.emailController.text,
+                    //     password: authController.passwordController.text,
                     //   );
                     // }
+
+                    if (true) {
+                      authController.loginUser(
+                        email: "tester285@example.com",
+                        password: "password123",
+                      );
+                    }
                   },
                   isLoading: authController.isLoading,
                 ),

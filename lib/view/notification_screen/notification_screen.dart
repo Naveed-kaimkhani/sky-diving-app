@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
+import 'package:sky_diving/components/title_appbar.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/view/notification_screen/notification_tile.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
@@ -24,9 +25,10 @@ class NotificationsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: CustomAppBar(
-          username: userController.user.value!.name,
-          profileImage: AppSvgIcons.profile),
+      appBar: TitleAppBar(
+        onBackPressed: () => Get.back(),
+        title: "Notifications",
+      ),
       body: ListView(
         padding: EdgeInsets.all(padding),
         children: [

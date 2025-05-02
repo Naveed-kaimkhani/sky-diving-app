@@ -71,5 +71,12 @@ showGetStarted.value = token.value.isEmpty;
   // You can use the user's info throughout the app as follows:
   UserModel? get currentUser => user.value;
 
-
+ Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    user.value = null;
+    token.value = '';
+    showGetStarted.value = true;
+  }
+  
 }

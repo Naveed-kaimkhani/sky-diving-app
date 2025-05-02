@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sky_diving/components/title_appbar.dart';
 
 class TermsAndPrivacyScreen extends StatelessWidget {
   const TermsAndPrivacyScreen({super.key});
@@ -7,21 +8,7 @@ class TermsAndPrivacyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          "Terms & Privacy Policy",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: TitleAppBar(title: "Terms & Privacy Policy"),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(

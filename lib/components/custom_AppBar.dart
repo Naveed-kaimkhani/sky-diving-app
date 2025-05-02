@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,9 +7,10 @@ import 'package:sky_diving/constants/routes_name.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String username;
   final String profileImage;
-//  bool isShow
-  const CustomAppBar({
+  bool? isShowBackButton;
+  CustomAppBar({
     super.key,
+    this.isShowBackButton,
     required this.username,
     required this.profileImage,
   });
@@ -21,21 +21,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black, // Dark background color
       elevation: 0,
       automaticallyImplyLeading: false,
-      // leading: GestureDetector(
-      //   onTap: () => Get.back(),
-      //   child: Icon(Icons.arrow_back, color: Colors.white),
-      // ),
       title: Row(
         children: [
           ClipOval(
-              child:
-                  //     Image.asset(
-                  //   height: 40,
-                  //   width: 40,
-                  //   profileImage,
-                  // )
-
-                  Icon(
+              child: Icon(
             Icons.person,
             size: 34,
             color: Colors.white,
@@ -62,14 +51,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           const Spacer(),
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 22,
-            ),
-            onPressed: () {},
-          ),
           SizedBox(
             width: 10,
           ),

@@ -108,12 +108,16 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   NavigationButton(
                     text: "FAQs",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(RouteName.fAQScreen);
+                    },
                     width: screenWidth * 0.4,
                   ),
                   NavigationButton(
                     text: "Help & Support",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(RouteName.emailSupportScreen);
+                    },
                     width: screenWidth * 0.4,
                   ),
                   SizedBox(height: screenHeight * 0.12),

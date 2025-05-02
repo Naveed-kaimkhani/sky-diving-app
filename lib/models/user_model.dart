@@ -17,7 +17,7 @@ class UserModel {
     required this.email,
     required this.phone,
     this.squareUserId,
-     this.referralCode,
+    this.referralCode,
     this.password,
     this.refId,
     this.invitedRefIds,
@@ -30,7 +30,6 @@ class UserModel {
       name: json['name'],
       email: json['email'],
       phone: json['phone_number'],
-
       squareUserId: json['square_user_id'],
       refId: json['ref_id'],
       invitedRefIds: json['invited_ref_ids'],
@@ -43,7 +42,7 @@ class UserModel {
       "email": email,
       "phone_number": phone,
       "password": password,
-      "invited_by": ""
+      "invited_by": refId
     };
   }
 }

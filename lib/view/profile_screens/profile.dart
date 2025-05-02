@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/profile_item.dart';
-import 'package:sky_diving/components/title_appbar.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
@@ -21,53 +20,51 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: TitleAppBar(
-        onBackPressed: () => Get.back(),
-        title: "Profile",
-      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth * 0.05,
+          vertical: screenHeight * 0.02,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: screenHeight * 0.03),
-
+              SizedBox(height: screenHeight * 0.06),
               // Profile Image
-              Column(
-                children: [
-                  Container(
-                    width: screenWidth * 0.24, // Responsive width
-                    height: screenWidth * 0.24, // Responsive height
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.green, width: 2),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppSvgIcons.profile, // Replace with actual image
-                        fit: BoxFit.cover,
+              Center(
+                child: Column(
+                  children: [
+                    Container(
+                      width: screenWidth * 0.24, // Responsive width
+                      height: screenWidth * 0.24, // Responsive height
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.green, width: 2),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          AppSvgIcons.profile, // Replace with actual image
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-                  Text(
-                    "Welcome",
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: screenWidth * 0.035, // Responsive font size
+                    SizedBox(height: screenHeight * 0.015),
+                    Text(
+                      "Welcome",
+                      style: TextStyle(
+                        color: Colors.white54,
+                        fontSize: screenWidth * 0.035, // Responsive font size
+                      ),
                     ),
-                  ),
-                  Text(
-                    userController.user.value!.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.045, // Responsive font size
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      userController.user.value!.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.045, // Responsive font size
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
 
               SizedBox(height: screenHeight * 0.03),
@@ -96,9 +93,13 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenuItem(
                   title: "Help & Support",
                   onTap: () {
-                    Get.toNamed(RouteName.emailSupportScreen);
+                    showContactBottomSheet(context);
                   }),
-              ProfileMenuItem(title: "Logout", onTap: () {}),
+              ProfileMenuItem(
+                  title: "Logout",
+                  onTap: () {
+                    userController.logout();
+                  }),
 
               SizedBox(height: screenHeight * 0.02),
               IconWidget(screenHeight: screenHeight)
@@ -192,6 +193,8 @@ void showContactBottomSheet(BuildContext context) {
             ),
             onTap: () {
               // Handle email action
+
+              Get.toNamed(RouteName.emailSupportScreen);
             },
           ),
         ],

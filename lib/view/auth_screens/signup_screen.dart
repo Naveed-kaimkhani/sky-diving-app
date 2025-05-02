@@ -138,30 +138,18 @@ class SignupScreen extends StatelessWidget {
                 AuthButton(
                     buttonText: "Register",
                     onPressed: () {
-                      String phone = authController.phoneNumber.value;
-
-                      // String phone = "+19724218407"; // format properly
-                if (_validateFields()) {
-                        authController.sendOtp(phone);
-                }
-                      // if (true) {
-                      //   authController.registerUser(
-                      //     user: UserModel(
-                      //       name: authController.nameController.text,
-                      //       email: authController.emailController.text,
-                      //       password: authController.passwordController.text,
-                      //       phone: authController.phoneNumber.value,
-                      //       // name: "naveed",
-                      //       // email: "tester2861@example.com",
-                      //       // password: "111111",
-                      //       // phone: "+17787646679",
-                      //       // refId: authController.referralCode.value,
-                      //       // refId: "ref-671459"
-                      //       // verificationId: "", // you can fill this after OTP
-                      //     ),
-                      //   );
-                      //   // Get.snackbar("info", authController.referralCode.value);
-                      // }
+                      if (_validateFields()) {
+                        authController.registerUser(
+                          user: UserModel(
+                            name: authController.nameController.text,
+                            email: authController.emailController.text,
+                            password: authController.passwordController.text,
+                            phone: authController.phoneNumber.value,
+                            refId: authController.referralCode.value,
+                          ),
+                        );
+                        // Get.snackbar("info", authController.referralCode.value);
+                      }
                     },
                     isLoading: authController.isLoading),
                 // SizedBox(height: screenSize.height * 0.02),

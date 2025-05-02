@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:sky_diving/models/user_model.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/api_endpoints.dart';
-import 'package:sky_diving/view_model/auth_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
 class AuthRepository {
@@ -25,7 +24,7 @@ class AuthRepository {
     // final fullUrl = "${baseUrl}register";
     log("in register user");
     try {
-      log(user.toString());
+      log(user.toJson().toString());
       // log(user.toJson(authController.referralCode.value).toString());
       final response = await apiClient.post(
           url: ApiEndpoints.register,

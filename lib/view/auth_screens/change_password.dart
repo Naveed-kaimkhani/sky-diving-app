@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/navigation_bar.dart';
-import 'package:sky_diving/view/home/home_screen.dart';
 
 class ChangePassword extends StatelessWidget {
   @override
@@ -19,7 +18,7 @@ class ChangePassword extends StatelessWidget {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Get.back(),
-          child: Icon(Icons.arrow_back, color: Colors.white),
+          child: Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: Padding(
