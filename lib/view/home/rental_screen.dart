@@ -32,8 +32,8 @@ class RentalScreen extends StatelessWidget {
   Widget _buildBody(RentalViewModel viewModel, Size screenSize) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: screenSize.width * 0.05,
-        vertical: screenSize.height * 0.02,
+        horizontal: screenSize.width * 0.02,
+        // vertical: screenSize.height * 0.001,
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -54,6 +54,7 @@ class RentalScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget buildBagLi(Size screenSize) {
     List<String> bagLi = [
       "assets/png/bag1.png",
@@ -87,12 +88,13 @@ class RentalScreen extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.black, // Border color
-              width: 10,           // Border width
+              width: 10, // Border width
             ),
             borderRadius: BorderRadius.circular(8), // Optional
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(8), // Match the borderRadius above
+            borderRadius:
+                BorderRadius.circular(8), // Match the borderRadius above
             child: Image.asset(
               img,
               height: screenSize.height * 0.4,
@@ -103,7 +105,6 @@ class RentalScreen extends StatelessWidget {
       ),
     );
   }
-
 
   // Widget _buildProductImage(Size screenSize,String img) {
   //   return
@@ -155,12 +156,13 @@ class RentalScreen extends StatelessWidget {
     return Obx(() => Column(
           children: [
             SizedBox(height: 15),
-            CustomTextField(hintText: "Date of first day rental",onChanged:(val){
-              viewModel.addCardModel.update((model) {
-                model?.dateOfFirst = val.toString();
-              });
-
-            }),
+            CustomTextField(
+                hintText: "Date of first day rental",
+                onChanged: (val) {
+                  viewModel.addCardModel.update((model) {
+                    model?.dateOfFirst = val.toString();
+                  });
+                }),
             SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
@@ -269,23 +271,24 @@ class RentalScreen extends StatelessWidget {
         buttonText: "Add to Cart",
         isLoading: false.obs,
         onPressed: () {
-          if(viewModel.addCardModel.value.dateOfFirst != "") {
+          if (viewModel.addCardModel.value.dateOfFirst != "") {
             Get.toNamed(RouteName.addOrderCard);
-          }else{
+          } else {
             Get.snackbar(
               "Error", // still required for accessibility
               "Please Enter Date of first day rental",
-              backgroundColor: Colors.black, // Optional: dark background for contrast
+              backgroundColor:
+                  Colors.black, // Optional: dark background for contrast
               titleText: const Text(
                 "Error",
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               messageText: const Text(
                 "Date of first day rental",
                 style: TextStyle(color: Colors.white),
               ),
             );
-
           }
           // Handle add to cart
         },

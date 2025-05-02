@@ -27,7 +27,7 @@ class CustomTextField extends StatelessWidget {
       style: const TextStyle(color: Colors.white), // 👈 This sets the entered text color
       onChanged: onChanged,
       cursorColor: Colors.white, 
-       style: const TextStyle(color: Colors.white), 
+      //  style: const TextStyle(color: Colors.white), 
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),

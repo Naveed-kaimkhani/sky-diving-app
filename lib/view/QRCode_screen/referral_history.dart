@@ -52,9 +52,6 @@ class ReferralHistory extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: screenHeight * 0.025),
-
-              // Transaction List (Responsive)
               GestureDetector(
                 onTap: () => Get.toNamed(RouteName.rewardScreen),
                 child: TransactionCard(
