@@ -20,6 +20,8 @@ import 'package:sky_diving/view/profile_screens/profile.dart';
 import 'package:sky_diving/view/profile_screens/update_profile.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
+import '../view/add_order/order_Card_view.dart';
+
 class AppRoutes {
   static getAppRoutes() => [
         GetPage(
@@ -32,7 +34,12 @@ class AppRoutes {
             page: () => EmailSupportScreen(),
             transition: Transition.cupertino),
 
-            
+        GetPage(
+            name: RouteName.addOrderCard,
+            page: () => AddOrderCard(),
+            transition: Transition.cupertino),
+
+
         GetPage(
             name: RouteName.chatScreen,
             page: () => GroupChatScreen(

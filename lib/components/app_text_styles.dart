@@ -27,6 +27,12 @@ class AppTextStyles {
     color: Colors.white,
     fontSize: 14,
   );
+
+
+  static const TextStyle bodySubTitle = TextStyle(
+    color: Colors.grey,
+    fontSize: 12,
+  );
 }
 
 
