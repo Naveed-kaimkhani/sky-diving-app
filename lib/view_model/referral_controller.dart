@@ -8,35 +8,18 @@ class ReferralController extends GetxController {
   final ReferralRepository repository = ReferralRepository();
   final UserController userController = Get.find<UserController>();
 
-  final _referralStreamController = StreamController<ReferralData>.broadcast();
-  Stream<ReferralData> get referralStream => _referralStreamController.stream;
+  Rxn<ReferralData> referralData = Rxn<ReferralData>(); // nullable Rx
 
-  Timer? _timer;
-  bool _isClosed = false;
-
-  @override
-  void onInit() {
-    super.onInit();
-    _startFetching();
-  }
-
-  void _startFetching() {
-    _fetchOnce();
-    _timer = Timer.periodic(Duration(seconds: 10), (_) => _fetchOnce());
-  }
-
-  void _fetchOnce() async {
+  Future<void> fetchReferralData() async {
     final data = await repository.fetchReferralData(userController.token.value);
-    if (data != null && !_isClosed) {
-      _referralStreamController.add(data);
+    if (data != null) {
+      referralData.value = data;
     }
   }
 
   @override
-  void onClose() {
-    _isClosed = true;
-    _timer?.cancel();
-    _referralStreamController.close();
-    super.onClose();
+  void onInit() {
+    super.onInit();
+    fetchReferralData(); // optional if not preloaded elsewhere
   }
 }

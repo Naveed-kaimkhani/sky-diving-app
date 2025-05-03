@@ -98,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenuItem(
                   title: "Logout",
                   onTap: () {
-                    // userController.logout();
+                    userController.logout();
                   }),
 
               SizedBox(height: screenHeight * 0.02),

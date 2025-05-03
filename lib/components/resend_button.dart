@@ -26,8 +26,10 @@ class ResendButton extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 16),
             children: [
               TextSpan(
-                text: "00:${controller.timeLeft.value.toString().padLeft(2, '0')}",
-                style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                text:
+                    "00:${controller.timeLeft.value.toString().padLeft(2, '0')}",
+                style:
+                    TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
               ),
             ],
           ),

@@ -5,7 +5,6 @@ import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
-import 'package:sky_diving/navigation_bar.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 
 import '../view_model/user_controller.dart';
@@ -20,7 +19,9 @@ class SplashScreen extends StatelessWidget {
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
-      Get.put(ReferralController()); // 👈 Inject here
+      // Get.put(ReferralController()); // 👈 Inject here
+  final referralController = Get.put(ReferralController());
+    await referralController.fetchReferralData(); // wait for data fetch
 
       // Get.offAll(() => BottomNavigation());
       Get.offAllNamed(RouteName.bottomNavigation);

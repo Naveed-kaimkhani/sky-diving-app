@@ -141,6 +141,7 @@ class SignupScreen extends StatelessWidget {
                       buttonText: "Register",
                       onPressed: () {
                         if (_validateFields()) {
+                          FocusScope.of(context).unfocus();
                           authController
                           .sendOtp(authController.phoneNumber.value);
                           // authController.registerUser(

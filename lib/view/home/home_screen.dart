@@ -1,3 +1,6 @@
+
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/navigation_button.dart';
@@ -7,7 +10,6 @@ import 'package:sky_diving/components/shimmer_home_placeholder.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/constants/routes_name.dart';
-import 'package:sky_diving/models/referral_data.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
@@ -15,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final UserController userController = Get.find<UserController>();
-  final referralController = Get.put(ReferralController());
+  final referralController = Get.find<ReferralController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +31,29 @@ class HomeScreen extends StatelessWidget {
         username: userController.user.value!.name,
         profileImage: AppSvgIcons.profile,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 10.0 : 20.0),
-        child: StreamBuilder<ReferralData>(
-          stream: referralController.referralStream,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return ShimmerHomePlaceholder(
-                  screenHeight: screenHeight, screenWidth: screenWidth);
-            }
-            if (snapshot.data == null) {
-              return ShimmerHomePlaceholder(
-                  screenHeight: screenHeight, screenWidth: screenWidth);
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text("Error loading referral data",
-                    style: TextStyle(color: Colors.white)),
-              );
-            }
+      body: Obx(() {
+        final data = referralController.referralData.value;
+        final isLoading = data == null;
 
-            final data = snapshot.data;
+        if (isLoading) {
+          return ShimmerHomePlaceholder(
+            screenHeight: screenHeight,
+            screenWidth: screenWidth,
+          );
+        }
 
-            return SingleChildScrollView(
-              child: Column(
-                children: [
+        return CustomScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          slivers: [
+            CupertinoSliverRefreshControl(
+              onRefresh: referralController.fetchReferralData,
+            ),
+            SliverPadding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: isSmallScreen ? 10.0 : 20.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate([
                   SizedBox(height: screenHeight * 0.02),
                   GestureDetector(
                     onTap: () => Get.toNamed(RouteName.qrCode),
@@ -60,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                       width: screenWidth * 0.18,
                       height: screenHeight * 0.08,
                       rewardText: "Scan to Refer a Friend",
-                      balance: "${data!.activeReferrals} Completed",
+                      balance: "${data.activeReferrals} Completed",
                       coinImage: null,
                       confettiImage: AppSvgIcons.scan,
                     ),
@@ -85,37 +86,35 @@ class HomeScreen extends StatelessWidget {
                     balance: "Now",
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  if (data != null) ...[
-                    RewardBalanceCard(
-                      height: screenHeight * 0.08,
-                      width: screenWidth * 0.56,
-                      balance: "\$${data.earnedPoints}",
-                      coinImage: AppSvgIcons.coin,
-                      confettiImage: AppSvgIcons.confettiImage,
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ReferralCard(
-                          count: data.totalReferrals.toString(),
-                          text: "Total Referrals",
-                          width: screenWidth * 0.27,
-                        ),
-                        ReferralCard(
-                          count: data.activeReferrals.toString(),
-                          text: "Active Referrals",
-                          width: screenWidth * 0.27,
-                        ),
-                        ReferralCard(
-                          count: "\$${data.earnedPoints}",
-                          text: "Reward Earned",
-                          width: screenWidth * 0.27,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                  ],
+                  RewardBalanceCard(
+                    height: screenHeight * 0.08,
+                    width: screenWidth * 0.56,
+                    balance: "\$${data.earnedPoints}",
+                    coinImage: AppSvgIcons.coin,
+                    confettiImage: AppSvgIcons.confettiImage,
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ReferralCard(
+                        count: data.totalReferrals.toString(),
+                        text: "Total Referrals",
+                        width: screenWidth * 0.27,
+                      ),
+                      ReferralCard(
+                        count: data.activeReferrals.toString(),
+                        text: "Active Referrals",
+                        width: screenWidth * 0.27,
+                      ),
+                      ReferralCard(
+                        count: "\$${data.earnedPoints}",
+                        text: "Reward Earned",
+                        width: screenWidth * 0.27,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -133,12 +132,12 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.12),
-                ],
+                ]),
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
