@@ -9,6 +9,7 @@ import '../../components/custom_textfield.dart';
 import '../../components/quantity_selector.dart';
 import '../../components/title_appbar.dart';
 import '../../constants/app_colors.dart';
+import '../../constants/routes_name.dart';
 import '../../view_model/rental_view_model.dart';
 import 'add_item_conrtroller.dart';
 
@@ -40,7 +41,10 @@ Widget _buildAddToCartButton() {
     child: AuthButton(
       buttonText: "Continue Payment",
       isLoading: false.obs,
-      onPressed: () {},
+      onPressed: () {
+        Get.toNamed(RouteName.checkOut);
+        // Handle add to cart
+      },
     ),
   );
 }

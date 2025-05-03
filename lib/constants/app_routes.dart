@@ -23,6 +23,7 @@ import 'package:sky_diving/view/profile_screens/update_profile.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 import '../view/add_order/order_Card_view.dart';
+import '../view/check_out/check_out.dart';
 
 class AppRoutes {
   static getAppRoutes() => [
@@ -37,6 +38,10 @@ class AppRoutes {
         GetPage(
             name: RouteName.qRCodeScanner,
             page: () => QRCodeScanner(),
+            transition: Transition.cupertino),
+    GetPage(
+            name: RouteName.checkOut,
+            page: () => CheckOut(),
             transition: Transition.cupertino),
         GetPage(
             name: RouteName.emailSupportScreen,
