@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
 
     if (userController.token.value.isNotEmpty) {
       // Get.put(ReferralController()); // 👈 Inject here
-      final referralController = Get.put(ReferralController());
+      final referralController = Get.put(ReferralController(),permanent: true);
       // await referralController.fetchReferralData(); // wait for data fetch
     await referralController.fetchReferralData();
 
@@ -29,7 +29,6 @@ class SplashScreen extends StatelessWidget {
     }
     // else: showGetStarted becomes true inside the controller
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,3 +69,100 @@ class SplashScreen extends StatelessWidget {
     );
   }
 }
+
+// class SplashScreen extends StatefulWidget {
+//   SplashScreen({Key? key});
+
+//   @override
+//   State<SplashScreen> createState() => _SplashScreenState();
+// }
+
+// class _SplashScreenState extends State<SplashScreen> {
+//   final UserController userController = Get.put(UserController());
+
+//   final ReferralController referralController = Get.put(ReferralController());
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _checkAuthentication();
+//   }
+
+//   void _checkAuthentication() async {
+//     await userController.getUserFromPrefs();
+
+//     if (userController.token.value.isNotEmpty) {
+//       await referralController.fetchReferralData();
+//       Get.offAllNamed(RouteName.bottomNavigation);
+//     } else {
+//       userController.showGetStarted.value = true;
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final screenSize = MediaQuery.of(context).size;
+
+//     return Scaffold(
+//       body: Obx(() {
+//         if (userController.token.value.isEmpty) {
+//           return Container(
+//             width: double.infinity,
+//             height: double.infinity,
+//             decoration: BoxDecoration(
+//               image: DecorationImage(
+//                 image: AssetImage(AppImages.splashImg),
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//             child: Column(
+//               children: [
+//                 const Expanded(child: SizedBox()),
+//                 SvgPicture.asset(
+//                   AppSvgIcons.text,
+//                   width: screenSize.width * 0.75,
+//                   height: screenSize.height * 0.12,
+//                 ),
+//                 SizedBox(height: screenSize.height * 0.06),
+//                 AuthButton(
+//                   buttonText: "Get Started",
+//                   onPressed: () => Get.toNamed(RouteName.login),
+//                   isLoading: false.obs,
+//                 ),
+//                 SizedBox(height: screenSize.height * 0.07),
+//               ],
+//             ),
+//           );
+//         } else {
+//           return Container(
+//             width: double.infinity,
+//             height: double.infinity,
+//             decoration: BoxDecoration(
+//               image: DecorationImage(
+//                 image: AssetImage(AppImages.splashImg),
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//             child: Column(
+//               children: [
+//                 const Expanded(child: SizedBox()),
+//                 SvgPicture.asset(
+//                   AppSvgIcons.text,
+//                   width: screenSize.width * 0.75,
+//                   height: screenSize.height * 0.12,
+//                 ),
+//                 SizedBox(height: screenSize.height * 0.06),
+//                 AuthButton(
+//                   buttonText: "Get Started",
+//                   onPressed: () => Get.toNamed(RouteName.login),
+//                   isLoading: false.obs,
+//                 ),
+//                 SizedBox(height: screenSize.height * 0.07),
+//               ],
+//             ),
+//           );
+//         }
+//       }),
+//     );
+//   }
+// }

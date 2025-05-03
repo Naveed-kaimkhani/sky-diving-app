@@ -49,8 +49,9 @@ class AuthRepository {
       log("Register Response: ${response.statusCode} => ${response.body}");
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final userController = Get.put(UserController());
-        final responseData = jsonDecode(response.body);
+    
+final referralController = Get.put(ReferralController(), permanent: true);
+    final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
         final user = UserModel.fromJson(userData);
@@ -124,7 +125,9 @@ class AuthRepository {
         await userController.saveUserSessionFromResponse(user, token);
         await userController.getUserFromPrefs();
 
-        Get.put(ReferralController());
+final referralController = Get.put(ReferralController(), permanent: true);
+        await referralController.fetchReferralData();
+
         onSuccess(); // Trigger on success callback
       } else {
         final error = jsonDecode(response.body);
