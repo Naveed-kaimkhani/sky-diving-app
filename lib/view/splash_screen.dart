@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,8 @@ class SplashScreen extends StatelessWidget {
     if (userController.token.value.isNotEmpty) {
       Get.put(ReferralController()); // 👈 Inject here
 
-      Get.offAll(() => BottomNavigation());
+      // Get.offAll(() => BottomNavigation());
+      Get.offAllNamed(RouteName.bottomNavigation);
     }
     // else: showGetStarted becomes true inside the controller
   }

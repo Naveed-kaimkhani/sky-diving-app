@@ -4,56 +4,6 @@ import 'package:sky_diving/models/referral_data.dart';
 import 'package:sky_diving/services/referral_repository.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
-// class ReferralController extends GetxController {
-//   final ReferralRepository repository = ReferralRepository();
-
-//   final UserController userController = Get.find<UserController>();
-//   // ReferralController(this.repository);
-
-//   final _referralStreamController = StreamController<ReferralData>.broadcast();
-//   Stream<ReferralData> get referralStream => _referralStreamController.stream;
-
-//   Timer? _timer;
-
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     _startFetching();
-//   }
-
-//   void _startFetching() {
-//     _fetchOnce();
-//     _timer = Timer.periodic(Duration(seconds: 10), (_) => _fetchOnce());
-//   }
-
-//   void _fetchOnce() async {
-//     final data = await repository.fetchReferralData(userController.token.value);
-//     if (data != null) {
-//       _referralStreamController.add(data);
-//     }
-//   }
-
-//   // void _fetchOnce() async {
-//   //   final data = await repository.fetchReferralData(userController.token.value);
-//   //   if (data != null) {
-//   //     // Always push new instance even if same values
-//   //     _referralStreamController.add(ReferralData(
-//   //         totalReferrals: data.totalReferrals,
-//   //         activeReferrals: data.activeReferrals,
-//   //         earnedPoints: data.earnedPoints,
-//   //         referrals: data.referrals));
-//   //   }
-//   // }
-
-//   @override
-//   void onClose() {
-//     _timer?.cancel();
-//     _referralStreamController.close();
-//     super.onClose();
-//   }
-// }
-
-
 class ReferralController extends GetxController {
   final ReferralRepository repository = ReferralRepository();
   final UserController userController = Get.find<UserController>();
