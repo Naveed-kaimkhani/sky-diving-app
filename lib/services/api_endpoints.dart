@@ -11,4 +11,6 @@ class ApiEndpoints {
 
   static const String referral = "$baseUrl/referral";
 
+  static const String userReward = "$baseUrl/user-reward";
+
 }
