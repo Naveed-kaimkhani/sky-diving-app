@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/apply_coupon_button.dart';
-
 import '../../components/app_text_styles.dart';
 import '../../components/auth_button.dart';
 import '../../components/custom_textfield.dart';
@@ -11,7 +9,6 @@ import '../../components/title_appbar.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/routes_name.dart';
 import '../../view_model/rental_view_model.dart';
-import 'add_item_conrtroller.dart';
 
 class AddOrderCard extends StatefulWidget {
   const AddOrderCard({super.key});
@@ -153,8 +150,8 @@ Widget cartTill(String title, String subTitle, Size screenSize) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title!, style: AppTextStyles.bodyMedium),
-        Text(subTitle!, style: AppTextStyles.bodySubTitle),
+        Text(title, style: AppTextStyles.bodyMedium),
+        Text(subTitle, style: AppTextStyles.bodySubTitle),
       ],
     ),
   );

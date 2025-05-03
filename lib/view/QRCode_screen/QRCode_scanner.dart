@@ -5,8 +5,6 @@ import 'package:sky_diving/view_model/auth_controller.dart';
 
 class QRCodeScanner extends StatelessWidget {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  // final AuthController authController = Get.put(AuthController());
-  // final AuthController authController = Get.find<AuthController>();
   final AuthController authController = Get.put(AuthController());
 
   @override

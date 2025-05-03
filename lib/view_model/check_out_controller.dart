@@ -77,25 +77,3 @@ class CheckOutController extends GetxController {
     return true;
   }
 }
-
-
-
-// import 'package:get/get.dart';
-//
-// import '../constants/contryCode.dart';
-//
-// class CheckOutController extends GetxController{
-//
-//   Rx<CountryCallingCode> countryCallingCode = CountryCallingCode().obs;
-//   Rx<Country> countryName = Country().obs;
-//   Rx<StateAbbreviation> stateAbbreviation = StateAbbreviation().obs;
-//
-//   List<Country> countryModels = countryNames.map((name) => Country(name: name)).toList();
-//   final List<CountryCallingCode> countryCallingCodeList = countryCallingCodes
-//       .map((map) => CountryCallingCode.fromMap(map))
-//       .toList();
-//   List<StateAbbreviation> stateModels = usStateAbbreviations
-//       .map((abbr) => StateAbbreviation(abbreviation: abbr))
-//       .toList();
-//
-// }
