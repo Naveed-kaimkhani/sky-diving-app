@@ -62,7 +62,7 @@ class BottomNavigation extends StatelessWidget {
         ),
         child: FloatingActionButton(
           onPressed: () {
-            Get.toNamed(RouteName.qRCodeScanner);
+            // Get.toNamed(RouteName.qRCodeScanner);
           },
           elevation: 0,
           backgroundColor: Colors.transparent,

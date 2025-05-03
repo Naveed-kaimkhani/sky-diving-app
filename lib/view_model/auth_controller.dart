@@ -69,7 +69,7 @@ class AuthController extends GetxController {
         isLoading.value = false;
         Get.snackbar("Success", "Registered successfully",
             colorText: Colors.white);
-        Get.toNamed(
+        Get.offAllNamed(
             RouteName.bottomNavigation); // Navigate or trigger OTP logic
       },
       onError: (message) {

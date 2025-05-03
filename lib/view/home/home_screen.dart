@@ -37,13 +37,11 @@ class HomeScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return ShimmerHomePlaceholder(
                   screenHeight: screenHeight, screenWidth: screenWidth);
-            }if (snapshot.data==null) {
-              return const Center(
-                child: Text("No data found",
-                    style: TextStyle(color: Colors.white)),
-              );
-            } 
-            else if (snapshot.hasError) {
+            }
+            if (snapshot.data == null) {
+              return ShimmerHomePlaceholder(
+                  screenHeight: screenHeight, screenWidth: screenWidth);
+            } else if (snapshot.hasError) {
               return const Center(
                 child: Text("Error loading referral data",
                     style: TextStyle(color: Colors.white)),
