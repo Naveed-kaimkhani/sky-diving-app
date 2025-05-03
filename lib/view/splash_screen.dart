@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,6 +7,7 @@ import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/navigation_bar.dart';
+import 'package:sky_diving/view_model/referral_controller.dart';
 
 import '../view_model/user_controller.dart';
 
@@ -21,6 +21,8 @@ class SplashScreen extends StatelessWidget {
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
+      Get.put(ReferralController()); // 👈 Inject here
+
       Get.offAll(() => BottomNavigation());
     }
     // else: showGetStarted becomes true inside the controller

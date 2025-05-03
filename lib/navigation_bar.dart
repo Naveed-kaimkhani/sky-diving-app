@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/app_images.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view/QRCode_screen/referral_history.dart';
 import 'package:sky_diving/view/QRCode_screen/reward_screen.dart';
 import 'package:sky_diving/view/home/home_screen.dart';
@@ -34,7 +35,6 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final screenSize = MediaQuery.of(context).size;
     final iconSize = screenSize.width * 0.075;
     final fabSize = screenSize.width * 0.15;
@@ -62,7 +62,7 @@ class BottomNavigation extends StatelessWidget {
         ),
         child: FloatingActionButton(
           onPressed: () {
-            // Get.toNamed(RouteName.changePassword);
+            Get.toNamed(RouteName.qRCodeScanner);
           },
           elevation: 0,
           backgroundColor: Colors.transparent,

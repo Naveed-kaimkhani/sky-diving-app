@@ -10,7 +10,9 @@ import 'package:sky_diving/view_model/auth_controller.dart';
 
 class OTPScreen extends StatelessWidget {
   final TextEditingController otpControllerField = TextEditingController();
-  final AuthController authController = Get.find<AuthController>();
+  // final AuthController authController = Get.find<AuthController>();
+
+  final AuthController authController = Get.put(AuthController());
 
   final String verificationId = Get.arguments ?? "";
   @override
@@ -74,12 +76,14 @@ class OTPScreen extends StatelessWidget {
                           email: authController.emailController.text,
                           password: authController.passwordController.text,
                           phone: authController.phoneNumber.value,
-                          // verificationId: "", // you can fill this after OTP
+                          refId: authController.referralCode
+                              .value, // you can fill this after OTP
                         ),
                       );
                     },
 
-                    onError: (message) => Get.snackbar("Error", message),
+                    onError: (message) =>
+                        Get.snackbar("Error", message, colorText: Colors.white),
                   );
                 } else {
                   Get.snackbar("Invalid OTP", "Please enter a 6-digit OTP",

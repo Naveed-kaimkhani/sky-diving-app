@@ -42,7 +42,8 @@ class UserModel {
       "email": email,
       "phone_number": phone,
       "password": password,
-      "invited_by": refId
+      "invited_by": refId??""
+      // "invited_by": ""
     };
   }
 }

@@ -3,7 +3,7 @@ import 'package:sky_diving/models/referral_model.dart';
 class ReferralData {
   final int totalReferrals;
   final int activeReferrals;
-  final int earnedPoints;
+  final String earnedPoints;
   final List<Referral> referrals;
 
   ReferralData({
