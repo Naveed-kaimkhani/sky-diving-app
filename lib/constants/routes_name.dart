@@ -9,6 +9,8 @@ class RouteName {
 
  static const String addOrderCard = '/AddOrderCard';
 
+ static const String couponsScreen = '/CouponsScreen';
+
  
  static const String changePassword = '/ChangePassword';
 

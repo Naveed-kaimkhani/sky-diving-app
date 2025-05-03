@@ -2,13 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_routes.dart';
-import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/firebase_options.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/auth_respository.dart';
 import 'package:sky_diving/services/referral_repository.dart';
-import 'package:sky_diving/view/auth_screens/login_screen.dart';
-import 'package:sky_diving/view/auth_screens/signup_screen.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() async {

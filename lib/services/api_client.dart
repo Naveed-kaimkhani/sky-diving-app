@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 
 class ApiClient {
@@ -15,7 +17,7 @@ class ApiClient {
     Map<String, String>? headers,
     // Object? body,
   }) async {
-    // log(http.get(Uri.parse(url), headers: headers).toString());
+    log(http.get(Uri.parse(url), headers: headers).toString());
     return await http.get(Uri.parse(url), headers: headers);
   }
 }

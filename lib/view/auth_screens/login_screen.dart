@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/label_text.dart';
-import 'package:sky_diving/components/social_button.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
@@ -114,32 +113,39 @@ class LoginScreen extends StatelessWidget {
                   AuthButton(
                     buttonText: "Login",
                     onPressed: () {
-                      if (_validateFields()) {
+                      // if (_validateFields()) {
+                      //   FocusScope.of(context).unfocus();
+                      //   authController.loginUser(
+                      //     email: authController.emailController.text,
+                      //     password: authController.passwordController.text,
+                      //   );
+                      // }
+                      if (true) {
                         FocusScope.of(context).unfocus();
                         authController.loginUser(
-                          email: authController.emailController.text,
-                          password: authController.passwordController.text,
+                          email: "kkkhan@gmail.com",
+                          password: "111111",
                         );
                       }
                     },
                     isLoading: authController.isLoading,
                   ),
                   SizedBox(height: screenHeight * 0.05),
-                  SocialLoginButton(
-                    text: "Login with Apple",
-                    iconPath: AppImages.apple,
-                    onPressed: () {},
-                    buttonColor: const Color.fromARGB(255, 26, 25, 25),
-                    textColor: Colors.white,
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
-                  SocialLoginButton(
-                    text: "Login with Google",
-                    iconPath: AppImages.google,
-                    onPressed: () {},
-                    textColor: Colors.black,
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
+                  // SocialLoginButton(
+                  //   text: "Login with Apple",
+                  //   iconPath: AppImages.apple,
+                  //   onPressed: () {},
+                  //   buttonColor: const Color.fromARGB(255, 26, 25, 25),
+                  //   textColor: Colors.white,
+                  // ),
+                  // SizedBox(height: screenHeight * 0.03),
+                  // SocialLoginButton(
+                  //   text: "Login with Google",
+                  //   iconPath: AppImages.google,
+                  //   onPressed: () {},
+                  //   textColor: Colors.black,
+                  // ),
+                  // SizedBox(height: screenHeight * 0.03),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(RouteName.signup);

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sky_diving/models/user_model.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/api_endpoints.dart';
+import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
 class AuthRepository {
@@ -56,6 +57,8 @@ class AuthRepository {
         await userController.saveUserSessionFromResponse(user, token);
 
         await userController.getUserFromPrefs();
+
+        Get.put(ReferralController());
         onSuccess();
       } else {
         final error = jsonDecode(response.body);
@@ -121,6 +124,7 @@ class AuthRepository {
         await userController.saveUserSessionFromResponse(user, token);
         await userController.getUserFromPrefs();
 
+        Get.put(ReferralController());
         onSuccess(); // Trigger on success callback
       } else {
         final error = jsonDecode(response.body);

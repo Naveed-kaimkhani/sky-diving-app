@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final UserController userController = Get.find<UserController>();
-  final referralController = Get.find<ReferralController>();
+  final referralController = Get.put(ReferralController());
 
   @override
   Widget build(BuildContext context) {

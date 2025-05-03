@@ -18,7 +18,9 @@ class ReferralRepository {
           'Content-Type': 'application/json', // optional, but recommended
         },
       );
+      log(response.body);
       if (response.statusCode == 200) {
+        log("data fetched again");
         final data = jsonDecode(response.body);
         if (data['status'] == true) {
           return ReferralData.fromJson(data);

@@ -106,17 +106,6 @@ class RentalScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildProductImage(Size screenSize,String img) {
-  //   return
-  //     Padding(padding:EdgeInsets.all(10) ,child: Center(
-  //       child: Image.asset(
-  //         img,
-  //         height: screenSize.height * 0.4,
-  //         // width: screenSize.width * 0.65,
-  //         fit: BoxFit.contain,
-  //       ),
-  //     ),);
-  // }
 
   Widget _buildProductTitle() {
     return Column(
@@ -178,11 +167,6 @@ class RentalScreen extends StatelessWidget {
                 });
               },
             ),
-            // ExpandableTile(
-            //   title: "Date of first day of rental",
-            //   content: "Select your rental start date",
-            //   screenWidth: screenWidth,
-            // ),
             SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
@@ -202,27 +186,7 @@ class RentalScreen extends StatelessWidget {
                 });
               },
             ),
-            // SizedBox(height: 15),
-            // CustomDropdown<String>(
-            //   items: [
-            //     'Date of first day of rental',
-            //     'Pickup at longmont Co location',
-            //     'Shipped to your location contact us at 720-352-2151 to discuss'
-            //         ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
-            //   ],
-            //   // label: 'Select an Option',
-            //   selectedItem: viewModel.addCardModel.value.deliveryOption,
-            //   onChanged: (value) {
-            //     viewModel.addCardModel.update((model) {
-            //       model?.deliveryOption = value;
-            //     });
-            //   },
-            // ),
-            // ExpandableTile(
-            //   title: "Delivery Option",
-            //   content: "Choose delivery method",
-            //   screenWidth: screenWidth,
-            // ),
+       
             SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
@@ -248,50 +212,41 @@ class RentalScreen extends StatelessWidget {
                 });
               },
             ),
-            // ExpandableTile(
-            //   title: "Spectre 150",
-            //   content: "Select rental duration",
-            //   screenWidth: screenWidth,
-            // ),
-
-            // ExpandableTile(
-            //   title: "Canopy Type and Size",
-            //   content: "Select canopy specifications",
-            //   screenWidth: screenWidth,
-            // ),
           ],
         ));
   }
 
   Widget _buildAddToCartButton() {
     final viewModel = Get.find<RentalViewModel>();
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: AuthButton(
-        buttonText: "Add to Cart",
-        isLoading: false.obs,
-        onPressed: () {
-          if (viewModel.addCardModel.value.dateOfFirst != "") {
-            Get.toNamed(RouteName.addOrderCard);
-          } else {
-            Get.snackbar(
-              "Error", // still required for accessibility
-              "Please Enter Date of first day rental",
-              backgroundColor:
-                  Colors.black, // Optional: dark background for contrast
-              titleText: const Text(
-                "Error",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              messageText: const Text(
-                "Date of first day rental",
-                style: TextStyle(color: Colors.white),
-              ),
-            );
-          }
-          // Handle add to cart
-        },
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: AuthButton(
+          buttonText: "Add to Cart",
+          isLoading: false.obs,
+          onPressed: () {
+            if (viewModel.addCardModel.value.dateOfFirst != "") {
+              Get.toNamed(RouteName.addOrderCard);
+            } else {
+              Get.snackbar(
+                "Error", // still required for accessibility
+                "Please Enter Date of first day rental",
+                backgroundColor:
+                    Colors.black, // Optional: dark background for contrast
+                titleText: const Text(
+                  "Error",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                messageText: const Text(
+                  "Date of first day rental",
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            }
+            // Handle add to cart
+          },
+        ),
       ),
     );
   }

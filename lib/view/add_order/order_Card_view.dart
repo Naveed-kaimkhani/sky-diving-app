@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:sky_diving/components/apply_coupon_button.dart';
 
 import '../../components/app_text_styles.dart';
 import '../../components/auth_button.dart';
@@ -38,10 +40,7 @@ Widget _buildAddToCartButton() {
     child: AuthButton(
       buttonText: "Continue Payment",
       isLoading: false.obs,
-      onPressed: () {
-        // Get.toNamed(RouteName.addOrderCard);
-        // Handle add to cart
-      },
+      onPressed: () {},
     ),
   );
 }
@@ -71,6 +70,8 @@ Widget _buildBody(Size screenSize) {
 }
 
 Widget buildGiftIt(Size screenSize) {
+  final TextEditingController couponController = TextEditingController();
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -80,13 +81,22 @@ Widget buildGiftIt(Size screenSize) {
         style: AppTextStyles.titleMedium,
       ),
       SizedBox(height: 8),
-      CustomTextField(
-          hintText: "Add Coupon or gift card",
-          onChanged: (val) {
-            // viewModel.addCardModel.update((model) {
-            //   model?.dateOfFirst = val.toString();
-            // });
-          }),
+
+      // TextField and Button Row
+      Row(
+        children: [
+          Expanded(
+            child: CustomTextField(
+              controller: couponController,
+              hintText: "Add Coupon or gift card",
+              onChanged: (val) {},
+            ),
+          ),
+          SizedBox(width: 8),
+          ApplyCouponButton(couponController: couponController),
+        ],
+      ),
+
       SizedBox(height: 15),
       calculatedCartTill("Subtotal", "\$${70.00 * 70}", screenSize),
       calculatedCartTill("Estimated taxes", "\$70.00", screenSize),
@@ -95,6 +105,7 @@ Widget buildGiftIt(Size screenSize) {
     ],
   );
 }
+
 Widget calculatedCartTill(String title, String subTitle, Size screenSize) {
   return Padding(
     padding: EdgeInsets.only(bottom: screenSize.height * 0.015),
@@ -102,12 +113,13 @@ Widget calculatedCartTill(String title, String subTitle, Size screenSize) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       // crossAxisAlignment: CrossAxisAlignment.s,
       children: [
-        Text(title!, style: AppTextStyles.bodyMedium),
-        Text(subTitle!, style: AppTextStyles.bodyMedium),
+        Text(title, style: AppTextStyles.bodyMedium),
+        Text(subTitle, style: AppTextStyles.bodyMedium),
       ],
     ),
   );
 }
+
 Widget buildSelectorValue(Size screenSize) {
   final viewModel = Get.find<RentalViewModel>();
   viewModel.cardOnj();
@@ -184,89 +196,3 @@ Widget _buildProductImage(Size screenSize) {
     ),
   );
 }
-// Widget card(int index, Size screenSize) {
-//   final tag = 'card_$index';
-//   if (!Get.isRegistered<AddCardController>(tag: tag)) {
-//     Get.put(AddCardController(), tag: tag);
-//   }
-//   final controller = Get.find<AddCardController>(tag: tag);
-//
-//   return Container(
-//     margin: EdgeInsets.only(bottom: screenSize.height * 0.03),
-//     padding: const EdgeInsets.all(12),
-//     decoration: BoxDecoration(
-//       color: Colors.white.withOpacity(0.05),
-//       borderRadius: BorderRadius.circular(12),
-//       border: Border.all(color: Colors.white10),
-//     ),
-//     child: Row(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Container(
-//           width: 100,
-//           height: 100,
-//           decoration: const BoxDecoration(
-//             image: DecorationImage(
-//               image: AssetImage("assets/png/bag1.png"),
-//               fit: BoxFit.cover,
-//             ),
-//             borderRadius: BorderRadius.all(Radius.circular(10)),
-//           ),
-//         ),
-//         SizedBox(width: screenSize.width * 0.05),
-//         Expanded(
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               cartTill("Skydiving Gear Rental", "\$70.00", screenSize),
-//               cartTill("Date of First Day of Rental", "May 5, 2025", screenSize),
-//               cartTill("Delivery Option", "Pickup at Longmont", screenSize),
-//               cartTill("Rental Period", "30 Days (US\$530.00)", screenSize),
-//               cartTill("Canopy Type and Size", "Spector 170", screenSize),
-//               IncDecButton(controller, screenSize),
-//             ],
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
-//
-// Widget cartTill(String title, String subTitle, Size screenSize) {
-//   return Padding(
-//     padding: EdgeInsets.only(bottom: screenSize.height * 0.015),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(title, style: AppTextStyles.bodySmall),
-//         Text(subTitle, style: AppTextStyles.bodySubTitle),
-//       ],
-//     ),
-//   );
-// }
-//
-// Widget IncDecButton(AddCardController controller, Size screenSize) {
-//   return Row(
-//     children: [
-//       _circleButton(Icons.remove, controller.decrement),
-//       Padding(
-//         padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05),
-//         child: Obx(() => Text(
-//           controller.itemCount.value.toString(),
-//           style: const TextStyle(color: Colors.white, fontSize: 18),
-//         )),
-//       ),
-//       _circleButton(Icons.add, controller.increment),
-//     ],
-//   );
-// }
-//
-// Widget _circleButton(IconData icon, VoidCallback onPressed) {
-//   return CircleAvatar(
-//     backgroundColor: Colors.grey,
-//     child: IconButton(
-//       icon: Icon(icon, color: Colors.white),
-//       onPressed: onPressed,
-//     ),
-//   );
-// }

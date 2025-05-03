@@ -39,6 +39,26 @@ class AuthController extends GetxController {
     );
   }
 
+  void resendOtp(String phoneNumber) {
+    isLoading.value = true;
+
+    _authRepo.sendOtp(
+      phoneNumber: phoneNumber,
+      onCodeSent: (verificationId) {
+        isLoading.value = false;
+        log(verificationId);
+        Get.snackbar("OTP", "OTP resent successfully!",
+            colorText: Colors.white);
+      },
+      onFailed: (e) {
+        isLoading.value = false;
+        log(e.toString());
+        Get.snackbar("Error", e.message ?? "OTP failed",
+            colorText: Colors.white);
+      },
+    );
+  }
+
   Future<void> verifyOtp({
     required String verificationId,
     required String otpCode,

@@ -41,6 +41,7 @@ class UserController extends GetxController {
     final email = prefs.getString('email');
     final phone = prefs.getString('phone');
     token.value = prefs.getString('token') ?? '';
+    
     showGetStarted.value = token.value.isEmpty;
 
     final squareUserId = prefs.getString('square_user_id');

@@ -25,7 +25,7 @@ class OTPScreen extends StatelessWidget {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Get.back(),
-          child: Icon(Icons.arrow_back, color: Colors.white),
+          child: Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: Padding(
@@ -50,7 +50,7 @@ class OTPScreen extends StatelessWidget {
                 fontSize: screenSize.width * 0.04,
               ),
             ),
-            SizedBox(height: screenSize.height * 0.08),
+            SizedBox(height: screenSize.height * 0.04),
 
             Center(child: PinCodeField(otpControllerField: otpControllerField)),
 
@@ -99,4 +99,3 @@ class OTPScreen extends StatelessWidget {
     );
   }
 }
-

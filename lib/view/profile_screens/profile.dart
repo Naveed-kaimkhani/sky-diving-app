@@ -76,6 +76,11 @@ class ProfileScreen extends StatelessWidget {
                     Get.toNamed(RouteName.updateProfile);
                   }),
               ProfileMenuItem(
+                  title: "Active coupons",
+                  onTap: () {
+                    Get.toNamed(RouteName.couponsScreen);
+                  }),
+              ProfileMenuItem(
                   title: "Change Password",
                   onTap: () {
                     Get.toNamed(RouteName.changePassword);
@@ -90,11 +95,11 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteName.termsAndPrivacyScreen);
                   }),
-              ProfileMenuItem(
-                  title: "Help & Support",
-                  onTap: () {
-                    showContactBottomSheet(context);
-                  }),
+              // ProfileMenuItem(
+              //     title: "Help & Support",
+              //     onTap: () {
+              //       showContactBottomSheet(context);
+              //     }),
               ProfileMenuItem(
                   title: "Logout",
                   onTap: () {

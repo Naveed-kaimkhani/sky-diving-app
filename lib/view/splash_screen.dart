@@ -15,19 +15,21 @@ class SplashScreen extends StatelessWidget {
   final UserController userController = Get.put(UserController());
 
   void _checkAuthentication() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
       // Get.put(ReferralController()); // 👈 Inject here
-  final referralController = Get.put(ReferralController());
-    await referralController.fetchReferralData(); // wait for data fetch
+      final referralController = Get.put(ReferralController());
+      // await referralController.fetchReferralData(); // wait for data fetch
+    await referralController.fetchReferralData();
 
       // Get.offAll(() => BottomNavigation());
       Get.offAllNamed(RouteName.bottomNavigation);
     }
     // else: showGetStarted becomes true inside the controller
   }
+
 
   @override
   Widget build(BuildContext context) {

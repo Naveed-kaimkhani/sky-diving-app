@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:sky_diving/models/referral_data.dart';
 import 'package:sky_diving/services/referral_repository.dart';
@@ -11,15 +12,17 @@ class ReferralController extends GetxController {
   Rxn<ReferralData> referralData = Rxn<ReferralData>(); // nullable Rx
 
   Future<void> fetchReferralData() async {
+    log("refreshed called");
     final data = await repository.fetchReferralData(userController.token.value);
     if (data != null) {
       referralData.value = data;
+      log("data updated");
     }
   }
 
   @override
   void onInit() {
     super.onInit();
-    fetchReferralData(); // optional if not preloaded elsewhere
+    // fetchReferralData(); // optional if not preloaded elsewhere
   }
 }
