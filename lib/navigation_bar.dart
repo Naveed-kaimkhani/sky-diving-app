@@ -34,6 +34,7 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final screenSize = MediaQuery.of(context).size;
     final iconSize = screenSize.width * 0.075;
     final fabSize = screenSize.width * 0.15;

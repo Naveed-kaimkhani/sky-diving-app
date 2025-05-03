@@ -1,21 +1,27 @@
 
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sky_diving/models/referral_data.dart';
 import 'package:sky_diving/models/user_model.dart';
 
 class UserController extends GetxController {
   late SharedPreferences prefs;
 var showGetStarted = false.obs;
 var token = ''.obs;
+  Stream<ReferralData> get referralDataStream => _referralDataController.stream;
+  final _referralDataController = StreamController<ReferralData>.broadcast();
 
 Rxn<UserModel> user = Rxn<UserModel>();
-
+ 
   @override
   void onInit() async {
     super.onInit();
     prefs = await SharedPreferences.getInstance();
     getUserFromPrefs(); // Load session on init
   }
+
 
  Future<void> saveUserSessionFromResponse(UserModel user, String token) async {
     final prefs = await SharedPreferences.getInstance();

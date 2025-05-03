@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(fontFamily: 'Gilroy'),
         ),
       ),
-      home: SplashScreen(),
+      // home: SplashScreen(),
 
-      // home: SignupScreen(),
+      home: LoginScreen(),
 
       // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),

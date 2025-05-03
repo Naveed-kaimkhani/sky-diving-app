@@ -9,4 +9,6 @@ class ApiEndpoints {
 
   static const String sendOtp = "$baseUrl/send";
 
+  static const String referral = "$baseUrl/referral";
+
 }

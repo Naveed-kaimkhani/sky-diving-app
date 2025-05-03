@@ -8,7 +8,6 @@ import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/navigation_bar.dart';
-import 'package:sky_diving/view/home/home_screen.dart';
 
 import '../view_model/user_controller.dart';
 
