@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                   RewardBalanceCard(
                     height: screenHeight * 0.08,
                     width: screenWidth * 0.56,
-                    balance: "\$${data.earnedPoints}",
+                    balance: data.earnedPoints,
                     coinImage: AppSvgIcons.coin,
                     confettiImage: AppSvgIcons.confettiImage,
                   ),
@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       ReferralCard(
                         count: "\$${data.earnedPoints}",
-                        text: "Reward Earned",
+                        text: "Earned Points",
                         width: screenWidth * 0.27,
                       ),
                     ],

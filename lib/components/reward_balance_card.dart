@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 
 class RewardBalanceCard extends StatelessWidget {
@@ -9,7 +7,7 @@ class RewardBalanceCard extends StatelessWidget {
   final String? coinImage;
   final String? confettiImage;
   final double width;
-    final double height;
+  final double height;
   final Function()? onTap;
   const RewardBalanceCard({
     super.key,
@@ -17,7 +15,7 @@ class RewardBalanceCard extends StatelessWidget {
     required this.width,
     required this.balance,
     required this.height,
-    this.rewardText = "Reward Balance",
+    this.rewardText = "Reward Points",
     required this.coinImage,
     required this.confettiImage,
   });
@@ -29,14 +27,14 @@ class RewardBalanceCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-       color: const Color.fromARGB(255, 26, 25, 25),
+          color: const Color.fromARGB(255, 26, 25, 25),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Reward text and balance
-          
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,25 +56,27 @@ class RewardBalanceCard extends StatelessWidget {
                 ),
               ],
             ),
-            // const Spacer(),
-            // Confetti and coin image
             Stack(
               children: [
-               confettiImage!=null? Image.asset(
-                  fit: BoxFit.cover,  
-                  confettiImage??"",
-                  width: width,
-                  height: height,
-                ):SizedBox(),
-            coinImage!=null?    Positioned(
-                  right: 5,
-                  bottom: 5,
-                  child: Image.asset(
-                    coinImage??"",
-                    width: 50,
-                    height: 50,
-                  ),
-                ):SizedBox()
+                confettiImage != null
+                    ? Image.asset(
+                        fit: BoxFit.cover,
+                        confettiImage ?? "",
+                        width: width,
+                        height: height,
+                      )
+                    : SizedBox(),
+                coinImage != null
+                    ? Positioned(
+                        right: 5,
+                        bottom: 5,
+                        child: Image.asset(
+                          coinImage ?? "",
+                          width: 50,
+                          height: 50,
+                        ),
+                      )
+                    : SizedBox()
               ],
             ),
           ],
