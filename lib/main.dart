@@ -13,11 +13,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   Get.put(ApiClient());
-
   Get.put(AuthRepository());
-
   Get.put(ReferralRepository());
   runApp(MyApp());
 }

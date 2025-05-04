@@ -6,7 +6,7 @@ import '../models/add_card_model.dart';
 
 class RentalViewModel extends GetxController {
   final QuantityController quantityController = Get.put(QuantityController());
-
+RxInt cost = 70.obs; // <-- Changed
   Rx<AddCardModel> addCardModel = AddCardModel().obs;
   @override
   void onInit() {

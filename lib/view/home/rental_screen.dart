@@ -5,6 +5,7 @@ import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/quantity_selector.dart';
 import 'package:sky_diving/components/title_appbar.dart';
 import 'package:sky_diving/constants/app_colors.dart';
+import 'package:sky_diving/view_model/quantity_controller.dart';
 import 'package:sky_diving/view_model/rental_view_model.dart';
 
 import '../../components/custom_textfield.dart';
@@ -13,10 +14,12 @@ import '../../constants/routes_name.dart';
 
 class RentalScreen extends StatelessWidget {
   RentalScreen({super.key});
+  // final viewModel = Get.find<RentalViewModel>();
 
+final viewModel = Get.put(RentalViewModel());
   @override
   Widget build(BuildContext context) {
-    final viewModel = Get.put(RentalViewModel());
+    // final viewModel = Get.put(RentalViewModel());
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -106,7 +109,6 @@ class RentalScreen extends StatelessWidget {
     );
   }
 
-
   Widget _buildProductTitle() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,25 +123,30 @@ class RentalScreen extends StatelessWidget {
   }
 
   Widget _buildPriceAndQuantityRow(Size screenSize) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          "US\$70.00",
-          style:
-              AppTextStyles.priceLarge.copyWith(color: AppColors.primaryColor),
-        ),
-        QuantitySelector(
-          iconSize: screenSize.width * 0.05,
-          textSize: screenSize.width * 0.045,
-          buttonSize: screenSize.width * 0.09,
-        ),
-      ],
-    );
+    final quantityController = Get.find<QuantityController>();
+    //  int costPerItem = viewModel.cost
+
+    return Obx(() => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              // "US\$${viewModel.cost.value * quantityController.quantity.value}",
+
+              "US\$${viewModel.cost.value}",
+              style: AppTextStyles.priceLarge.copyWith(
+                color: AppColors.primaryColor,
+              ),
+            ),
+            QuantitySelector(
+              iconSize: screenSize.width * 0.05,
+              textSize: screenSize.width * 0.045,
+              buttonSize: screenSize.width * 0.09,
+            ),
+          ],
+        ));
   }
 
   Widget _buildExpandableSections(double screenWidth) {
-    final viewModel = Get.find<RentalViewModel>();
     viewModel.cardOnj();
     String? _selectedValue;
     return Obx(() => Column(
@@ -186,7 +193,6 @@ class RentalScreen extends StatelessWidget {
                 });
               },
             ),
-       
             SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
