@@ -8,6 +8,9 @@ class RentalViewModel extends GetxController {
   final QuantityController quantityController = Get.put(QuantityController());
 RxInt cost = 70.obs; // <-- Changed
   Rx<AddCardModel> addCardModel = AddCardModel().obs;
+  RxInt extraRentalCost = 0.obs;
+RxInt subtotal = 0.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit

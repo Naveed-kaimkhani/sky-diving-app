@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/apply_coupon_button.dart';
+import 'package:sky_diving/view_model/quantity_controller.dart';
 import '../../components/app_text_styles.dart';
 import '../../components/auth_button.dart';
 import '../../components/custom_textfield.dart';
@@ -11,13 +12,15 @@ import '../../constants/routes_name.dart';
 import '../../view_model/rental_view_model.dart';
 
 class AddOrderCard extends StatefulWidget {
-  const AddOrderCard({super.key});
+  AddOrderCard({super.key});
 
   @override
   State<AddOrderCard> createState() => _AddOrderCardState();
 }
 
 class _AddOrderCardState extends State<AddOrderCard> {
+  final quantityController = Get.find<QuantityController>();
+  final viewModel = Get.find<RentalViewModel>();
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -99,12 +102,47 @@ Widget buildGiftIt(Size screenSize) {
       ),
 
       SizedBox(height: 15),
-      calculatedCartTill("Subtotal", "\$${70.00 * 70}", screenSize),
-      calculatedCartTill("Estimated taxes", "\$70.00", screenSize),
-      calculatedCartTill("Estimated order total", "\$70.00", screenSize),
-      calculatedCartTill("Skydiving Gear Rental", "\$70.00", screenSize),
+      // calculatedCartTill("Subtotal", calculateSubTotal(), screenSize),
+      calculatedCartTill("Subtotal", '\$${calculateSubTotal()}', screenSize),
+
+      calculatedCartTill("Estimated taxes", "\$0", screenSize),
+      // calculatedCartTill("Estimated order total", "\$70.00", screenSize),
+
+      calculatedCartTill(
+          "Estimated order total", '\$${calculateSubTotal()}', screenSize),
+      // calculatedCartTill("Skydiving Gear Rental", "\$70.00", screenSize),
     ],
   );
+}
+
+// String calculateSubTotal() {
+//   final quantityController = Get.find<QuantityController>();
+//   final viewModel = Get.find<RentalViewModel>();
+
+//   int initialCost = viewModel.cost.value * quantityController.quantity.value;
+//   if (viewModel.addCardModel.value.deliveryOption ==
+//       'Shipped to your location contact us at 720-352-2151 to discuss'
+//           ' delivery option, Fee is for roundTrip shipping (+\$150.00)') {
+//     initialCost += 150;
+//   }
+//   return initialCost.toString();
+// }
+
+String calculateSubTotal() {
+  final quantityController = Get.find<QuantityController>();
+  final viewModel = Get.find<RentalViewModel>();
+
+  int baseCost = viewModel.cost.value * quantityController.quantity.value;
+
+  int shippingCost = viewModel.addCardModel.value.deliveryOption ==
+          'Shipped to your location contact us at 720-352-2151 to discuss'
+              ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
+      ? 150
+      : 0;
+
+  int rentalExtra = viewModel.extraRentalCost.value;
+  viewModel.subtotal.value = baseCost + shippingCost + rentalExtra;
+  return (baseCost + shippingCost + rentalExtra).toString();
 }
 
 Widget calculatedCartTill(String title, String subTitle, Size screenSize) {
@@ -158,20 +196,24 @@ Widget cartTill(String title, String subTitle, Size screenSize) {
 }
 
 Widget _buildPriceAndQuantityRow(Size screenSize) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        "US\$70.00",
-        style: AppTextStyles.priceLarge.copyWith(color: AppColors.primaryColor),
-      ),
-      QuantitySelector(
-        iconSize: screenSize.width * 0.05,
-        textSize: screenSize.width * 0.045,
-        buttonSize: screenSize.width * 0.09,
-      ),
-    ],
-  );
+  final quantityController = Get.find<QuantityController>();
+  final viewModel = Get.find<RentalViewModel>();
+  return Obx(() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "US\$${viewModel.cost.value * quantityController.quantity.value}",
+            style: AppTextStyles.priceLarge.copyWith(
+              color: AppColors.primaryColor,
+            ),
+          ),
+          QuantitySelector(
+            iconSize: screenSize.width * 0.05,
+            textSize: screenSize.width * 0.045,
+            buttonSize: screenSize.width * 0.09,
+          ),
+        ],
+      ));
 }
 
 Widget _buildProductTitle(Size screenSize) {

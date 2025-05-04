@@ -14,12 +14,19 @@ import '../../constants/routes_name.dart';
 
 class RentalScreen extends StatelessWidget {
   RentalScreen({super.key});
-  // final viewModel = Get.find<RentalViewModel>();
+final Map<String, int> rentalOptionsWithCost = {
+  'Daily rental': 0,
+  '2 Day rental (+\$60.00)': 60,
+  '3 Day rental (+\$120.00)': 120,
+  'weekly Day rental (+\$170.00)': 170,
+  '2 weekly Day rental (+\$290.00)': 290,
+  '3 weekly Day rental (+\$410.00)': 410,
+  '3 Month rental(30) (+\$530.00)': 530,
+};
 
-final viewModel = Get.put(RentalViewModel());
   @override
   Widget build(BuildContext context) {
-    // final viewModel = Get.put(RentalViewModel());
+    final viewModel = Get.put(RentalViewModel());
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -109,6 +116,18 @@ final viewModel = Get.put(RentalViewModel());
     );
   }
 
+  // Widget _buildProductImage(Size screenSize,String img) {
+  //   return
+  //     Padding(padding:EdgeInsets.all(10) ,child: Center(
+  //       child: Image.asset(
+  //         img,
+  //         height: screenSize.height * 0.4,
+  //         // width: screenSize.width * 0.65,
+  //         fit: BoxFit.contain,
+  //       ),
+  //     ),);
+  // }
+
   Widget _buildProductTitle() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,17 +141,36 @@ final viewModel = Get.put(RentalViewModel());
     );
   }
 
-  Widget _buildPriceAndQuantityRow(Size screenSize) {
-    final quantityController = Get.find<QuantityController>();
-    //  int costPerItem = viewModel.cost
+  // Widget _buildPriceAndQuantityRow(Size screenSize) {
+  //   // final quantityController = Get.find<QuantityController>();
+  //   final viewModel = Get.find<RentalViewModel>();
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       Text(
+  //         // "US\$${viewModel.cost.value * quantityController.quantity.value}",
 
+  //         "US\$${viewModel.cost.value}",
+  //         style:
+  //             AppTextStyles.priceLarge.copyWith(color: AppColors.primaryColor),
+  //       ),
+  //       QuantitySelector(
+  //         iconSize: screenSize.width * 0.05,
+  //         textSize: screenSize.width * 0.045,
+  //         buttonSize: screenSize.width * 0.09,
+  //       ),
+  //     ],
+  //   );
+  // }
+  Widget _buildPriceAndQuantityRow(Size screenSize) {
+    final viewModel = Get.find<RentalViewModel>();
+
+    final quantityController = Get.find<QuantityController>();
     return Obx(() => Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              // "US\$${viewModel.cost.value * quantityController.quantity.value}",
-
-              "US\$${viewModel.cost.value}",
+              "US\$${viewModel.cost.value * quantityController.quantity.value}",
               style: AppTextStyles.priceLarge.copyWith(
                 color: AppColors.primaryColor,
               ),
@@ -147,6 +185,7 @@ final viewModel = Get.put(RentalViewModel());
   }
 
   Widget _buildExpandableSections(double screenWidth) {
+    final viewModel = Get.find<RentalViewModel>();
     viewModel.cardOnj();
     String? _selectedValue;
     return Obx(() => Column(
@@ -174,25 +213,69 @@ final viewModel = Get.put(RentalViewModel());
                 });
               },
             ),
+            // ExpandableTile(
+            //   title: "Date of first day of rental",
+            //   content: "Select your rental start date",
+            //   screenWidth: screenWidth,
+            // ),
             SizedBox(height: 15),
-            CustomDropdown<String>(
-              items: [
-                'Daily rental ',
-                '2 Day rental (+\$60.00)',
-                '3 Day rental (+\$120.00)'
-                    'weekly Day rental (+\$170.00)',
-                '2 weekly Day rental (+\$290.00)',
-                '3 weekly Day rental (+\$410.00)',
-                '3 Month rental(30) (+\$530.00)'
-              ],
-              // label: 'Select an Option',
-              selectedItem: viewModel.addCardModel.value.rentalPeriod,
-              onChanged: (value) {
-                viewModel.addCardModel.update((model) {
-                  model?.rentalPeriod = value;
-                });
-              },
-            ),
+            // CustomDropdown<String>(
+            //   items: [
+            //     'Daily rental ',
+            //     '2 Day rental (+\$60.00)',
+            //     '3 Day rental (+\$120.00)'
+            //         'weekly Day rental (+\$170.00)',
+            //     '2 weekly Day rental (+\$290.00)',
+            //     '3 weekly Day rental (+\$410.00)',
+            //     '3 Month rental(30) (+\$530.00)'
+            //   ],
+            //   // label: 'Select an Option',
+            //   selectedItem: viewModel.addCardModel.value.rentalPeriod,
+            //   onChanged: (value) {
+            //     viewModel.addCardModel.update((model) {
+            //       model?.rentalPeriod = value;
+            //     });
+            //   },
+            // ),
+
+
+CustomDropdown<String>(
+  items: rentalOptionsWithCost.keys.toList(),
+  selectedItem: viewModel.addCardModel.value.rentalPeriod,
+  onChanged: (value) {
+    if (value != null) {
+      viewModel.addCardModel.update((model) {
+        model?.rentalPeriod = value;
+      });
+
+      // Set the cost directly from the map
+      viewModel.extraRentalCost.value = rentalOptionsWithCost[value] ?? 0;
+    }
+  },
+),
+
+
+            // SizedBox(height: 15),
+            // CustomDropdown<String>(
+            //   items: [
+            //     'Date of first day of rental',
+            //     'Pickup at longmont Co location',
+            //     'Shipped to your location contact us at 720-352-2151 to discuss'
+            //         ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
+            //   ],
+            //   // label: 'Select an Option',
+            //   selectedItem: viewModel.addCardModel.value.deliveryOption,
+            //   onChanged: (value) {
+            //     viewModel.addCardModel.update((model) {
+            //       model?.deliveryOption = value;
+            //     });
+            //   },
+            // ),
+            // ExpandableTile(
+            //   title: "Delivery Option",
+            //   content: "Choose delivery method",
+            //   screenWidth: screenWidth,
+            // ),
             SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
@@ -218,41 +301,50 @@ final viewModel = Get.put(RentalViewModel());
                 });
               },
             ),
+            // ExpandableTile(
+            //   title: "Spectre 150",
+            //   content: "Select rental duration",
+            //   screenWidth: screenWidth,
+            // ),
+
+            // ExpandableTile(
+            //   title: "Canopy Type and Size",
+            //   content: "Select canopy specifications",
+            //   screenWidth: screenWidth,
+            // ),
           ],
         ));
   }
 
   Widget _buildAddToCartButton() {
     final viewModel = Get.find<RentalViewModel>();
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20),
-        child: AuthButton(
-          buttonText: "Add to Cart",
-          isLoading: false.obs,
-          onPressed: () {
-            if (viewModel.addCardModel.value.dateOfFirst != "") {
-              Get.toNamed(RouteName.addOrderCard);
-            } else {
-              Get.snackbar(
-                "Error", // still required for accessibility
-                "Please Enter Date of first day rental",
-                backgroundColor:
-                    Colors.black, // Optional: dark background for contrast
-                titleText: const Text(
-                  "Error",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                messageText: const Text(
-                  "Date of first day rental",
-                  style: TextStyle(color: Colors.white),
-                ),
-              );
-            }
-            // Handle add to cart
-          },
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: AuthButton(
+        buttonText: "Add to Cart",
+        isLoading: false.obs,
+        onPressed: () {
+          if (viewModel.addCardModel.value.dateOfFirst != "") {
+            Get.toNamed(RouteName.addOrderCard);
+          } else {
+            Get.snackbar(
+              "Error", // still required for accessibility
+              "Please Enter Date of first day rental",
+              backgroundColor:
+                  Colors.black, // Optional: dark background for contrast
+              titleText: const Text(
+                "Error",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              messageText: const Text(
+                "Date of first day rental",
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          }
+          // Handle add to cart
+        },
       ),
     );
   }
