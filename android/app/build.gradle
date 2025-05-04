@@ -10,8 +10,9 @@ plugins {
 
 android {
     namespace = "com.example.sky_diving"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = 34
+    compileSdk = 34
+//    compileSdk = flutter.compileSdkVersion
+    ndkVersion "25.2.9519653" // Replace with your installed NDK version
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

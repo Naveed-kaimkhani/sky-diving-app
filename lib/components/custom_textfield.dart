@@ -7,10 +7,12 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final IconData? iconData;
   final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     Key? key,
+    this.iconData,
     required this.hintText,
     this.controller,
     this.keyboardType,
@@ -24,11 +26,14 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
+
       style: const TextStyle(color: Colors.white), // 👈 This sets the entered text color
       onChanged: onChanged,
-      cursorColor: Colors.white, 
+      cursorColor: Colors.white,
+
       //  style: const TextStyle(color: Colors.white), 
       decoration: InputDecoration(
+        suffixIcon:  Icon(iconData),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
         filled: true,
