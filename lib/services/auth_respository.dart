@@ -50,7 +50,7 @@ class AuthRepository {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
     
-final referralController = Get.put(ReferralController(), permanent: true);
+// final referralController = Get.put(ReferralController(), permanent: true);
     final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
@@ -105,6 +105,7 @@ final referralController = Get.put(ReferralController(), permanent: true);
     required Function(String message) onError,
   }) async {
     try {
+      log("in login user");
       final response = await apiClient.post(
         url: ApiEndpoints.login,
         body: {
@@ -139,3 +140,5 @@ final referralController = Get.put(ReferralController(), permanent: true);
     }
   }
 }
+
+

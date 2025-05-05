@@ -97,6 +97,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       ReferralCard(
                         count: data.totalReferrals.toString(),
+                        
                         text: "Total Referrals",
                         width: screenWidth * 0.27,
                       ),
@@ -106,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                         width: screenWidth * 0.27,
                       ),
                       ReferralCard(
-                        count: "\$${data.earnedPoints}",
+                        count: data.earnedPoints,
                         text: "Earned Points",
                         width: screenWidth * 0.27,
                       ),

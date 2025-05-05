@@ -318,33 +318,35 @@ CustomDropdown<String>(
 
   Widget _buildAddToCartButton() {
     final viewModel = Get.find<RentalViewModel>();
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: AuthButton(
-        buttonText: "Add to Cart",
-        isLoading: false.obs,
-        onPressed: () {
-          if (viewModel.addCardModel.value.dateOfFirst != "") {
-            Get.toNamed(RouteName.addOrderCard);
-          } else {
-            Get.snackbar(
-              "Error", // still required for accessibility
-              "Please Enter Date of first day rental",
-              backgroundColor:
-                  Colors.black, // Optional: dark background for contrast
-              titleText: const Text(
-                "Error",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              messageText: const Text(
-                "Date of first day rental",
-                style: TextStyle(color: Colors.white),
-              ),
-            );
-          }
-          // Handle add to cart
-        },
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: AuthButton(
+          buttonText: "Add to Cart",
+          isLoading: false.obs,
+          onPressed: () {
+            if (viewModel.addCardModel.value.dateOfFirst != "") {
+              Get.toNamed(RouteName.addOrderCard);
+            } else {
+              Get.snackbar(
+                "Error", // still required for accessibility
+                "Please Enter Date of first day rental",
+                backgroundColor:
+                    Colors.black, // Optional: dark background for contrast
+                titleText: const Text(
+                  "Error",
+                  style:
+                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                messageText: const Text(
+                  "Date of first day rental",
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            }
+            // Handle add to cart
+          },
+        ),
       ),
     );
   }

@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+      <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="sky_diving"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+         android:usesCleartextTraffic="true"> <!-- Moved inside application -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

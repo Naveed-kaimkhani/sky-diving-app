@@ -105,7 +105,7 @@ class AuthController extends GetxController {
     required String password,
   }) {
     isLoading.value = true;
-
+log("email $email password $password");
     _authRepo.loginUser(
       email: email,
       password: password,

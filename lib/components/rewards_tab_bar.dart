@@ -1,49 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:sky_diving/components/reward_card.dart';
 import 'package:sky_diving/constants/app_colors.dart';
+import '../constants/app_images.dart';
+import '../models/user_reward_model.dart'; // Import your model
 
 class RewardsTabBar extends StatelessWidget {
+  final List<UserReward> rewardList;
+
+  RewardsTabBar({super.key, required this.rewardList});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3, // Now 4 tabs to match the image
+      length: 3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.transparent, // Light grey background for the tab bar
-              borderRadius: BorderRadius.circular(8), // Rounded corners
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(8),
             ),
             child: TabBar(
-                dividerColor: Colors.transparent,
-          // labelStyle: TextStyle(
-          //   fontSize: 10
-          // ),
-              // isScrollable: true, // In case tabs don't fit
-              // labelPadding: EdgeInsets.symmetric(horizontal: 16), // Space between tabs
+              dividerColor: Colors.transparent,
               indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(6), // Rounded indicator
-                color:AppColors.primaryColor, // White background for selected tab
+                borderRadius: BorderRadius.circular(6),
+                color: AppColors.primaryColor,
               ),
-              labelColor: Colors.black, // Text color for selected tab
-              unselectedLabelColor: Colors.white, // Text color for unselected tabs
-              tabs: [
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.white,
+              tabs: const [
                 Tab(text: '   All   '),
-                Tab(text: ' Claimed '),
+                Tab(text: ' Active '),
                 Tab(text: ' Pending  '),
-              
               ],
             ),
           ),
-          SizedBox(height: 16), // Space between tab bar and content
+          const SizedBox(height: 16),
           Expanded(
             child: TabBarView(
               children: [
-                // Your content for each tab
-                Container(),
-                Container(),
-                Container(),
+                _buildRewardList(rewardList),
+                _buildRewardList(rewardList.where((r) => r.status == 'active').toList()),
+                _buildRewardList(rewardList.where((r) => r.status != 'active').toList()),
               ],
             ),
           ),
@@ -51,6 +51,28 @@ class RewardsTabBar extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildRewardList(List<UserReward> rewards) {
+    if (rewards.isEmpty) {
+      return const Center(child: Text("No rewards found", style: TextStyle(color: Colors.white)));
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      child: ListView.separated(
+        itemCount: rewards.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 10),
+        itemBuilder: (context, index) {
+          final reward = rewards[index];
+          return RewardCard(
+            title: "\$${reward.discount} cash back",
+            status: reward.status,
+            date: DateFormat('MMM dd, yyyy').format(reward.createdAt),
+            statusIcon: reward.status == 'active' ? AppImages.done : AppImages.timer,
+            statusColor: reward.status == 'active' ? Colors.green : Colors.yellow,
+          );
+        },
+      ),
+    );
+  }
 }
-
-

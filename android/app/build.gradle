@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.sky_diving"
-    compileSdk = 34
+    compileSdk = 35
 //    compileSdk = flutter.compileSdkVersion
     ndkVersion "25.2.9519653" // Replace with your installed NDK version
 
@@ -29,7 +29,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
 //        minSdk = flutter.minSdkVersion
 //        targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

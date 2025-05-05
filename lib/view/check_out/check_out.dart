@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sky_diving/view_model/rental_view_model.dart';
 import '../../components/app_text_styles.dart';
 import '../../components/auth_button.dart';
 import '../../components/custom_textfield.dart';
@@ -213,27 +214,35 @@ class CheckOut extends StatelessWidget {
     );
   }
 
-  Widget orderSummarySection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        sectionTitle("Order Summary (6 items)"),
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: decoratedBox(),
-          child: Column(
+Widget orderSummarySection() {
+  final viewModel = Get.find<RentalViewModel>();
+  
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      sectionTitle("Order Summary (6 items)"),
+      Container(
+        padding: EdgeInsets.all(16),
+        decoration: decoratedBox(),
+        child: Obx(() {
+          final subtotal = viewModel.subtotal.value;
+          final estimatedTaxes = 20;
+          final total = subtotal + estimatedTaxes;
+
+          return Column(
             children: [
-              orderRow("Subtotal", "\$${70.00 * 6}"),
-              orderRow("Estimated Taxes", "\$20.00"),
+              orderRow("Subtotal", "\$${subtotal}"),
+              orderRow("Estimated Taxes", "\$${"0"}"),
               orderRow("Skydiving Gear Rental", "\$70.00"),
-              orderRow("Estimated Total", "\$510.00"),
+              orderRow("Estimated Total", "\$${subtotal}"),
             ],
-          ),
-        ),
-        gap(30),
-      ],
-    );
-  }
+          );
+        }),
+      ),
+      gap(30),
+    ],
+  );
+}
 
   Widget orderRow(String title, String value) {
     return Padding(

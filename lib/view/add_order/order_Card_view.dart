@@ -75,7 +75,7 @@ Widget _buildBody(Size screenSize) {
 
 Widget buildGiftIt(Size screenSize) {
   final TextEditingController couponController = TextEditingController();
-
+ final viewModel = Get.find<RentalViewModel>();
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -102,31 +102,26 @@ Widget buildGiftIt(Size screenSize) {
       ),
 
       SizedBox(height: 15),
-      // calculatedCartTill("Subtotal", calculateSubTotal(), screenSize),
-      calculatedCartTill("Subtotal", '\$${calculateSubTotal()}', screenSize),
+      
+Obx(() => calculatedCartTill(
+  "Subtotal",
+  '\$${viewModel.subtotal.value}',
+  screenSize,
+)),
 
       calculatedCartTill("Estimated taxes", "\$0", screenSize),
-      // calculatedCartTill("Estimated order total", "\$70.00", screenSize),
+     
+          Obx(() => calculatedCartTill(
+  "Estimated order total",
+  '\$${viewModel.subtotal.value}',
+  screenSize,
+)),
 
-      calculatedCartTill(
-          "Estimated order total", '\$${calculateSubTotal()}', screenSize),
-      // calculatedCartTill("Skydiving Gear Rental", "\$70.00", screenSize),
     ],
   );
 }
 
-// String calculateSubTotal() {
-//   final quantityController = Get.find<QuantityController>();
-//   final viewModel = Get.find<RentalViewModel>();
 
-//   int initialCost = viewModel.cost.value * quantityController.quantity.value;
-//   if (viewModel.addCardModel.value.deliveryOption ==
-//       'Shipped to your location contact us at 720-352-2151 to discuss'
-//           ' delivery option, Fee is for roundTrip shipping (+\$150.00)') {
-//     initialCost += 150;
-//   }
-//   return initialCost.toString();
-// }
 
 String calculateSubTotal() {
   final quantityController = Get.find<QuantityController>();
@@ -134,16 +129,19 @@ String calculateSubTotal() {
 
   int baseCost = viewModel.cost.value * quantityController.quantity.value;
 
-  int shippingCost = viewModel.addCardModel.value.deliveryOption ==
-          'Shipped to your location contact us at 720-352-2151 to discuss'
-              ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
+  int shippingCost = viewModel.addCardModel.value.deliveryOption == 
+    'Shipped to your location contact us at 720-352-2151 to discuss'
+    ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
       ? 150
       : 0;
 
   int rentalExtra = viewModel.extraRentalCost.value;
+
   viewModel.subtotal.value = baseCost + shippingCost + rentalExtra;
-  return (baseCost + shippingCost + rentalExtra).toString();
+
+  return viewModel.subtotal.value.toString();
 }
+
 
 Widget calculatedCartTill(String title, String subTitle, Size screenSize) {
   return Padding(

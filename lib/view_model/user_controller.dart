@@ -10,6 +10,9 @@ class UserController extends GetxController {
   late SharedPreferences prefs;
   var showGetStarted = false.obs;
   var token = ''.obs;
+
+
+  
   Stream<ReferralData> get referralDataStream => _referralDataController.stream;
   final _referralDataController = StreamController<ReferralData>.broadcast();
 
@@ -69,7 +72,7 @@ class UserController extends GetxController {
       refId: refId,
       invitedRefIds: invitedRefIds,
     );
-
+ 
     // Assign the loaded user to the reactive user variable
     user.value = userModel;
   }
