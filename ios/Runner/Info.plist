@@ -62,7 +62,9 @@
 			</array>
 		</dict>
 	</array>
-
+<!-- Add Square-specific configurations -->
+   <key>SquarePaymentApplicationID</key>
+  <string>sandbox-sq0idb-17MXSY681Mo-gCp1iGORCg</string> 
 	<!-- ✅ Allow network requests (especially needed for Firebase) -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
