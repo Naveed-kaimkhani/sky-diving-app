@@ -15,42 +15,18 @@ class AuthRepository {
 
   final UserController userController = Get.put(UserController());
   final FirebaseAuth _auth = FirebaseAuth.instance;
-// Future<UserCredential?> signInWithGoogle() async {
-//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//   if (googleUser == null) return null;
-
-//   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-//   final credential = GoogleAuthProvider.credential(
-//     accessToken: googleAuth.accessToken,
-//     idToken: googleAuth.idToken,
-//   );
-
-//   return await FirebaseAuth.instance.signInWithCredential(credential);
-// }
-  // final AuthController authController = Get.put(AuthController());
   Future<void> registerUser({
     required UserModel user,
     required VoidCallback onSuccess,
     required Function(String message) onError,
   }) async {
-    // final fullUrl = "${baseUrl}register";
-    log("in register user");
     try {
-      log(user.toJson().toString());
-      // log(user.toJson(authController.referralCode.value).toString());
       final response = await apiClient.post(
           url: ApiEndpoints.register,
-          // headers: {"Content-Type": "application/json"},
           body: user.toJson());
-      // log(user.toJson().toString());
-      log(response.body);
-      log(response.statusCode.toString());
-      log("Register Response: ${response.statusCode} => ${response.body}");
 
       if (response.statusCode == 200 || response.statusCode == 201) {
     
-// final referralController = Get.put(ReferralController(), permanent: true);
     final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
@@ -66,9 +42,7 @@ class AuthRepository {
         onError(error['message'] ?? 'Registration failed');
       }
     } catch (e) {
-      log("Register error: $e");
-      // onError("An error occurred during registration.");
-
+  
       onError("An error occurred during registration $e.");
     }
   }
@@ -82,13 +56,11 @@ class AuthRepository {
       phoneNumber: phoneNumber,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) {
-        // Auto-retrieval or instant verification
-        print("Verification completed: $credential");
+     
         Get.snackbar("Success", "$credential");
       },
       verificationFailed: (FirebaseAuthException e) {
         onFailed(e);
-        log(e.toString());
       },
       codeSent: (String verificationId, int? resendToken) {
         onCodeSent(verificationId);
@@ -105,7 +77,6 @@ class AuthRepository {
     required Function(String message) onError,
   }) async {
     try {
-      log("in login user");
       final response = await apiClient.post(
         url: ApiEndpoints.login,
         body: {
@@ -114,7 +85,6 @@ class AuthRepository {
         },
       );
 
-      log("Login Response: ${response.statusCode} => ${response.body}");
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
@@ -135,7 +105,6 @@ final referralController = Get.put(ReferralController(), permanent: true);
         onError(error['message'] ?? 'Login failed');
       }
     } catch (e) {
-      log("Login error: $e");
       onError("An error occurred during login.");
     }
   }

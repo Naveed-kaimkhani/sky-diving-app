@@ -142,8 +142,8 @@ class SignupScreen extends StatelessWidget {
                       onPressed: () {
                         if (true) {
                           FocusScope.of(context).unfocus();
-                          // authController
-                          // .sendOtp(authController.phoneNumber.value);
+                          authController
+                          .sendOtp(authController.phoneNumber.value);
                           // authController.registerUser(
                           //   user: UserModel(
                           //     name: authController.nameController.text,
@@ -153,15 +153,7 @@ class SignupScreen extends StatelessWidget {
                           //     refId: authController.referralCode.value,
                           //   ),
                           // );
-                                 authController.registerUser(
-                            user: UserModel(
-                              name: "navi",
-                              email:"naveedakber@gmail.com",
-                              password: "1111111",
-                              phone: "03001234567",
-                              refId:"fsfsfsf",
-                            ),
-                          );
+                        
                           // Get.snackbar("info", authController.referralCode.value);
                         }
                       },

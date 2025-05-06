@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,13 +25,11 @@ class AuthController extends GetxController {
       phoneNumber: phoneNumber,
       onCodeSent: (verificationId) {
         isLoading.value = false;
-        log(verificationId);
-        Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
+         Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
       },
       onFailed: (e) {
         isLoading.value = false;
-        log(e.toString());
-        Get.snackbar("Error", e.message ?? "OTP failed",
+      Get.snackbar("Error", e.message ?? "OTP failed",
             colorText: Colors.white);
       },
     );
@@ -46,13 +42,11 @@ class AuthController extends GetxController {
       phoneNumber: phoneNumber,
       onCodeSent: (verificationId) {
         isLoading.value = false;
-        log(verificationId);
-        Get.snackbar("OTP", "OTP resent successfully!",
+         Get.snackbar("OTP", "OTP resent successfully!",
             colorText: Colors.white);
       },
       onFailed: (e) {
         isLoading.value = false;
-        log(e.toString());
         Get.snackbar("Error", e.message ?? "OTP failed",
             colorText: Colors.white);
       },
@@ -70,11 +64,9 @@ class AuthController extends GetxController {
         verificationId: verificationId,
         smsCode: otpCode,
       );
-      log("credential $credential");
       await _auth.signInWithCredential(credential);
       onSuccess();
     } catch (e) {
-      log("OTP verification error: $e");
       onError("OTP verification failed. Please try again.");
     }
   }
@@ -105,7 +97,6 @@ class AuthController extends GetxController {
     required String password,
   }) {
     isLoading.value = true;
-log("email $email password $password");
     _authRepo.loginUser(
       email: email,
       password: password,

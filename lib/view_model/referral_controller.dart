@@ -12,11 +12,10 @@ class ReferralController extends GetxController {
   Rxn<ReferralData> referralData = Rxn<ReferralData>(); // nullable Rx
 
   Future<void> fetchReferralData() async {
-    log("refreshed called");
+ 
     final data = await repository.fetchReferralData(userController.token.value);
     if (data != null) {
       referralData.value = data;
-      log("data updated");
     }
   }
 

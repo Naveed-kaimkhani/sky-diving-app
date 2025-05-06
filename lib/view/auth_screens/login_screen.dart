@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    // log("in loginssss");
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -113,18 +113,12 @@ class LoginScreen extends StatelessWidget {
                   AuthButton(
                     buttonText: "Login",
                     onPressed: () {
-                      // if (_validateFields()) {
-                      //   FocusScope.of(context).unfocus();
-                      //   authController.loginUser(
-                      //     email: authController.emailController.text,
-                      //     password: authController.passwordController.text,
-                      //   );
-                      // }
-                      if (true) {
+                    
+                      if (_validateFields()) {
                         FocusScope.of(context).unfocus();
                         authController.loginUser(
-                          email: "kkkhan@gmail.com",
-                          password: "111111",
+                          email:authController.emailController.text.trim(),
+                          password: authController.passwordController.text.trim(),
                         );
                       }
                     },

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
@@ -17,7 +17,6 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    log(verificationId.toString());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
