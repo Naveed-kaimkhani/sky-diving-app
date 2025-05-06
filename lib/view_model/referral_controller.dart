@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:sky_diving/models/referral_data.dart';
 import 'package:sky_diving/services/referral_repository.dart';

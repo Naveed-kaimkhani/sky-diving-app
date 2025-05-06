@@ -9,6 +9,7 @@ import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/api_endpoints.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
+import 'package:sky_diving/view_model/user_reward_controller.dart';
 
 class AuthRepository {
   final ApiClient apiClient = Get.find<ApiClient>();
@@ -21,13 +22,11 @@ class AuthRepository {
     required Function(String message) onError,
   }) async {
     try {
-      final response = await apiClient.post(
-          url: ApiEndpoints.register,
-          body: user.toJson());
+      final response =
+          await apiClient.post(url: ApiEndpoints.register, body: user.toJson());
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-    
-    final responseData = jsonDecode(response.body);
+        final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
         final user = UserModel.fromJson(userData);
@@ -35,14 +34,21 @@ class AuthRepository {
 
         await userController.getUserFromPrefs();
 
-        Get.put(ReferralController());
+        // Get.put(ReferralController());
+              final referralController = Get.put(ReferralController(),permanent: true);
+      // await referralController.fetchReferralData(); // wait for data fetch
+    await referralController.fetchReferralData();
+
+
+        final userRewardController =
+            Get.put(UserRewardController(), permanent: true);
+        await userRewardController.fetchUserRewards(token);
         onSuccess();
       } else {
         final error = jsonDecode(response.body);
         onError(error['message'] ?? 'Registration failed');
       }
     } catch (e) {
-  
       onError("An error occurred during registration $e.");
     }
   }
@@ -56,7 +62,6 @@ class AuthRepository {
       phoneNumber: phoneNumber,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) {
-     
         Get.snackbar("Success", "$credential");
       },
       verificationFailed: (FirebaseAuthException e) {
@@ -85,7 +90,6 @@ class AuthRepository {
         },
       );
 
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
         final token = responseData['token'];
@@ -96,8 +100,13 @@ class AuthRepository {
         await userController.saveUserSessionFromResponse(user, token);
         await userController.getUserFromPrefs();
 
-final referralController = Get.put(ReferralController(), permanent: true);
+        final referralController =
+            Get.put(ReferralController(), permanent: true);
         await referralController.fetchReferralData();
+
+        final userRewardController =
+            Get.put(UserRewardController(), permanent: true);
+        await userRewardController.fetchUserRewards(token);
 
         onSuccess(); // Trigger on success callback
       } else {
@@ -109,5 +118,3 @@ final referralController = Get.put(ReferralController(), permanent: true);
     }
   }
 }
-
-
