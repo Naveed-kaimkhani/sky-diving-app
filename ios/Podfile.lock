@@ -83,6 +83,7 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - square_in_app_payments (from `.symlinks/plugins/square_in_app_payments/ios`)
+  - SquareBuyerVerificationSDK (~> 1.6.3)
   - SquareInAppPaymentsSDK (~> 1.6.3)
 
 SPEC REPOS:
@@ -142,6 +143,6 @@ SPEC CHECKSUMS:
   SquareBuyerVerificationSDK: d325f473a724cfa5684a837296a307152ca52854
   SquareInAppPaymentsSDK: 4d7f1e984fee5d8d7dbd44a67661ca1aedee7f76
 
-PODFILE CHECKSUM: 301ed228449ff0dfc52b356ee82b85f65c143190
+PODFILE CHECKSUM: e6e12f36d63cee343454124d8309fb2a7b05700b
 
 COCOAPODS: 1.16.2

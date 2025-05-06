@@ -63,14 +63,16 @@
 		</dict>
 	</array>
 <!-- Add Square-specific configurations -->
-   <key>SquarePaymentApplicationID</key>
-  <string>sandbox-sq0idb-17MXSY681Mo-gCp1iGORCg</string> 
+   <!-- <key>SquarePaymentApplicationID</key>
+  <string>sandbox-sq0idb-17MXSY681Mo-gCp1iGORCg</string>  -->
 	<!-- ✅ Allow network requests (especially needed for Firebase) -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+   <key>NSAppleMusicUsageDescription</key>
+   <string>Used for Apple Pay.</string>
 
 	<!-- ✅ (Optional) If you're using camera, photos, etc. -->
 	<key>NSCameraUsageDescription</key>

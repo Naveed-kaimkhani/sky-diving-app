@@ -7,9 +7,14 @@ import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/auth_respository.dart';
 import 'package:sky_diving/services/referral_repository.dart';
 import 'package:sky_diving/view/splash_screen.dart';
+import 'package:square_in_app_payments/in_app_payments.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Square Payment SDK with your Sandbox Application ID
+  await InAppPayments.setSquareApplicationId(
+    'sandbox-sq0idb-17MXSY681Mo-gCp1iGORCg',
+  );
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

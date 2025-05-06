@@ -1,5 +1,5 @@
 platform :ios, '14.0'
-
+use_frameworks! :linkage => :static
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
@@ -32,9 +32,14 @@ target 'Runner' do
   flutter_install_all_ios_pods(File.dirname(File.realpath(__FILE__)))
 
   # ✅ Add Square SDK inside target block
+  # pod 'SquareInAppPaymentsSDK', '~> 1.6.3'
+  # Square SDKs
   pod 'SquareInAppPaymentsSDK', '~> 1.6.3'
+  pod 'SquareBuyerVerificationSDK', '~> 1.6.3'
+  
 
-
+  # ✅ Manually add CorePaymentCard (required dependency)
+  # pod 'CorePaymentCard'
   target 'RunnerTests' do
     inherit! :search_paths
   end

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:square_in_app_payments/in_app_payments.dart';
-import 'package:square_in_app_payments/models.dart';
+// import 'package:square_in_app_payments/in_app_payments.dart';
+// import 'package:square_in_app_payments/models.dart';
 import '../../components/app_text_styles.dart';
 import '../../components/auth_button.dart';
 import '../../components/custom_textfield.dart';
@@ -55,37 +55,37 @@ class CheckOut extends StatelessWidget {
     );
   }
 
-  Future<void> startCardPaymentFlow() async {
-    try {
-      await InAppPayments.startCardEntryFlow(
-        onCardNonceRequestSuccess: (CardDetails result) async {
-          // ✅ Print nonce (safe for development)
-          print('🔐 Card nonce: ${result.nonce}');
+  // Future<void> startCardPaymentFlow() async {
+  //   try {
+  //     await InAppPayments.startCardEntryFlow(
+  //       onCardNonceRequestSuccess: (CardDetails result) async {
+  //         // ✅ Print nonce (safe for development)
+  //         print('🔐 Card nonce: ${result.nonce}');
 
-          // 🔁 Simulate sending nonce to backend
-          // final isSuccess = await _sendNonceToBackend(result.nonce);
+  //         // 🔁 Simulate sending nonce to backend
+  //         // final isSuccess = await _sendNonceToBackend(result.nonce);
 
-          if (true) {
-            // ✅ Close UI after success
-            InAppPayments.completeCardEntry(
-              onCardEntryComplete: () {
-                print('✅ Payment completed successfully.');
-              },
-            );
-          } else {
-            // ❌ Show error in UI
-            InAppPayments.showCardNonceProcessingError(
-                "Payment failed. Please try again.");
-          }
-        },
-        onCardEntryCancel: () {
-          print('❌ Payment cancelled by user.');
-        },
-      );
-    } catch (ex) {
-      print('⚠️ Error during card entry: $ex');
-    }
-  }
+  //         if (true) {
+  //           // ✅ Close UI after success
+  //           InAppPayments.completeCardEntry(
+  //             onCardEntryComplete: () {
+  //               print('✅ Payment completed successfully.');
+  //             },
+  //           );
+  //         } else {
+  //           // ❌ Show error in UI
+  //           InAppPayments.showCardNonceProcessingError(
+  //               "Payment failed. Please try again.");
+  //         }
+  //       },
+  //       onCardEntryCancel: () {
+  //         print('❌ Payment cancelled by user.');
+  //       },
+  //     );
+  //   } catch (ex) {
+  //     print('⚠️ Error during card entry: $ex');
+  //   }
+  // }
 
   Widget contactSection() {
     return Obx(() => Column(
