@@ -11,6 +11,8 @@ class RouteName {
 
  static const String couponsScreen = '/CouponsScreen';
 
+ static const String OTPVerificationToResetPassword = '/OTPVerificationToResetPassword';
+
  
  static const String changePassword = '/ChangePassword';
 

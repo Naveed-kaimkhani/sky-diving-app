@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/pincode_field.dart';
 import 'package:sky_diving/components/resend_button.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/models/user_model.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 
@@ -11,11 +11,12 @@ class OTPScreen extends StatelessWidget {
   final TextEditingController otpControllerField = TextEditingController();
   final AuthController authController = Get.find<AuthController>();
 
-  // final AuthController authController = Get.put(AuthController());
-
-  final String verificationId = Get.arguments ?? "";
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map;
+    final verificationId = args['verificationId'];
+    final isComingFromForgetPassword =
+        args['isComingFromForgetPassword'] as bool;
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -66,23 +67,24 @@ class OTPScreen extends StatelessWidget {
                   authController.verifyOtp(
                     verificationId: verificationId,
                     otpCode: otp,
-                    // onSuccess: () => Get.toNamed(RouteName.bottomNavigation),
                     onSuccess: () {
-                      authController.registerUser(
-                        user: UserModel(
-                          name: authController.nameController.text,
-                          lastName: authController.lastNameController.text,
-                          email: authController.emailController.text,
-                          password: authController.passwordController.text,
-                          phone: authController.phoneNumber.value,
-                          
-                          refId: authController.referralCode
-
-                              .value, // you can fill this after OTP
-                        ),
-                      );
+                      authController.isLoading.value = false;
+                      if (isComingFromForgetPassword) {
+                        Get.toNamed(RouteName.changePassword);
+                      } else {
+                        authController.registerUser(
+                          user: UserModel(
+                            name: authController.nameController.text,
+                            lastName: authController.lastNameController.text,
+                            email: authController.emailController.text,
+                            password: authController.passwordController.text,
+                            phone: authController.phoneNumber.value,
+                            refId: authController.referralCode
+                                .value, // you can fill this after OTP
+                          ),
+                        );
+                      }
                     },
-
                     onError: (message) =>
                         Get.snackbar("Error", message, colorText: Colors.white),
                   );

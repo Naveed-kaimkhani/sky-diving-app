@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/models/user_model.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/api_endpoints.dart';
@@ -139,26 +140,68 @@ class AuthRepository {
     required Function(String message) onError,
   }) async {
     try {
+      final body = {
+        'user_id': userId,
+      };
       log("before api hit");
-      final response = await apiClient.delete(
+      log(json.encode(body));
+      final response = await apiClient.post(
         url: ApiEndpoints.delete,
-        body: {
-          'user_id': 4,
-          'method': 'delete',
-        },
+        body: json.encode(body),
       );
-      // log(response.statusCode)
       log(response.body);
-      // log(response.statusCode.toString());
       if (response.statusCode == 200) {
         onSuccess(); // Call the success callback
-      } else {
-        // final error = jsonDecode(response.body);
-        // onError(error['message'] ?? 'Failed to delete user');
-      }
+      } else {}
     } catch (e) {
       log(e.toString());
       onError("An error occurred while deleting the user.");
+    }
+  }
+
+  Future<Map<String, dynamic>> checkPhoneNumber({
+    required String phoneNumber,
+    required String token,
+    required String newPassword,
+  }) async {
+    final response = await apiClient.post(
+      url: ApiEndpoints.validatePhone,
+      body: {
+        "phone_number": phoneNumber,
+      },
+    );
+    log(response.body);
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return {"success": true, "data": data};
+    } else {
+      return {"success": false, "data": data};
+    }
+  }
+
+  Future<Map<String, dynamic>> changePassword({
+    required String newPassword,
+    required int userId,
+  }) async {
+    log("use rid is $userId");
+    final response = await apiClient.post(
+      url: ApiEndpoints.changePassword,
+      body: {
+        "user_id": userId,
+        "password": newPassword,
+      },
+    );
+    log(response.body);
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      Get.snackbar("Success", "Password changed successfully",
+          colorText: Colors.white);
+      Get.toNamed(RouteName.login);
+      return {"success": true, "data": data};
+    } else {
+      return {"success": false, "data": data};
     }
   }
 }

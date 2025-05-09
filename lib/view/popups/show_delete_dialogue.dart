@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
@@ -105,7 +104,7 @@ class Popups {
                                     : () async {
                                         isDeleting.value = true;
                                       _authViewModel.deleteUser(
-                                          4);
+                                          userController.user.value!.id??0);
                                       },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red,

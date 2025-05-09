@@ -45,6 +45,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
+import 'package:sky_diving/components/phone_number_field.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 
 class ForgetPassword extends StatelessWidget {
@@ -88,33 +89,24 @@ class ForgetPassword extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.01),
                   Text(
-                    "Please type your complete email.  a********@gmail.com",
+                    "Please type your phone number. \n+19723******",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   SizedBox(height: screenHeight * 0.03),
 
                   // Email Input Field
-                  CustomTextField(
-                    hintText: "Email Address",
-                    controller: emailController,
+                  PhoneNumberField(
+                    onPhoneChanged: (value) {
+                      // emailController.text = value;
+                      authController.phoneNumber.value = value;
+                    },
                   ),
-
-                  // Spacer(), // Pushes the button to the bottom
-
-                  // AuthButton(
-                  //   buttonText: "Send Code",
-                  //   onPressed: () {
-                  //     authController
-                  //         .forgotPassword(emailController.text.trim());
-                  //   },
-                  //   isLoading: authController.isLoading,
-                  // ),
                   SizedBox(height: screenHeight * 0.5), // adjust as needed
                   AuthButton(
                     buttonText: "Send Code",
                     onPressed: () {
-                      authController
-                          .forgotPassword(emailController.text.trim());
+                      authController.sendOtp(authController.phoneNumber.value,
+                          isComingFromForgetPassword: true);
                     },
                     isLoading: authController.isLoading,
                   ),

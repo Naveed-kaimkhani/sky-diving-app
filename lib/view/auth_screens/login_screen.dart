@@ -7,7 +7,6 @@ import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/label_text.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
-import 'package:sky_diving/view/add_order/web_view.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_svg_icons.dart';

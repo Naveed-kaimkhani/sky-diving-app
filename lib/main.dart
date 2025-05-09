@@ -6,6 +6,7 @@ import 'package:sky_diving/firebase_options.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/auth_respository.dart';
 import 'package:sky_diving/services/referral_repository.dart';
+import 'package:sky_diving/view/auth_screens/change_password.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() async {
@@ -33,9 +34,9 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(fontFamily: 'Gilroy'),
         ),
       ),
-      home: SplashScreen(),
+      // home: ChangePassword(),
 
-      // home: LoginScreen(),
+      home: SplashScreen(),
 
       // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),

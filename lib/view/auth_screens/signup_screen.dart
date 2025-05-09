@@ -157,7 +157,7 @@ class SignupScreen extends StatelessWidget {
                         if (_validateFields()) {
                           FocusScope.of(context).unfocus();
                           authController
-                              .sendOtp(authController.phoneNumber.value);
+                              .sendOtp(authController.phoneNumber.value, isComingFromForgetPassword: false);
                         }
                       },
                       isLoading: authController.isLoading),

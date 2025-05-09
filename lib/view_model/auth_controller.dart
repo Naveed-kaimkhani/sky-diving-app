@@ -23,14 +23,36 @@ class AuthController extends GetxController {
   var referralCode = ''.obs;
   RxBool isLoading = false.obs;
 
-  void sendOtp(String phoneNumber) {
+  // void sendOtp(String phoneNumber) {
+  //   isLoading.value = true;
+
+  //   _authRepo.sendOtp(
+  //     phoneNumber: phoneNumber,
+  //     onCodeSent: (verificationId) {
+  //       isLoading.value = false;
+  //       Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
+  //     },
+  //     onFailed: (e) {
+  //       isLoading.value = false;
+  //       Get.snackbar("Error", e.message ?? "OTP failed",
+  //           colorText: Colors.white);
+  //     },
+  //   );
+  // }
+  void sendOtp(String phoneNumber, {required bool isComingFromForgetPassword}) {
     isLoading.value = true;
 
     _authRepo.sendOtp(
       phoneNumber: phoneNumber,
       onCodeSent: (verificationId) {
         isLoading.value = false;
-        Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
+        Get.toNamed(
+          RouteName.oTPScreen,
+          arguments: {
+            'verificationId': verificationId,
+            'isComingFromForgetPassword': isComingFromForgetPassword,
+          },
+        );
       },
       onFailed: (e) {
         isLoading.value = false;
@@ -38,6 +60,45 @@ class AuthController extends GetxController {
             colorText: Colors.white);
       },
     );
+  }
+
+  Future<void> checkPhoneNumber(
+      String phone, String token, String newPassword) async {
+    if (phone.isEmpty) {
+      Get.snackbar("Error", "Phone number is required",
+          colorText: Colors.white);
+      return;
+    }
+
+    isLoading.value = true;
+
+    try {
+      final result = await _authRepo.checkPhoneNumber(
+        newPassword: newPassword,
+        phoneNumber: phone,
+        token: token,
+      );
+
+      if (result["success"]) {
+        int userId = result["data"]["user_id"] as int;
+        await _authRepo.changePassword(
+          newPassword: newPassword,
+          userId: userId,
+        );
+        // Get.snackbar("Success", "Password changed successfully",
+        //     colorText: Colors.white);
+        // Get.toNamed(RouteName.login);
+      } else {
+        final errorMsg = result["data"]["message"] ?? "Something went wrong";
+        Get.snackbar("Error", errorMsg, colorText: Colors.white);
+      }
+    } catch (e) {
+      log(e.toString());
+      Get.snackbar("Error", "An unexpected error occurred",
+          colorText: Colors.white);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   void resendOtp(String phoneNumber) {
@@ -65,6 +126,8 @@ class AuthController extends GetxController {
     required Function(String message) onError,
   }) async {
     try {
+      isLoading.value = true;
+
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: otpCode,
@@ -72,6 +135,8 @@ class AuthController extends GetxController {
       await _auth.signInWithCredential(credential);
       onSuccess();
     } catch (e) {
+      isLoading.value = false;
+
       onError("OTP verification failed. Please try again.");
     }
   }
@@ -120,7 +185,8 @@ class AuthController extends GetxController {
 
   void forgotPassword(String email) async {
     if (email.isEmpty) {
-      Get.snackbar("Error", "Please enter your email", colorText: Colors.white);
+      Get.snackbar("Error", "Please enter your phone number",
+          colorText: Colors.white);
       return;
     }
 

@@ -18,4 +18,8 @@ class ApiEndpoints {
 
   static const String updateProfile = "$baseUrl/update-profile";
 
+  static const String validatePhone = "$baseUrl/check-phone";
+
+  static const String changePassword = "$baseUrl/change-password";
+
 }
