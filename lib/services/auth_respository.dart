@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/api_endpoints.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
+import 'package:sky_diving/view_model/user_reward_controller.dart';
 
 class AuthRepository {
   final ApiClient apiClient = Get.find<ApiClient>();
@@ -21,28 +21,29 @@ class AuthRepository {
     required Function(String message) onError,
   }) async {
     try {
-      final response = await apiClient.post(
-          url: ApiEndpoints.register,
-          body: user.toJson());
+      final response =
+          await apiClient.post(url: ApiEndpoints.register, body: user.toJson());
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-    
-    final responseData = jsonDecode(response.body);
+        final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
         final user = UserModel.fromJson(userData);
         await userController.saveUserSessionFromResponse(user, token);
 
         await userController.getUserFromPrefs();
-
-        Get.put(ReferralController());
+        final referralController =
+            Get.put(ReferralController(), permanent: true);
+        await referralController.fetchReferralData();
+        final UserRewardController _controller =
+            Get.put(UserRewardController(), permanent: true);
+        await _controller.fetchUserRewards(userController.token.value);
         onSuccess();
       } else {
         final error = jsonDecode(response.body);
         onError(error['message'] ?? 'Registration failed');
       }
     } catch (e) {
-  
       onError("An error occurred during registration $e.");
     }
   }
@@ -56,7 +57,6 @@ class AuthRepository {
       phoneNumber: phoneNumber,
       timeout: const Duration(seconds: 60),
       verificationCompleted: (PhoneAuthCredential credential) {
-     
         Get.snackbar("Success", "$credential");
       },
       verificationFailed: (FirebaseAuthException e) {
@@ -83,31 +83,82 @@ class AuthRepository {
           'email': email,
           'password': password,
         },
-      );
-
-
+      ).timeout(const Duration(seconds: 15));
+      log(response.body);
+      log("login api hit");
       if (response.statusCode == 200 || response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
         final user = UserModel.fromJson(userData);
-
-        // Save the session using the userController
+        log(user
+            .toJson()
+            .toString()); // Save the session using the userController
         await userController.saveUserSessionFromResponse(user, token);
         await userController.getUserFromPrefs();
 
-final referralController = Get.put(ReferralController(), permanent: true);
+        final referralController =
+            Get.put(ReferralController(), permanent: true);
         await referralController.fetchReferralData();
 
+        final UserRewardController _controller =
+            Get.put(UserRewardController(), permanent: true);
+        await _controller.fetchUserRewards(userController.token.value);
         onSuccess(); // Trigger on success callback
       } else {
         final error = jsonDecode(response.body);
         onError(error['message'] ?? 'Login failed');
       }
     } catch (e) {
+      log(e.toString());
       onError("An error occurred during login.");
     }
   }
+
+  Future<void> forgotPassword({
+    required String email,
+    required VoidCallback onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      // await _auth.sendPasswordResetEmail(email: email);
+      await apiClient.post(url: ApiEndpoints.forgetPassword, body: {
+        "email": email,
+      });
+      onSuccess();
+    } on Exception catch (e) {
+      onError("Failed to send password reset email.");
+    } catch (e) {
+      onError("Something went wrong. Please try again.");
+    }
+  }
+
+  Future<void> deleteUser({
+    required int userId,
+    required VoidCallback onSuccess,
+    required Function(String message) onError,
+  }) async {
+    try {
+      log("before api hit");
+      final response = await apiClient.delete(
+        url: ApiEndpoints.delete,
+        body: {
+          'user_id': 4,
+          'method': 'delete',
+        },
+      );
+      // log(response.statusCode)
+      log(response.body);
+      // log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        onSuccess(); // Call the success callback
+      } else {
+        // final error = jsonDecode(response.body);
+        // onError(error['message'] ?? 'Failed to delete user');
+      }
+    } catch (e) {
+      log(e.toString());
+      onError("An error occurred while deleting the user.");
+    }
+  }
 }
-
-

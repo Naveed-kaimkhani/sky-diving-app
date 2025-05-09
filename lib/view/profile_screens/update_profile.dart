@@ -1,16 +1,122 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/title_appbar.dart';
-import 'package:sky_diving/constants/app_svg_icons.dart';
-import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/view/splash_screen.dart';
+import 'package:sky_diving/view_model/auth_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
-class UpdateProfile extends StatelessWidget {
+import 'package:http/http.dart' as http;
+
+class UpdateProfile extends StatefulWidget {
   UpdateProfile({Key? key}) : super(key: key);
 
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
   final UserController userController = Get.find<UserController>();
+
+  final AuthController authController = Get.put(AuthController());
+
+  TextEditingController firstName = TextEditingController();
+
+  TextEditingController lastname = TextEditingController();
+
+  File? profilePhoto;
+
+  // bool _validateFields() {
+  //   if (firstName.text.isNotEmpty) {
+  //     // _showValidationError("Name is required", "Please enter your name");
+  //     Get.snackbar("Error", "Please enter first name");
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  Future<void> pickImage(bool isProfile) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        if (isProfile) {
+          profilePhoto = File(pickedFile.path);
+        } else {}
+      });
+    }
+  }
+
+  Future<void> updateUserProfile() async {
+    if (true) {
+      authController.isLoading.value =
+          true; // Set isLoading to true when the API call starts
+
+      try {
+        var url =
+            Uri.parse('https://deinfini.com/info/public/api/update-profile');
+        var request = http.MultipartRequest('POST', url);
+
+        request.headers.addAll({
+          'Authorization': 'Bearer ${userController.token.value}',
+          'Accept': 'application/json',
+        });
+
+        final user = userController.user.value;
+
+        // Add required fields
+        request.fields['user_id'] = user?.id.toString() ?? '';
+        request.fields['first_name'] =
+            firstName.text.isEmpty ? (user?.name ?? '') : firstName.text;
+        request.fields['last_name'] =
+            lastname.text.isEmpty ? (user?.lastName ?? '') : lastname.text;
+
+        // Add avatar image if selected
+        if (profilePhoto != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+              'avatar_url', profilePhoto!.path));
+        }
+
+        var response = await request.send();
+        log(response.statusCode.toString());
+        if (response.statusCode == 200) {
+          final responseBody = await response.stream.bytesToString();
+          final Map<String, dynamic> responseData = jsonDecode(responseBody);
+
+          final String userName = responseData["data"]["first_name"];
+          final String lastName = responseData["data"]["last_name"];
+          final String? profileImage = responseData["data"]["avatar_url"];
+
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('first_name', userName);
+          await prefs.setString('profile_photo_url', profileImage ?? '');
+          await prefs.setString('last_name', lastName);
+
+          await userController.getUserFromPrefs();
+          Get.snackbar("Info", "Profile Updated Successfully",
+              colorText: Colors.white);
+          Get.offAll(() => SplashScreen());
+        } else {
+          final responseBody = await response.stream.bytesToString();
+          final errorData = jsonDecode(responseBody);
+          Get.snackbar(
+              "Error", errorData['message'] ?? 'Failed to update profile',
+              colorText: Colors.white);
+        }
+      } catch (e) {
+        Get.snackbar("Exception", e.toString(), colorText: Colors.white);
+      } finally {
+        authController.isLoading.value =
+            false; // Set isLoading to false when the API call completes
+      }
+    } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +149,36 @@ class UpdateProfile extends StatelessWidget {
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.green, width: 2),
                     ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppSvgIcons.profile, // Replace with actual image
-                        fit: BoxFit.cover,
+                    child: GestureDetector(
+                      onTap: () =>
+                          pickImage(true), // Your existing image picker
+                      child: ClipOval(
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            image: profilePhoto != null
+                                ? DecorationImage(
+                                    image: FileImage(profilePhoto!),
+                                    fit: BoxFit.cover,
+                                  )
+                                : (userController.user.value?.proiflePic
+                                            ?.isNotEmpty ??
+                                        false
+                                    ? DecorationImage(
+                                        image: NetworkImage(userController
+                                            .user.value!.proiflePic!),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null),
+                          ),
+                          child: Icon(
+                            Icons.camera_alt,
+                            size: 50,
+                            color: Colors.grey[600],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -72,7 +204,14 @@ class UpdateProfile extends StatelessWidget {
 
             SizedBox(height: screenHeight * 0.05),
 
-            CustomTextField(hintText: userController.user.value!.name),
+            CustomTextField(
+                controller: firstName,
+                hintText: userController.user.value!.name),
+
+            SizedBox(height: screenHeight * 0.02),
+            CustomTextField(
+                controller: lastname,
+                hintText: userController.user.value!.lastName),
             SizedBox(height: screenHeight * 0.02),
             CustomTextField(
                 hintText: userController.user.value!.email, obscureText: true),
@@ -83,6 +222,7 @@ class UpdateProfile extends StatelessWidget {
             AuthButton(
               buttonText: "Update",
               onPressed: () {
+                updateUserProfile();
               },
               isLoading: false.obs,
             ),

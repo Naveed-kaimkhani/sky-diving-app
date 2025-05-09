@@ -16,7 +16,7 @@ class RewardScreen extends StatelessWidget {
 
   final referralController = Get.find<ReferralController>();
   final userController = Get.find<UserController>();
-  final userRewardController = Get.find<UserRewardController>(); 
+  final userRewardController = Get.find<UserRewardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,13 @@ class RewardScreen extends StatelessWidget {
         final error = userRewardController.error.value;
 
         if (isReferralLoading || isRewardLoading) {
-          return const Center(child: CircularProgressIndicator(color: Colors.white));
+          return const Center(
+              child: CircularProgressIndicator(color: Colors.white));
         }
 
         if (error.isNotEmpty) {
-          return Center(child: Text(error, style: const TextStyle(color: Colors.red)));
+          return Center(
+              child: Text(error, style: const TextStyle(color: Colors.red)));
         }
 
         return Padding(
@@ -56,7 +58,6 @@ class RewardScreen extends StatelessWidget {
                   height: screenHeight * 0.10,
                   width: screenWidth * 0.52,
                   balance: referralData.earnedPoints,
-                  
                   coinImage: AppSvgIcons.coin,
                   confettiImage: AppSvgIcons.confettiImage,
                 ),
@@ -67,8 +68,7 @@ class RewardScreen extends StatelessWidget {
                   weight: FontWeight.bold,
                 ),
                 SizedBox(height: screenHeight * 0.015),
-              
-                     AuthButton(
+                AuthButton(
                   buttonText: "Redeem",
                   onPressed: () => Get.toNamed(RouteName.couponsScreen),
                   isLoading: false.obs,
@@ -78,10 +78,11 @@ class RewardScreen extends StatelessWidget {
                   child: SizedBox(
                     width: screenWidth * 0.9,
                     height: screenHeight * 0.6,
-                    child: RewardsTabBar(rewardList: rewardList,),
+                    child: RewardsTabBar(
+                      rewardList: rewardList,
+                    ),
                   ),
                 ),
-
               ],
             ),
           ),

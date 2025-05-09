@@ -24,6 +24,9 @@ class RouteName {
 
  static const String rentalScreen = '/RentalScreen';
 
+
+ static const String mainPage = '/MainPage';
+
  static const String notificationsScreen = '/NotificationsScreen';
 
  static const String updateProfile = '/UpdateProfile';

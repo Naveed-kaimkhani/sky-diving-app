@@ -7,6 +7,7 @@ import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/label_text.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/view/add_order/web_view.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 import '../../constants/app_images.dart';
 import '../../constants/app_svg_icons.dart';
@@ -106,19 +107,22 @@ class LoginScreen extends StatelessWidget {
                         textAlign: TextAlign.right,
                         textColor: AppColors.primaryColor,
                       ),
-                      onTap: () => Get.toNamed(RouteName.changePassword),
+                      onTap: () => Get.toNamed(RouteName.forgetPassword),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.05),
                   AuthButton(
                     buttonText: "Login",
                     onPressed: () {
-                    
-                      if (_validateFields()) {
+                      if (true) {
                         FocusScope.of(context).unfocus();
                         authController.loginUser(
-                          email:authController.emailController.text.trim(),
-                          password: authController.passwordController.text.trim(),
+                          // email: authController.emailController.text.trim(),
+                          // password:
+                          //     authController.passwordController.text.trim(),
+
+                          email: "kkkhan@gmail.com",
+                          password: "111111",
                         );
                       }
                     },

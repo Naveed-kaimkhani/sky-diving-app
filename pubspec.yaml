@@ -49,10 +49,16 @@ dependencies:
   shimmer: ^3.0.0
   email_validator: ^3.0.0
   qr_flutter: ^4.1.0
-  qr_code_scanner: ^1.0.1
-  dropdown_search: ^6.0.2
+  # qr_code_scanner: ^1.0.1
+  # dropdown_search: ^6.0.2
   confetti: ^0.8.0
   intl: ^0.20.2
+  connectivity_plus: ^6.1.4
+  share_plus: ^11.0.0
+  webview_flutter_plus: ^0.4.16
+  url_launcher: ^6.3.1
+  uni_links: ^0.5.1
+  image_picker: ^1.1.2
   # font_awesome_flutter: ^10.8.0
 
 dev_dependencies:

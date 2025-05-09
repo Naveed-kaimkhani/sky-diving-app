@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/utils/utils.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 
 import '../view_model/user_controller.dart';
@@ -17,16 +19,20 @@ class SplashScreen extends StatelessWidget {
 
   void _checkAuthentication() async {
     await Future.delayed(const Duration(seconds: 3));
+     bool isConnected = await Utils.checkInternetConnection();
+  if (!isConnected) return;
+
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
       // Get.put(ReferralController()); // 👈 Inject here
-      final referralController = Get.put(ReferralController(),permanent: true);
+      final referralController = Get.put(ReferralController(), permanent: true);
       // await referralController.fetchReferralData(); // wait for data fetch
-    await referralController.fetchReferralData();
+      await referralController.fetchReferralData();
 
-      final UserRewardController _controller = Get.put(UserRewardController(), permanent: true);
-   await   _controller.fetchUserRewards(userController.token.value);
+      final UserRewardController _controller =
+          Get.put(UserRewardController(), permanent: true);
+      await _controller.fetchUserRewards(userController.token.value);
       // Get.offAll(() => BottomNavigation());
       Get.offAllNamed(RouteName.bottomNavigation);
     }

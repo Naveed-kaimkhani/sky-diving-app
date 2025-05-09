@@ -11,6 +11,11 @@ class ApiEndpoints {
 
   static const String referral = "$baseUrl/referral";
 
+  static const String delete = "$baseUrl/delete-user";
+
   static const String userReward = "$baseUrl/user-reward";
+  static const String forgetPassword = "$baseUrl/forgot-password";
+
+  static const String updateProfile = "$baseUrl/update-profile";
 
 }

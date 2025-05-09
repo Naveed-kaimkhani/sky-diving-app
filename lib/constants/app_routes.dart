@@ -11,6 +11,7 @@ import 'package:sky_diving/view/QRCode_screen/qr_code.dart';
 import 'package:sky_diving/view/QRCode_screen/referral_history.dart';
 import 'package:sky_diving/view/QRCode_screen/reward_screen.dart';
 import 'package:sky_diving/view/add_order/coupons_screen.dart';
+import 'package:sky_diving/view/add_order/web_view.dart';
 import 'package:sky_diving/view/auth_screens/change_password.dart';
 import 'package:sky_diving/view/auth_screens/forget_password.dart';
 import 'package:sky_diving/view/auth_screens/login_screen.dart';
@@ -32,6 +33,10 @@ class AppRoutes {
             page: () => SignupScreen(),
             transition: Transition.cupertino),
         GetPage(
+            name: RouteName.mainPage,
+            page: () => WebView(),
+            transition: Transition.cupertino),
+        GetPage(
             name: RouteName.qrCode,
             page: () => QrCode(),
             transition: Transition.cupertino),
@@ -39,7 +44,7 @@ class AppRoutes {
             name: RouteName.qRCodeScanner,
             page: () => QRCodeScanner(),
             transition: Transition.cupertino),
-    GetPage(
+        GetPage(
             name: RouteName.checkOut,
             page: () => CheckOut(),
             transition: Transition.cupertino),

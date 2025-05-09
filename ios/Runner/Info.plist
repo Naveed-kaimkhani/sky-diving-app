@@ -69,6 +69,15 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>https</string>
+    </array>
+  </dict>
+	</array>
 
 	<!-- ✅ (Optional) If you're using camera, photos, etc. -->
 	<key>NSCameraUsageDescription</key>
@@ -79,7 +88,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to your camera to scan QR codes.</string>
-
-
+	<key>NSAppTransportSecurity</key>
+	<dict>
+  <key>NSAllowsArbitraryLoadsInWebContent</key>
+  <true/>
+</dict>
 </dict>
 </plist>

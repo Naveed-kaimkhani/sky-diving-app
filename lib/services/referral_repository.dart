@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/models/referral_data.dart';
@@ -17,6 +18,8 @@ class ReferralRepository {
           'Content-Type': 'application/json', // optional, but recommended
         },
       );
+      log("fetch referral hit");
+      log(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['status'] == true) {
@@ -24,14 +27,13 @@ class ReferralRepository {
         }
       }
     } catch (e) {
-      Get.snackbar("Error", "Failed to fetch referral",
-          colorText: Colors.white);
+      // Get.snackbar("Error", "Failed to fetch referral",
+      //     colorText: Colors.white);
     }
     return null;
   }
 
-
-Future<UserRewardResponse?> getUserRewards(String token) async {
+  Future<UserRewardResponse?> getUserRewards(String token) async {
     try {
       final response = await apiClient.get(
         url: ApiEndpoints.userReward,
@@ -40,6 +42,8 @@ Future<UserRewardResponse?> getUserRewards(String token) async {
           'Content-Type': 'application/json', // optional, but recommended
         },
       );
+      log("get user rewards hit");
+      log(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['success'] == true) {
@@ -47,10 +51,9 @@ Future<UserRewardResponse?> getUserRewards(String token) async {
         }
       }
     } catch (e) {
-      Get.snackbar("Error", "Failed to fetch referral",
-          colorText: Colors.white);
+      // Get.snackbar("Error", "Failed to fetch referral",
+      //     colorText: Colors.white);
     }
     return null;
   }
-
 }

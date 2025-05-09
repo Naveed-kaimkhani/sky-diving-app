@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sky_diving/components/navigation_button.dart';
 import 'package:sky_diving/components/referral_card.dart';
 import 'package:sky_diving/components/reward_balance_card.dart';
+import 'package:sky_diving/components/scan_component.dart';
 import 'package:sky_diving/components/shimmer_home_placeholder.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   GestureDetector(
                     onTap: () => Get.toNamed(RouteName.qrCode),
-                    child: RewardBalanceCard(
+                    child: ScanComponent(
                       width: screenWidth * 0.18,
                       height: screenHeight * 0.08,
                       rewardText: "Scan to Refer a Friend",
@@ -66,6 +67,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   RewardBalanceCard(
+                    onTap: () => Get.toNamed(RouteName.emailSupportScreen),
                     width: screenWidth * 0.18,
                     height: screenHeight * 0.08,
                     rewardText: "Contact Us for ",
@@ -75,7 +77,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   RewardBalanceCard(
-                    onTap: () => Get.toNamed(RouteName.rentalScreen),
+                    onTap: () => Get.toNamed(RouteName.mainPage),
+
+                    // onTap: () => Utils.launchWebUrl,
                     width: screenWidth * 0.18,
                     height: screenHeight * 0.08,
                     coinImage: null,
@@ -97,7 +101,6 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       ReferralCard(
                         count: data.totalReferrals.toString(),
-                        
                         text: "Total Referrals",
                         width: screenWidth * 0.27,
                       ),

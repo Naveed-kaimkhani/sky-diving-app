@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +13,8 @@ class AuthController extends GetxController {
   // final AuthRepository _authRepo = Get.put(AuthRepository());
   FirebaseAuth _auth = FirebaseAuth.instance;
   final nameController = TextEditingController();
+
+  final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
@@ -25,11 +30,11 @@ class AuthController extends GetxController {
       phoneNumber: phoneNumber,
       onCodeSent: (verificationId) {
         isLoading.value = false;
-         Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
+        Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
       },
       onFailed: (e) {
         isLoading.value = false;
-      Get.snackbar("Error", e.message ?? "OTP failed",
+        Get.snackbar("Error", e.message ?? "OTP failed",
             colorText: Colors.white);
       },
     );
@@ -42,7 +47,7 @@ class AuthController extends GetxController {
       phoneNumber: phoneNumber,
       onCodeSent: (verificationId) {
         isLoading.value = false;
-         Get.snackbar("OTP", "OTP resent successfully!",
+        Get.snackbar("OTP", "OTP resent successfully!",
             colorText: Colors.white);
       },
       onFailed: (e) {
@@ -105,6 +110,54 @@ class AuthController extends GetxController {
         Get.snackbar("Success", "Login successful", colorText: Colors.white);
         Get.offAllNamed(RouteName
             .bottomNavigation); // Navigate to home or dashboard after login
+      },
+      onError: (message) {
+        isLoading.value = false;
+        Get.snackbar("Error", message, colorText: Colors.white);
+      },
+    );
+  }
+
+  void forgotPassword(String email) async {
+    if (email.isEmpty) {
+      Get.snackbar("Error", "Please enter your email", colorText: Colors.white);
+      return;
+    }
+
+    isLoading.value = true;
+    try {
+      await _authRepo.forgotPassword(
+        email: email,
+        onSuccess: () {
+          isLoading.value = false;
+          Get.snackbar("Success", "Password reset email sent",
+              colorText: Colors.white);
+        },
+        onError: (message) => Get.snackbar("Error", message),
+      );
+    } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
+      Get.snackbar("Error", e.message ?? "Failed to send reset email",
+          colorText: Colors.white);
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar("Error", "Something went wrong", colorText: Colors.white);
+    }
+  }
+
+  void deleteUser(int userId) {
+    // log(userId.toString());
+    _authRepo.deleteUser(
+      userId: userId,
+      onSuccess: () {
+        isLoading.value = false;
+        Get.back(); // Instead of Navigator.pop
+        Get.offAllNamed(RouteName.login);
+        // isDeleting.value = false;
+
+        Get.snackbar("Success", "User deleted successfully",
+            colorText: Colors.white);
+        // Navigate or update UI after deletion
       },
       onError: (message) {
         isLoading.value = false;

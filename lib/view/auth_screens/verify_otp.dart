@@ -71,10 +71,13 @@ class OTPScreen extends StatelessWidget {
                       authController.registerUser(
                         user: UserModel(
                           name: authController.nameController.text,
+                          lastName: authController.lastNameController.text,
                           email: authController.emailController.text,
                           password: authController.passwordController.text,
                           phone: authController.phoneNumber.value,
+                          
                           refId: authController.referralCode
+
                               .value, // you can fill this after OTP
                         ),
                       );

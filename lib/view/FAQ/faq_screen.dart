@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sky_diving/components/title_appbar.dart';
 
 class FAQScreen extends StatefulWidget {
@@ -21,10 +20,13 @@ class _FAQScreenState extends State<FAQScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: List.generate(_faqItems.length, (index) {
-            return _buildFAQItem(index);
-          }),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: List.generate(_faqItems.length, (index) {
+              return _buildFAQItem(index);
+            }),
+          ),
         ),
       ),
     );

@@ -213,31 +213,9 @@ final Map<String, int> rentalOptionsWithCost = {
                 });
               },
             ),
-            // ExpandableTile(
-            //   title: "Date of first day of rental",
-            //   content: "Select your rental start date",
-            //   screenWidth: screenWidth,
-            // ),
+         
             SizedBox(height: 15),
-            // CustomDropdown<String>(
-            //   items: [
-            //     'Daily rental ',
-            //     '2 Day rental (+\$60.00)',
-            //     '3 Day rental (+\$120.00)'
-            //         'weekly Day rental (+\$170.00)',
-            //     '2 weekly Day rental (+\$290.00)',
-            //     '3 weekly Day rental (+\$410.00)',
-            //     '3 Month rental(30) (+\$530.00)'
-            //   ],
-            //   // label: 'Select an Option',
-            //   selectedItem: viewModel.addCardModel.value.rentalPeriod,
-            //   onChanged: (value) {
-            //     viewModel.addCardModel.update((model) {
-            //       model?.rentalPeriod = value;
-            //     });
-            //   },
-            // ),
-
+       
 
 CustomDropdown<String>(
   items: rentalOptionsWithCost.keys.toList(),
@@ -254,28 +232,6 @@ CustomDropdown<String>(
   },
 ),
 
-
-            // SizedBox(height: 15),
-            // CustomDropdown<String>(
-            //   items: [
-            //     'Date of first day of rental',
-            //     'Pickup at longmont Co location',
-            //     'Shipped to your location contact us at 720-352-2151 to discuss'
-            //         ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
-            //   ],
-            //   // label: 'Select an Option',
-            //   selectedItem: viewModel.addCardModel.value.deliveryOption,
-            //   onChanged: (value) {
-            //     viewModel.addCardModel.update((model) {
-            //       model?.deliveryOption = value;
-            //     });
-            //   },
-            // ),
-            // ExpandableTile(
-            //   title: "Delivery Option",
-            //   content: "Choose delivery method",
-            //   screenWidth: screenWidth,
-            // ),
             SizedBox(height: 15),
             CustomDropdown<String>(
               items: [
@@ -301,17 +257,7 @@ CustomDropdown<String>(
                 });
               },
             ),
-            // ExpandableTile(
-            //   title: "Spectre 150",
-            //   content: "Select rental duration",
-            //   screenWidth: screenWidth,
-            // ),
-
-            // ExpandableTile(
-            //   title: "Canopy Type and Size",
-            //   content: "Select canopy specifications",
-            //   screenWidth: screenWidth,
-            // ),
+         
           ],
         ));
   }

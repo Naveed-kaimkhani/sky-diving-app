@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/apply_coupon_button.dart';
@@ -75,7 +77,9 @@ Widget _buildBody(Size screenSize) {
 
 Widget buildGiftIt(Size screenSize) {
   final TextEditingController couponController = TextEditingController();
- final viewModel = Get.find<RentalViewModel>();
+  final viewModel = Get.find<RentalViewModel>();
+  calculateSubTotal();
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -102,26 +106,23 @@ Widget buildGiftIt(Size screenSize) {
       ),
 
       SizedBox(height: 15),
-      
-Obx(() => calculatedCartTill(
-  "Subtotal",
-  '\$${viewModel.subtotal.value}',
-  screenSize,
-)),
+
+      Obx(() => calculatedCartTill(
+            "Subtotal",
+            '\$${viewModel.subtotal.value}',
+            screenSize,
+          )),
 
       calculatedCartTill("Estimated taxes", "\$0", screenSize),
-     
-          Obx(() => calculatedCartTill(
-  "Estimated order total",
-  '\$${viewModel.subtotal.value}',
-  screenSize,
-)),
 
+      Obx(() => calculatedCartTill(
+            "Estimated order total",
+            '\$${viewModel.subtotal.value}',
+            screenSize,
+          )),
     ],
   );
 }
-
-
 
 String calculateSubTotal() {
   final quantityController = Get.find<QuantityController>();
@@ -129,19 +130,18 @@ String calculateSubTotal() {
 
   int baseCost = viewModel.cost.value * quantityController.quantity.value;
 
-  int shippingCost = viewModel.addCardModel.value.deliveryOption == 
-    'Shipped to your location contact us at 720-352-2151 to discuss'
-    ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
+  int shippingCost = viewModel.addCardModel.value.deliveryOption ==
+          'Shipped to your location contact us at 720-352-2151 to discuss'
+              ' delivery option, Fee is for roundTrip shipping (+\$150.00)'
       ? 150
       : 0;
 
   int rentalExtra = viewModel.extraRentalCost.value;
 
   viewModel.subtotal.value = baseCost + shippingCost + rentalExtra;
-
+  log(viewModel.subtotal.value.toString());
   return viewModel.subtotal.value.toString();
 }
-
 
 Widget calculatedCartTill(String title, String subTitle, Size screenSize) {
   return Padding(

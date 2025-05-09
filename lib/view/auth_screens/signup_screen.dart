@@ -28,6 +28,15 @@ class SignupScreen extends StatelessWidget {
       );
       return false;
     }
+    if (authController.lastNameController.text.isEmpty) {
+      // _showValidationError("Name is required", "Please enter your name");
+      Get.snackbar(
+        "Error",
+        "Please enter last name",
+        colorText: Colors.white,
+      );
+      return false;
+    }
     if (authController.emailController.text.isEmpty) {
       Get.snackbar(
         "Error",
@@ -109,8 +118,13 @@ class SignupScreen extends StatelessWidget {
                   SizedBox(height: screenSize.height * 0.04),
 
                   CustomTextField(
-                    hintText: "Full Name",
+                    hintText: "First Name",
                     controller: authController.nameController,
+                  ),
+                  SizedBox(height: screenSize.height * 0.02),
+                  CustomTextField(
+                    hintText: "Last Name",
+                    controller: authController.lastNameController,
                   ),
                   SizedBox(height: screenSize.height * 0.02),
                   CustomTextField(
@@ -140,30 +154,19 @@ class SignupScreen extends StatelessWidget {
                   AuthButton(
                       buttonText: "Register",
                       onPressed: () {
-                        if (true) {
+                        if (_validateFields()) {
                           FocusScope.of(context).unfocus();
                           authController
-                          .sendOtp(authController.phoneNumber.value);
-                          // authController.registerUser(
-                          //   user: UserModel(
-                          //     name: authController.nameController.text,
-                          //     email: authController.emailController.text,
-                          //     password: authController.passwordController.text,
-                          //     phone: authController.phoneNumber.value,
-                          //     refId: authController.referralCode.value,
-                          //   ),
-                          // );
-                        
-                          // Get.snackbar("info", authController.referralCode.value);
+                              .sendOtp(authController.phoneNumber.value);
                         }
                       },
                       isLoading: authController.isLoading),
                   // SizedBox(height: screenSize.height * 0.02),
-                  SizedBox(height: screenSize.height * 0.02),
-                  ScanQRCodeButton(
-                      buttonWidth: buttonWidth,
-                      buttonHeight: buttonHeight,
-                      screenSize: screenSize),
+                  // SizedBox(height: screenSize.height * 0.02),
+                  // ScanQRCodeButton(
+                  //     buttonWidth: buttonWidth,
+                  //     buttonHeight: buttonHeight,
+                  //     screenSize: screenSize),
                   SizedBox(height: screenSize.height * 0.03),
 
                   Center(

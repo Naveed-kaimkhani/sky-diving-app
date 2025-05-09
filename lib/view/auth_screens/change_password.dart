@@ -61,10 +61,10 @@ class ChangePassword extends StatelessWidget {
             AuthButton(
               buttonText: "Continue",
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BottomNavigation()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => BottomNavigation()),
+                // );
               },
               isLoading: false.obs,
             ),

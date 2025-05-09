@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:sky_diving/components/profile_item.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/app_images.dart';
-import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
+
+import '../popups/show_delete_dialogue.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -40,10 +41,14 @@ class ProfileScreen extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.green, width: 2),
                       ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          AppSvgIcons.profile, // Replace with actual image
-                          fit: BoxFit.cover,
+                      child: CircleAvatar(
+                        radius: 40, // Adjust the radius as needed
+                        backgroundColor:
+                            Colors.grey[300], // Placeholder background color
+                        child: Icon(
+                          Icons.person,
+                          size: 40,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -67,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: screenHeight * 0.03),
+              // SizedBox(height: screenHeight * 0.01),
 
               // Menu Items
               ProfileMenuItem(
@@ -95,11 +100,11 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteName.termsAndPrivacyScreen);
                   }),
-              // ProfileMenuItem(
-              //     title: "Help & Support",
-              //     onTap: () {
-              //       showContactBottomSheet(context);
-              //     }),
+              ProfileMenuItem(
+                  title: "Delete Account",
+                  onTap: () {
+                    Popups.showDeleteAccountDialog(context);
+                  }),
               ProfileMenuItem(
                   title: "Logout",
                   onTap: () {
