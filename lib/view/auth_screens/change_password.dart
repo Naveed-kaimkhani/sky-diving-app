@@ -87,9 +87,9 @@ class ChangePassword extends StatelessWidget {
                       colorText: Colors.white);
                 } else {
                   authController.checkPhoneNumber(
-                      // authController.phoneNumber.value,
+                      authController.phoneNumber.value,
 
-                      "+923103443527",
+                      // "+923103443527",
                       userController.token.value,
                       passwrodcontroller.text);
                 }

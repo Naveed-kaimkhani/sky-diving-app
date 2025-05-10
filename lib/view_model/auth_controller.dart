@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/models/user_model.dart';
 import 'package:sky_diving/services/auth_respository.dart';
+import 'package:sky_diving/view_model/user_controller.dart';
 
 class AuthController extends GetxController {
   final AuthRepository _authRepo = Get.find<AuthRepository>();
@@ -23,22 +24,8 @@ class AuthController extends GetxController {
   var referralCode = ''.obs;
   RxBool isLoading = false.obs;
 
-  // void sendOtp(String phoneNumber) {
-  //   isLoading.value = true;
+  final UserController userController = Get.find<UserController>();
 
-  //   _authRepo.sendOtp(
-  //     phoneNumber: phoneNumber,
-  //     onCodeSent: (verificationId) {
-  //       isLoading.value = false;
-  //       Get.toNamed(RouteName.oTPScreen, arguments: verificationId);
-  //     },
-  //     onFailed: (e) {
-  //       isLoading.value = false;
-  //       Get.snackbar("Error", e.message ?? "OTP failed",
-  //           colorText: Colors.white);
-  //     },
-  //   );
-  // }
   void sendOtp(String phoneNumber, {required bool isComingFromForgetPassword}) {
     isLoading.value = true;
 
@@ -85,9 +72,7 @@ class AuthController extends GetxController {
           newPassword: newPassword,
           userId: userId,
         );
-        // Get.snackbar("Success", "Password changed successfully",
-        //     colorText: Colors.white);
-        // Get.toNamed(RouteName.login);
+        Get.toNamed(RouteName.login);
       } else {
         final errorMsg = result["data"]["message"] ?? "Something went wrong";
         Get.snackbar("Error", errorMsg, colorText: Colors.white);
@@ -172,6 +157,7 @@ class AuthController extends GetxController {
       password: password,
       onSuccess: () {
         isLoading.value = false;
+
         Get.snackbar("Success", "Login successful", colorText: Colors.white);
         Get.offAllNamed(RouteName
             .bottomNavigation); // Navigate to home or dashboard after login
@@ -214,16 +200,14 @@ class AuthController extends GetxController {
   void deleteUser(int userId) {
     // log(userId.toString());
     _authRepo.deleteUser(
+      token: userController.token.value,
       userId: userId,
-      onSuccess: () {
+      onSuccess: () async {
+        await userController.logout();
+        Get.back();
         isLoading.value = false;
-        Get.back(); // Instead of Navigator.pop
-        Get.offAllNamed(RouteName.login);
-        // isDeleting.value = false;
-
         Get.snackbar("Success", "User deleted successfully",
             colorText: Colors.white);
-        // Navigate or update UI after deletion
       },
       onError: (message) {
         isLoading.value = false;

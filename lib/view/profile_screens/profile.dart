@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -35,23 +36,32 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      width: screenWidth * 0.24, // Responsive width
-                      height: screenWidth * 0.24, // Responsive height
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.green, width: 2),
-                      ),
-                      child: CircleAvatar(
-                        radius: 40, // Adjust the radius as needed
-                        backgroundColor:
-                            Colors.grey[300], // Placeholder background color
-                        child: Icon(
-                          Icons.person,
-                          size: 40,
-                          color: Colors.white,
+                        width: screenWidth * 0.24, // Responsive width
+                        height: screenWidth * 0.24, // Responsive height
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.green, width: 2),
                         ),
-                      ),
-                    ),
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.grey[300],
+                          backgroundImage:
+                              userController.user.value!.proiflePic != null &&
+                                      userController
+                                          .user.value!.proiflePic!.isNotEmpty
+                                  ? CachedNetworkImageProvider(userController
+                                      .user.value!.proiflePic!) as ImageProvider
+                                  : null,
+                          child: userController.user.value!.proiflePic ==
+                                      null ||
+                                  userController.user.value!.proiflePic!.isEmpty
+                              ? Icon(
+                                  Icons.person,
+                                  size: 40,
+                                  color: Colors.white,
+                                )
+                              : null,
+                        )),
                     SizedBox(height: screenHeight * 0.015),
                     Text(
                       "Welcome",

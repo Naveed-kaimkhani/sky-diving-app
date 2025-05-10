@@ -11,6 +11,8 @@ import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 import 'package:sky_diving/view_model/user_reward_controller.dart';
 
+import 'package:http/http.dart' as http;
+
 class AuthRepository {
   final ApiClient apiClient = Get.find<ApiClient>();
 
@@ -135,24 +137,34 @@ class AuthRepository {
   }
 
   Future<void> deleteUser({
-    required int userId,
+    required dynamic userId,
+    required String token,
     required VoidCallback onSuccess,
     required Function(String message) onError,
   }) async {
     try {
-      final body = {
-        'user_id': userId,
-      };
       log("before api hit");
-      log(json.encode(body));
-      final response = await apiClient.post(
-        url: ApiEndpoints.delete,
-        body: json.encode(body),
+
+      final response = await http.post(
+        Uri.parse(ApiEndpoints.delete),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', // <-- Add this line
+        },
+        body: jsonEncode({
+          "user_id": userId, // convert to string to avoid type error
+        }),
       );
-      log(response.body);
+
+      log("Response body: ${response.body}");
+      log("Status code: ${response.statusCode}");
+
       if (response.statusCode == 200) {
-        onSuccess(); // Call the success callback
-      } else {}
+        onSuccess();
+      } else {
+        final data = jsonDecode(response.body);
+        onError(data["message"] ?? "Failed to delete user.");
+      }
     } catch (e) {
       log(e.toString());
       onError("An error occurred while deleting the user.");
@@ -180,28 +192,66 @@ class AuthRepository {
     }
   }
 
+  // Future<Map<String, dynamic>> changePassword({
+  //   required String newPassword,
+  //   required int userId,
+  // }) async {
+  //   log("use rid is $userId");
+  //   final response = await apiClient.post(
+  //     url: ApiEndpoints.changePassword,
+  //     body: {
+  //       "user_id": userId,
+  //       "password": newPassword,
+  //     },
+  //   );
+  //   log(response.body);
+  //   final data = jsonDecode(response.body);
+
+  //   if (response.statusCode == 200) {
+  //     Get.snackbar("Success", "Password changed successfully",
+  //         colorText: Colors.white);
+  //     Get.toNamed(RouteName.login);
+  //     return {"success": true, "data": data};
+  //   } else {
+  //     return {"success": false, "data": data};
+  //   }
+  // }
   Future<Map<String, dynamic>> changePassword({
     required String newPassword,
     required int userId,
   }) async {
-    log("use rid is $userId");
-    final response = await apiClient.post(
-      url: ApiEndpoints.changePassword,
-      body: {
-        "user_id": userId,
-        "password": newPassword,
-      },
-    );
-    log(response.body);
-    final data = jsonDecode(response.body);
+    try {
+      log("user id is $userId");
 
-    if (response.statusCode == 200) {
-      Get.snackbar("Success", "Password changed successfully",
-          colorText: Colors.white);
-      Get.toNamed(RouteName.login);
-      return {"success": true, "data": data};
-    } else {
-      return {"success": false, "data": data};
+      final response = await http.post(
+        Uri.parse(ApiEndpoints.changePassword),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "user_id": userId,
+          "password": newPassword,
+          "password_confirmation": newPassword
+        }),
+      );
+
+      log(response.body);
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        Get.snackbar("Success", "Password changed successfully",
+            colorText: Colors.white);
+        Get.toNamed(RouteName.login);
+        return {"success": true, "data": data};
+      } else {
+        return {"success": false, "data": data};
+      }
+    } catch (e) {
+      log("Error changing password: ${e.toString()}");
+      return {
+        "success": false,
+        "data": {"message": "An error occurred"}
+      };
     }
   }
 }
