@@ -212,6 +212,8 @@ import 'package:get/get.dart';
 import 'package:sky_diving/chat_screen/load_message_animation.dart';
 import 'package:sky_diving/components/chat_input_widget.dart';
 import 'package:sky_diving/components/message_widget.dart';
+import 'package:sky_diving/constants/app_colors.dart';
+import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/models/message_model.dart';
 import 'package:sky_diving/services/messaging_api.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
@@ -315,68 +317,70 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // log(widget.guid);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: StreamBuilder<List<MessageModel>>(
-              stream: viewModel.messagesStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return LoadMessageAnimation();
-                }
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text("No messages found"));
-                }
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildGroupAppBar(),
+            Expanded(
+              child: StreamBuilder<List<MessageModel>>(
+                stream: viewModel.messagesStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(child: Text(snapshot.error.toString()));
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return LoadMessageAnimation();
+                  }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text("No messages found"));
+                  }
 
-                final messages = snapshot.data!;
+                  final messages = snapshot.data!;
 
-                return ListView.builder(
-                  reverse: true,
-                  controller: _scrollController,
-                  padding: EdgeInsets.all(16),
-                  itemCount:
-                      (_isLoadingOlderMessages ? 1 : 0) + messages.length,
-                  itemBuilder: (context, index) {
-                    if (_isLoadingOlderMessages && index == 0) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+                  return ListView.builder(
+                    reverse: true,
+                    controller: _scrollController,
+                    padding: EdgeInsets.all(16),
+                    itemCount:
+                        (_isLoadingOlderMessages ? 1 : 0) + messages.length,
+                    itemBuilder: (context, index) {
+                      if (_isLoadingOlderMessages && index == 0) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-                    final messageIndex =
-                        index - (_isLoadingOlderMessages ? 1 : 0);
+                      final messageIndex =
+                          index - (_isLoadingOlderMessages ? 1 : 0);
 
-                    // ✅ Safety check
-                    if (messageIndex < 0 || messageIndex >= messages.length) {
-                      return const SizedBox.shrink();
-                    }
+                      // ✅ Safety check
+                      if (messageIndex < 0 || messageIndex >= messages.length) {
+                        return const SizedBox.shrink();
+                      }
 
-                    // return ChatMessageWidget(message: messages[messageIndex]);
-                    return ChatMessageWidget(
-                      message: messages[messageIndex].message,
-                      isMe: messages[messageIndex].isMe,
-                    );
-                  },
-                );
+                      // return ChatMessageWidget(message: messages[messageIndex]);
+                      return ChatMessageWidget(
+                        message: messages[messageIndex].message,
+                        isMe: messages[messageIndex].isMe,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            ChatInputWidget(
+              onSend: (message) {
+                viewModel.sendMessage(message).then((_) {
+                  _scrollToBottom();
+                  setState(() {
+                    viewModel.replyingTo.value = null;
+                  });
+                });
               },
             ),
-          ),
-          ChatInputWidget(
-            onSend: (message) {
-              viewModel.sendMessage(message).then((_) {
-                _scrollToBottom();
-                setState(() {
-                  viewModel.replyingTo.value = null;
-                });
-              });
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -387,4 +391,41 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
       isMe: message.isMe,
     );
   }
+}
+
+Widget _buildGroupAppBar() {
+  return Container(
+    // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    decoration: BoxDecoration(
+      color: Colors.black,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          blurRadius: 4,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        Row(
+          children: [
+            BackButton(
+              color: Colors.white,
+            ),
+            Image.asset(AppImages.groupProfile),
+          ],
+        ),
+        const SizedBox(width: 12),
+        Text(
+          "Customer support",
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  );
 }
