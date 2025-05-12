@@ -113,15 +113,12 @@ class LoginScreen extends StatelessWidget {
                   AuthButton(
                     buttonText: "Login",
                     onPressed: () {
-                      if (true) {
+                      if (_validateFields()) {
                         FocusScope.of(context).unfocus();
                         authController.loginUser(
-                          // email: authController.emailController.text.trim(),
-                          // password:
-                          //     authController.passwordController.text.trim(),
-
-                          email: "kkkhan@gmail.com",
-                          password: "111111",
+                          email: authController.emailController.text.trim(),
+                          password:
+                              authController.passwordController.text.trim(),
                         );
                       }
                     },

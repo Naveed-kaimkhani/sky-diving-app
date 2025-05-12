@@ -36,6 +36,10 @@ class AppRoutes {
             name: RouteName.mainPage,
             page: () => WebView(),
             transition: Transition.cupertino),
+              GetPage(
+            name: RouteName.chatScreen,
+            page: () => GroupChatScreen(),
+            transition: Transition.cupertino),
         GetPage(
             name: RouteName.qrCode,
             page: () => QrCode(),
@@ -56,40 +60,40 @@ class AppRoutes {
             name: RouteName.addOrderCard,
             page: () => AddOrderCard(),
             transition: Transition.cupertino),
-        GetPage(
-            name: RouteName.chatScreen,
-            page: () => GroupChatScreen(
-                  memberCount: 2,
-                  groupName: 'Customer Support',
-                  initialMessages: [
-                    ChatMessage(
-                      text: "Hello everyone!",
-                      sender: "Alice",
-                      isMe: false,
-                      timestamp: DateTime.now().subtract(Duration(minutes: 30)),
-                    ),
-                    ChatMessage(
-                      text: "Hi Alice! How are you?",
-                      sender: "Bob",
-                      isMe: false,
-                      timestamp: DateTime.now().subtract(Duration(minutes: 25)),
-                    ),
-                    ChatMessage(
-                      text: "I'm good, thanks!",
-                      sender: "Alice",
-                      isMe: true,
-                      timestamp: DateTime.now().subtract(Duration(minutes: 20)),
-                    ),
-                    ChatMessage(
-                      text: "Great to hear!",
-                      sender: "Bob",
-                      isMe: false,
-                      timestamp: DateTime.now().subtract(Duration(minutes: 15)),
-                    ),
-                  ],
-                  profileImage: AppImages.groupProfile,
-                ),
-            transition: Transition.cupertino),
+        // GetPage(
+        //     name: RouteName.chatScreen,
+        //     page: () => GroupChatScreen(
+        //           memberCount: 2,
+        //           groupName: 'Customer Support',
+        //           initialMessages: [
+        //             ChatMessage(
+        //               text: "Hello everyone!",
+        //               sender: "Alice",
+        //               isMe: false,
+        //               timestamp: DateTime.now().subtract(Duration(minutes: 30)),
+        //             ),
+        //             ChatMessage(
+        //               text: "Hi Alice! How are you?",
+        //               sender: "Bob",
+        //               isMe: false,
+        //               timestamp: DateTime.now().subtract(Duration(minutes: 25)),
+        //             ),
+        //             ChatMessage(
+        //               text: "I'm good, thanks!",
+        //               sender: "Alice",
+        //               isMe: true,
+        //               timestamp: DateTime.now().subtract(Duration(minutes: 20)),
+        //             ),
+        //             ChatMessage(
+        //               text: "Great to hear!",
+        //               sender: "Bob",
+        //               isMe: false,
+        //               timestamp: DateTime.now().subtract(Duration(minutes: 15)),
+        //             ),
+        //           ],
+        //           profileImage: AppImages.groupProfile,
+        //         ),
+        //     transition: Transition.cupertino),
         GetPage(
             name: RouteName.referralHistory,
             page: () => ReferralHistory(),

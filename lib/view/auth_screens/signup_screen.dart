@@ -149,15 +149,15 @@ class SignupScreen extends StatelessWidget {
                       hintText: "Confirm Password",
                       obscureText: true,
                       controller: authController.confirmPasswordController),
-
                   SizedBox(height: screenSize.height * 0.03),
                   AuthButton(
                       buttonText: "Register",
                       onPressed: () {
                         if (_validateFields()) {
                           FocusScope.of(context).unfocus();
-                          authController
-                              .sendOtp(authController.phoneNumber.value, isComingFromForgetPassword: false);
+                          authController.sendOtp(
+                              authController.phoneNumber.value,
+                              isComingFromForgetPassword: false);
                         }
                       },
                       isLoading: authController.isLoading),

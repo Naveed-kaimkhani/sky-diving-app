@@ -17,7 +17,7 @@ class ReferralRepository {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json', // optional, but recommended
         },
-      );
+      ).timeout(const Duration(seconds: 15));
       log("fetch referral hit");
       log(response.body);
       if (response.statusCode == 200) {

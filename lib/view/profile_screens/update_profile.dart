@@ -287,6 +287,72 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
   }
 
+  // Future<void> updateUserProfile() async {
+  //   if (!hasChanges) {
+  //     Get.snackbar("Info", "No changes detected", colorText: Colors.white);
+  //     return;
+  //   }
+
+  //   authController.isLoading.value = true;
+
+  //   try {
+  //     var url =
+  //         Uri.parse('https://deinfini.com/info/public/api/update-profile');
+  //     var request = http.MultipartRequest('POST', url);
+
+  //     request.headers.addAll({
+  //       'Authorization': 'Bearer ${userController.token.value}',
+  //       'Accept': 'application/json',
+  //     });
+
+  //     final user = userController.user.value;
+
+  //     request.fields['user_id'] = user?.id.toString() ?? '';
+  //     request.fields['first_name'] = firstName.text;
+  //     request.fields['last_name'] = lastname.text;
+
+  //     if (profilePhoto != null) {
+  //       request.files.add(
+  //           await http.MultipartFile.fromPath('avatar', profilePhoto!.path));
+  //     }
+
+  //     var response = await request.send();
+  //     log(response.statusCode.toString());
+
+  //     if (response.statusCode == 200) {
+  //       final responseBody = await response.stream.bytesToString();
+  //       final Map<String, dynamic> responseData = jsonDecode(responseBody);
+
+  //       final String userName = responseData["data"]["first_name"];
+  //       final String lastName = responseData["data"]["last_name"];
+  //       final String? profileImage = responseData["data"]["avatar_url"];
+
+  //       final prefs = await SharedPreferences.getInstance();
+  //       await prefs.setString('first_name', userName);
+  //       await prefs.setString('avatar_url', profileImage ?? '');
+  //       await prefs.setString('last_name', lastName);
+
+  //       await userController.getUserFromPrefs();
+  //       Get.snackbar("Success", "Profile Updated Successfully",
+  //           colorText: Colors.white);
+  //       Get.offAll(() => SplashScreen());
+  //     } else {
+  //       final responseBody = await response.stream.bytesToString();
+  //       final errorData = jsonDecode(responseBody);
+  //       log(errorData);
+  //       Get.snackbar(
+  //           "Error", errorData['message'] ?? 'Failed to update profile',
+  //           colorText: Colors.white);
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //     Get.snackbar("Error", "Failed to update profile: ${e.toString()}",
+  //         colorText: Colors.white);
+  //   } finally {
+  //     authController.isLoading.value = false;
+  //   }
+  // }
+
   Future<void> updateUserProfile() async {
     if (!hasChanges) {
       Get.snackbar("Info", "No changes detected", colorText: Colors.white);
@@ -312,15 +378,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
       request.fields['last_name'] = lastname.text;
 
       if (profilePhoto != null) {
-        request.files.add(await http.MultipartFile.fromPath(
-            'avatar_url', profilePhoto!.path));
+        request.files.add(
+          await http.MultipartFile.fromPath('avatar', profilePhoto!.path),
+        );
       }
 
       var response = await request.send();
-      log(response.statusCode.toString());
+      final responseBody = await response.stream.bytesToString();
 
       if (response.statusCode == 200) {
-        final responseBody = await response.stream.bytesToString();
         final Map<String, dynamic> responseData = jsonDecode(responseBody);
 
         final String userName = responseData["data"]["first_name"];
@@ -329,7 +395,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('first_name', userName);
-        await prefs.setString('profile_photo_url', profileImage ?? '');
+        await prefs.setString('avatar_url', profileImage ?? '');
         await prefs.setString('last_name', lastName);
 
         await userController.getUserFromPrefs();
@@ -337,13 +403,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
             colorText: Colors.white);
         Get.offAll(() => SplashScreen());
       } else {
-        final responseBody = await response.stream.bytesToString();
-        final errorData = jsonDecode(responseBody);
-        Get.snackbar(
-            "Error", errorData['message'] ?? 'Failed to update profile',
-            colorText: Colors.white);
+        try {
+          final errorData = jsonDecode(responseBody);
+          final errorMessage =
+              errorData['message'] ?? 'Failed to update profile';
+          Get.snackbar("Error", errorMessage, colorText: Colors.white);
+        } catch (e) {
+          // If responseBody is not a JSON object, display it directly
+          Get.snackbar("Error", responseBody, colorText: Colors.white);
+        }
       }
     } catch (e) {
+      log(e.toString());
       Get.snackbar("Error", "Failed to update profile: ${e.toString()}",
           colorText: Colors.white);
     } finally {
@@ -481,11 +552,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
             //   onPressed: hasChanges ? updateUserProfile : null,
             //   isLoading: authController.isLoading,
             // )),
-            Obx(() => AuthButton(
-                  buttonText: "Update",
-                  onPressed: hasChanges ? () => updateUserProfile() : () {},
-                  isLoading: authController.isLoading,
-                )),
+            Center(
+              child: Obx(() => AuthButton(
+                    buttonText: "Update",
+                    onPressed: hasChanges ? () => updateUserProfile() : () {},
+                    isLoading: authController.isLoading,
+                  )),
+            ),
           ],
         ),
       ),

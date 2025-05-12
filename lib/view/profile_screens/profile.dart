@@ -36,8 +36,8 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                        width: screenWidth * 0.24, // Responsive width
-                        height: screenWidth * 0.24, // Responsive height
+                        width: screenWidth * 0.24, 
+                        height: screenWidth * 0.24,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.green, width: 2),
@@ -82,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              // SizedBox(height: screenHeight * 0.01),
+              SizedBox(height: screenHeight * 0.02),
 
               // Menu Items
               ProfileMenuItem(
@@ -95,11 +95,7 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteName.couponsScreen);
                   }),
-              ProfileMenuItem(
-                  title: "Change Password",
-                  onTap: () {
-                    Get.toNamed(RouteName.changePassword);
-                  }),
+             
               ProfileMenuItem(
                   title: "FAQs",
                   onTap: () {

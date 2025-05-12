@@ -32,8 +32,9 @@ class UserController extends GetxController {
     await prefs.setString('last_name', user.lastName);
     await prefs.setString('email', user.email);
     await prefs.setString('phone', user.phone);
+    await prefs.setString('phone', user.phone);
 
-    await prefs.setString('avatar_url', user.proiflePic??"");
+    await prefs.setString('avatar_url', user.proiflePic ?? "");
     await prefs.setString('square_user_id', user.squareUserId!);
     await prefs.setString('ref_id', user.refId!);
     await prefs.setString('invited_ref_ids', user.invitedRefIds!);

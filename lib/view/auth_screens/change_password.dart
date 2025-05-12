@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
-import 'package:sky_diving/navigation_bar.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
@@ -24,7 +24,7 @@ class ChangePassword extends StatelessWidget {
         backgroundColor: Colors.black,
         elevation: 0,
         leading: GestureDetector(
-          onTap: () => Get.back(),
+          onTap: () => Get.toNamed(RouteName.forgetPassword),
           child: Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
@@ -96,7 +96,7 @@ class ChangePassword extends StatelessWidget {
               },
               isLoading: authController.isLoading,
             ),
-            SizedBox(height: screenHeight * 0.05), // 4% of screen height
+            SizedBox(height: screenHeight * 0.06), // 4% of screen height
           ],
         ),
       ),

@@ -9,7 +9,7 @@ class ChatMessageWidget extends StatelessWidget {
   final List<String> seenBy; // Optional: for seen receipts
 
   const ChatMessageWidget({
-    super.key, 
+    super.key,
     required this.message,
     this.sender = "User",
     this.timestamp = 0,
@@ -33,7 +33,8 @@ class ChatMessageWidget extends StatelessWidget {
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
-        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           // Chat Bubble
           Container(
@@ -41,12 +42,12 @@ class ChatMessageWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 10),
             padding: EdgeInsets.all(padding),
             decoration: BoxDecoration(
-                border: Border.all(
-    color: isMe 
-        ? AppColors.primaryColor // Outline color for your messages
-        : Colors.transparent, // Outline color for others' messages
-    width: 1.0,
-  ),
+              border: Border.all(
+                color: isMe
+                    ? AppColors.primaryColor // Outline color for your messages
+                    : Colors.transparent, // Outline color for others' messages
+                width: 1.0,
+              ),
               color: isMe
                   ? Color.fromARGB(255, 33, 65, 36) // Your gradient colors
                   : AppColors.grey,
@@ -67,11 +68,10 @@ class ChatMessageWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              
                 Text(
                   message,
                   style: TextStyle(
-                    color:  Colors.white,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: padding * 0.8),
@@ -82,15 +82,14 @@ class ChatMessageWidget extends StatelessWidget {
                       _formatTimestamp(timestamp),
                       style: TextStyle(
                         fontSize: screenWidth * 0.028,
-                        color:Colors.white70,
+                        color: Colors.white70,
                       ),
                     ),
                     if (isMe && seenBy.isNotEmpty)
                       Row(
                         children: [
-                          Icon(Icons.done_all, 
-                              size: screenWidth * 0.035,
-                              color: Colors.white70),
+                          Icon(Icons.done_all,
+                              size: screenWidth * 0.035, color: Colors.white70),
                           SizedBox(width: 4),
                           Text(
                             'Seen',
