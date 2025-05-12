@@ -57,8 +57,8 @@ class GroupChatViewModel extends GetxController {
           "onBehalfOf": userId,
         },
       );
-      log("resposne body");
-      log(response.body);
+      // log("resposne body");
+      // log(response.body);
       if (response.statusCode == 200) {
         final dynamic responseData = jsonDecode(response.body);
         final List<dynamic> rawMessages = responseData['data'] ?? [];
@@ -138,7 +138,7 @@ class GroupChatViewModel extends GetxController {
             "text": message,
           },
           "receiver": "1",
-          "receiverType": "userhi",
+          "receiverType": "user",
         }),
       );
       log(response.body);

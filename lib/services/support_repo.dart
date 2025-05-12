@@ -36,8 +36,8 @@
 //   }
 // }
 
-
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
@@ -59,7 +59,8 @@ class SupportRepo {
     // 📎 Add files if available
     if (files != null && files.isNotEmpty) {
       for (var file in files) {
-        request.files.add(await http.MultipartFile.fromPath('files[]', file.path));
+        request.files
+            .add(await http.MultipartFile.fromPath('files[]', file.path));
       }
     }
 
@@ -71,7 +72,8 @@ class SupportRepo {
 
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-
+    log(response.statusCode.toString());
+    log(response.body);
     final data = jsonDecode(response.body);
     return {
       "success": response.statusCode == 200,
