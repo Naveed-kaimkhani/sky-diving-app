@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final IconData? iconData;
   final ValueChanged<String>? onChanged;
+  final bool? readOnly;  // Make readOnly nullable
 
   const CustomTextField({
     Key? key,
@@ -16,6 +17,8 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.controller,
     this.keyboardType,
+        this.readOnly,  // The readOnly parameter is now nullable
+
     this.obscureText = false,
     this.onChanged,
   }) : super(key: key);
@@ -30,7 +33,7 @@ class CustomTextField extends StatelessWidget {
       style: const TextStyle(color: Colors.white), // 👈 This sets the entered text color
       onChanged: onChanged,
       cursorColor: Colors.white,
-
+readOnly: readOnly ?? false,
       //  style: const TextStyle(color: Colors.white), 
       decoration: InputDecoration(
         suffixIcon:  Icon(iconData),

@@ -107,6 +107,8 @@ class AuthRepository {
         final UserRewardController _controller =
             Get.put(UserRewardController(), permanent: true);
         await _controller.fetchUserRewards(userController.token.value);
+
+
         onSuccess(); // Trigger on success callback
       } else {
         final error = jsonDecode(response.body);

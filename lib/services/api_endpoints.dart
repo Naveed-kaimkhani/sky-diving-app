@@ -1,5 +1,5 @@
 class ApiEndpoints {
-  static const String baseUrl = "https://deinfini.com/info/public/api";
+  static const String baseUrl = "https://skydiverentalapp.com/api";
 
   static const String register = "$baseUrl/register";
 
@@ -21,8 +21,6 @@ class ApiEndpoints {
 
   static const String changePassword = "$baseUrl/change-password";
 
-////////// CometChat Apis //////////////
-  ///
 
   static const String sendMessage =
       "https://274934fb7af66daf.api-us.cometchat.io/v3/messages";

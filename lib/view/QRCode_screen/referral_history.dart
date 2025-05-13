@@ -83,7 +83,6 @@ import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/components/label_text.dart';
 import 'package:sky_diving/testt.dart';
-import 'package:sky_diving/utils/utils.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 import 'package:sky_diving/view_model/user_reward_controller.dart';
 
@@ -91,7 +90,9 @@ class ReferralHistory extends StatelessWidget {
   ReferralHistory({super.key});
 
   final UserController userController = Get.find<UserController>();
-  final userRewardController = Get.find<UserRewardController>();
+  // final userRewardController = Get.find<UserRewardController>();
+
+  final userRewardController = Get.put(UserRewardController());
 
   @override
   Widget build(BuildContext context) {

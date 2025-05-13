@@ -1,228 +1,4 @@
-// import 'dart:convert';
-// import 'dart:developer';
-// import 'dart:io';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:sky_diving/components/auth_button.dart';
-// import 'package:sky_diving/components/custom_textfield.dart';
-// import 'package:sky_diving/components/title_appbar.dart';
-// import 'package:sky_diving/view/splash_screen.dart';
-// import 'package:sky_diving/view_model/auth_controller.dart';
-// import 'package:sky_diving/view_model/user_controller.dart';
 
-// import 'package:http/http.dart' as http;
-
-// class UpdateProfile extends StatefulWidget {
-//   UpdateProfile({Key? key}) : super(key: key);
-
-//   @override
-//   State<UpdateProfile> createState() => _UpdateProfileState();
-// }
-
-// class _UpdateProfileState extends State<UpdateProfile> {
-//   final UserController userController = Get.find<UserController>();
-
-//   final AuthController authController = Get.put(AuthController());
-
-//   TextEditingController firstName = TextEditingController();
-
-//   TextEditingController lastname = TextEditingController();
-
-//   File? profilePhoto;
-
-//   Future<void> pickImage(bool isProfile) async {
-//     final pickedFile =
-//         await ImagePicker().pickImage(source: ImageSource.gallery);
-//     if (pickedFile != null) {
-//       setState(() {
-//         if (isProfile) {
-//           profilePhoto = File(pickedFile.path);
-//         } else {}
-//       });
-//     }
-//   }
-
-//   Future<void> updateUserProfile() async {
-//     if (true) {
-//       authController.isLoading.value =
-//           true; // Set isLoading to true when the API call starts
-
-//       try {
-//         var url =
-//             Uri.parse('https://deinfini.com/info/public/api/update-profile');
-//         var request = http.MultipartRequest('POST', url);
-
-//         request.headers.addAll({
-//           'Authorization': 'Bearer ${userController.token.value}',
-//           'Accept': 'application/json',
-//         });
-
-//         final user = userController.user.value;
-
-//         // Add required fields
-//         request.fields['user_id'] = user?.id.toString() ?? '';
-//         request.fields['first_name'] =
-//             firstName.text.isEmpty ? (user?.name ?? '') : firstName.text;
-//         request.fields['last_name'] =
-//             lastname.text.isEmpty ? (user?.lastName ?? '') : lastname.text;
-
-//         // Add avatar image if selected
-//         if (profilePhoto != null) {
-//           request.files.add(await http.MultipartFile.fromPath(
-//               'avatar_url', profilePhoto!.path));
-//         }
-
-//         var response = await request.send();
-//         log(response.statusCode.toString());
-//         if (response.statusCode == 200) {
-//           final responseBody = await response.stream.bytesToString();
-//           final Map<String, dynamic> responseData = jsonDecode(responseBody);
-
-//           final String userName = responseData["data"]["first_name"];
-//           final String lastName = responseData["data"]["last_name"];
-//           final String? profileImage = responseData["data"]["avatar_url"];
-
-//           final prefs = await SharedPreferences.getInstance();
-//           await prefs.setString('first_name', userName);
-//           await prefs.setString('profile_photo_url', profileImage ?? '');
-//           await prefs.setString('last_name', lastName);
-
-//           await userController.getUserFromPrefs();
-//           Get.snackbar("Info", "Profile Updated Successfully",
-//               colorText: Colors.white);
-//           Get.offAll(() => SplashScreen());
-//         } else {
-//           final responseBody = await response.stream.bytesToString();
-//           final errorData = jsonDecode(responseBody);
-//           Get.snackbar(
-//               "Error", errorData['message'] ?? 'Failed to update profile',
-//               colorText: Colors.white);
-//         }
-//       } catch (e) {
-//         Get.snackbar("Exception", e.toString(), colorText: Colors.white);
-//       } finally {
-//         authController.isLoading.value =
-//             false; // Set isLoading to false when the API call completes
-//       }
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final screenWidth = MediaQuery.of(context).size.width;
-//     final screenHeight = MediaQuery.of(context).size.height;
-
-//     return Scaffold(
-//       backgroundColor: Colors.black,
-//       appBar: TitleAppBar(
-//         onBackPressed: () => Get.back(),
-//         title: "Update Profile",
-//       ),
-//       body: Padding(
-//         padding: EdgeInsets.symmetric(
-//           horizontal: screenWidth * 0.05, // Responsive padding
-//           vertical: screenHeight * 0.02,
-//         ),
-//         child: Column(
-//           children: [
-//             SizedBox(height: screenHeight * 0.08),
-
-//             // Profile Image
-//             Stack(
-//               children: [
-//                 Center(
-//                   child: Container(
-//                     width: screenWidth * 0.24, // Responsive width
-//                     height: screenWidth * 0.24, // Responsive height
-//                     decoration: BoxDecoration(
-//                       shape: BoxShape.circle,
-//                       border: Border.all(color: Colors.green, width: 2),
-//                     ),
-//                     child: GestureDetector(
-//                       onTap: () =>
-//                           pickImage(true), // Your existing image picker
-//                       child: ClipOval(
-//                         child: Container(
-//                           width: 100,
-//                           height: 100,
-//                           decoration: BoxDecoration(
-//                             color: Colors.grey[300],
-//                             image: profilePhoto != null
-//                                 ? DecorationImage(
-//                                     image: FileImage(profilePhoto!),
-//                                     fit: BoxFit.cover,
-//                                   )
-//                                 : (userController.user.value?.proiflePic
-//                                             ?.isNotEmpty ??
-//                                         false
-//                                     ? DecorationImage(
-//                                         image: NetworkImage(userController
-//                                             .user.value!.proiflePic!),
-//                                         fit: BoxFit.cover,
-//                                       )
-//                                     : null),
-//                           ),
-//                           child: Icon(
-//                             Icons.camera_alt,
-//                             size: 50,
-//                             color: Colors.grey[600],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 Positioned(
-//                     top: 60,
-//                     left: 200,
-//                     child: Container(
-//                       height: screenWidth * 0.08, // Adaptive size
-//                       width: screenWidth * 0.08,
-//                       decoration: BoxDecoration(
-//                         color: Colors.green,
-//                         shape: BoxShape.circle,
-//                       ),
-//                       child: Icon(
-//                         Icons.camera_alt_outlined,
-//                         color: Colors.black,
-//                         size: screenWidth * 0.06,
-//                       ),
-//                     ))
-//               ],
-//             ),
-
-//             SizedBox(height: screenHeight * 0.05),
-
-//             CustomTextField(
-//                 controller: firstName,
-//                 hintText: userController.user.value!.name),
-
-//             SizedBox(height: screenHeight * 0.02),
-//             CustomTextField(
-//                 controller: lastname,
-//                 hintText: userController.user.value!.lastName),
-//             SizedBox(height: screenHeight * 0.02),
-//             CustomTextField(
-//                 hintText: userController.user.value!.email, obscureText: true),
-//             SizedBox(height: screenHeight * 0.02),
-//             CustomTextField(
-//                 hintText: userController.user.value!.phone, obscureText: true),
-//             SizedBox(height: screenHeight * 0.04),
-//             AuthButton(
-//               buttonText: "Update",
-//               onPressed: () {
-//                 updateUserProfile();
-//               },
-//               isLoading: false.obs,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 import 'dart:convert';
 import 'dart:developer';
@@ -287,71 +63,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
   }
 
-  // Future<void> updateUserProfile() async {
-  //   if (!hasChanges) {
-  //     Get.snackbar("Info", "No changes detected", colorText: Colors.white);
-  //     return;
-  //   }
-
-  //   authController.isLoading.value = true;
-
-  //   try {
-  //     var url =
-  //         Uri.parse('https://deinfini.com/info/public/api/update-profile');
-  //     var request = http.MultipartRequest('POST', url);
-
-  //     request.headers.addAll({
-  //       'Authorization': 'Bearer ${userController.token.value}',
-  //       'Accept': 'application/json',
-  //     });
-
-  //     final user = userController.user.value;
-
-  //     request.fields['user_id'] = user?.id.toString() ?? '';
-  //     request.fields['first_name'] = firstName.text;
-  //     request.fields['last_name'] = lastname.text;
-
-  //     if (profilePhoto != null) {
-  //       request.files.add(
-  //           await http.MultipartFile.fromPath('avatar', profilePhoto!.path));
-  //     }
-
-  //     var response = await request.send();
-  //     log(response.statusCode.toString());
-
-  //     if (response.statusCode == 200) {
-  //       final responseBody = await response.stream.bytesToString();
-  //       final Map<String, dynamic> responseData = jsonDecode(responseBody);
-
-  //       final String userName = responseData["data"]["first_name"];
-  //       final String lastName = responseData["data"]["last_name"];
-  //       final String? profileImage = responseData["data"]["avatar_url"];
-
-  //       final prefs = await SharedPreferences.getInstance();
-  //       await prefs.setString('first_name', userName);
-  //       await prefs.setString('avatar_url', profileImage ?? '');
-  //       await prefs.setString('last_name', lastName);
-
-  //       await userController.getUserFromPrefs();
-  //       Get.snackbar("Success", "Profile Updated Successfully",
-  //           colorText: Colors.white);
-  //       Get.offAll(() => SplashScreen());
-  //     } else {
-  //       final responseBody = await response.stream.bytesToString();
-  //       final errorData = jsonDecode(responseBody);
-  //       log(errorData);
-  //       Get.snackbar(
-  //           "Error", errorData['message'] ?? 'Failed to update profile',
-  //           colorText: Colors.white);
-  //     }
-  //   } catch (e) {
-  //     log(e.toString());
-  //     Get.snackbar("Error", "Failed to update profile: ${e.toString()}",
-  //         colorText: Colors.white);
-  //   } finally {
-  //     authController.isLoading.value = false;
-  //   }
-  // }
 
   Future<void> updateUserProfile() async {
     if (!hasChanges) {
@@ -360,10 +71,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
 
     authController.isLoading.value = true;
-
+// https://skydiverentalapp.com/api
     try {
       var url =
-          Uri.parse('https://deinfini.com/info/public/api/update-profile');
+          Uri.parse('https://skydiverentalapp.com/api/update-profile');
       var request = http.MultipartRequest('POST', url);
 
       request.headers.addAll({
@@ -534,6 +245,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             SizedBox(height: screenHeight * 0.02),
 
             CustomTextField(
+              readOnly: true,
               hintText: user?.email ?? 'Email',
               obscureText: false,
             ),
@@ -541,17 +253,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
             SizedBox(height: screenHeight * 0.02),
 
             CustomTextField(
+              readOnly: true,
               hintText: user?.phone ?? 'Phone',
               obscureText: false,
             ),
 
             SizedBox(height: screenHeight * 0.04),
 
-            // Obx(() => AuthButton(
-            //   buttonText: "Update",
-            //   onPressed: hasChanges ? updateUserProfile : null,
-            //   isLoading: authController.isLoading,
-            // )),
+           
             Center(
               child: Obx(() => AuthButton(
                     buttonText: "Update",

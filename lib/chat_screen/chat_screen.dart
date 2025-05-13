@@ -42,8 +42,6 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
       if (_shouldScrollToBottom && messages.isNotEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (_scrollController.hasClients) {
-            // _scrollController
-            //     .jumpTo(_scrollController.position.maxScrollExtent);
             _scrollController.jumpTo(0); // or animateTo(0)
           }
         });
