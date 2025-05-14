@@ -4,8 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:9b26v.test-app.link</string>
-		<string>applinks:9b26v-alternate.test-app.link</string>
+		<string>applinks:9b26v.app.link</string>
+		<string>applinks:9b26v-alternate.app.link</string>
 	</array>
 	<key>com.apple.developer.associated-domains.mdm-managed</key>
 	<true/>
