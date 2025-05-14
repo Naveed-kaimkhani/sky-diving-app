@@ -31,16 +31,8 @@
 			<array>
 				<string>com.googleusercontent.apps.208149054118-dmomc3vb0ftqosbnms1gidep076c35b5</string>
 				<string>app-1-208149054118-ios-df22a337304e1545956a67</string>
-				<string>key_live_iCycjSdNGLIHg00VGlBStlhcEDjOseXe</string>
+				<string>https://www.sgras.com/</string>
 			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>branch_key</string>
-			<key>CFBundleURLSchemes</key>
-			<array/>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

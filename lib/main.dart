@@ -11,8 +11,6 @@ import 'package:sky_diving/view/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // ignore: deprecated_member_use
-  // await FlutterBranchSdk.init(enableLogging: false, disableTracking: false);
  await FlutterBranchSdk.init().then((value) {
    FlutterBranchSdk.validateSDKIntegration();
  });
