@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/navigation_button.dart';
@@ -16,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final UserController userController = Get.find<UserController>();
-  final referralController = Get.put(ReferralController());
+  final ReferralController referralController = Get.find<ReferralController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +44,8 @@ class HomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics()),
           slivers: [
-            CupertinoSliverRefreshControl(
-              onRefresh: referralController.fetchReferralData,
-            ),
             SliverPadding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: isSmallScreen ? 10.0 : 20.0),
+              padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 10.0 : 20.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   SizedBox(height: screenHeight * 0.02),
@@ -78,8 +73,6 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   RewardBalanceCard(
                     onTap: () => Get.toNamed(RouteName.mainPage),
-
-                    // onTap: () => Utils.launchWebUrl,
                     width: screenWidth * 0.18,
                     height: screenHeight * 0.08,
                     coinImage: null,
@@ -127,8 +120,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       NavigationButton(
                         text: "Help & Support",
-                        onPressed: () =>
-                            Get.toNamed(RouteName.emailSupportScreen),
+                        onPressed: () => Get.toNamed(RouteName.emailSupportScreen),
                         width: screenWidth * 0.4,
                       ),
                     ],
@@ -143,5 +135,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
