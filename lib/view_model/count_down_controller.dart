@@ -22,6 +22,7 @@ class CountdownController extends GetxController {
   }
 
   void resetTimer() {
+    
     timeLeft.value = 60; // Reset to 60 seconds
     startTimer();
   }

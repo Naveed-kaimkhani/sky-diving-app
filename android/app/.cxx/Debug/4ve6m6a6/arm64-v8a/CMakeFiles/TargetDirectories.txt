@@ -1,0 +1,2 @@
+/Users/naveedkk/Desktop/sky-diving-app/android/app/.cxx/Debug/4ve6m6a6/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/naveedkk/Desktop/sky-diving-app/android/app/.cxx/Debug/4ve6m6a6/arm64-v8a/CMakeFiles/rebuild_cache.dir

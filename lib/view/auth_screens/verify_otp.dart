@@ -1,59 +1,23 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sky_diving/components/auth_button.dart';
+import 'package:sky_diving/components/pincode_field.dart';
 import 'package:sky_diving/components/resend_button.dart';
-import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/routes_name.dart';
-
-class OTPController extends GetxController {
-  final otpController = TextEditingController();
-  final _secondsRemaining = 96.obs;
-  final _isResendActive = false.obs;
-  Timer? _timer;
-
-  int get secondsRemaining => _secondsRemaining.value;
-  bool get isResendActive => _isResendActive.value;
-
-  @override
-  void onInit() {
-    super.onInit();
-    startTimer();
-  }
-
-  void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (_secondsRemaining.value > 0) {
-        _secondsRemaining.value--;
-      } else {
-        _isResendActive.value = true;
-        timer.cancel();
-      }
-    });
-  }
-
-  void resendCode() {
-    _secondsRemaining.value = 96;
-    _isResendActive.value = false;
-    startTimer();
-  }
-
-  @override
-  void onClose() {
-    _timer?.cancel();
-    otpController.dispose();
-    super.onClose();
-  }
-}
+import 'package:sky_diving/models/user_model.dart';
+import 'package:sky_diving/view_model/auth_controller.dart';
 
 class OTPScreen extends StatelessWidget {
   final TextEditingController otpControllerField = TextEditingController();
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map;
+    final verificationId = args['verificationId'];
+    final isComingFromForgetPassword =
+        args['isComingFromForgetPassword'] as bool;
     final screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -61,7 +25,7 @@ class OTPScreen extends StatelessWidget {
         elevation: 0,
         leading: GestureDetector(
           onTap: () => Get.back(),
-          child: Icon(Icons.arrow_back, color: Colors.white),
+          child: Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: Padding(
@@ -80,13 +44,13 @@ class OTPScreen extends StatelessWidget {
             ),
             SizedBox(height: screenSize.height * 0.015),
             Text(
-              "Please enter the 6-digit code we have sent you on your phone +123 456789",
+              "Please enter the 6-digit code we have sent you on your phone ${authController.phoneNumber.value}",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: screenSize.width * 0.04,
               ),
             ),
-            SizedBox(height: screenSize.height * 0.08),
+            SizedBox(height: screenSize.height * 0.04),
 
             Center(child: PinCodeField(otpControllerField: otpControllerField)),
 
@@ -98,57 +62,44 @@ class OTPScreen extends StatelessWidget {
             AuthButton(
               buttonText: "Continue",
               onPressed: () {
-                Get.toNamed(RouteName.changePassword);
+                final otp = otpControllerField.text.trim();
+                if (otp.length == 6) {
+                  authController.verifyOtp(
+                    verificationId: verificationId,
+                    otpCode: otp,
+                    onSuccess: () {
+                      authController.isLoading.value = false;
+                      if (isComingFromForgetPassword) {
+                        Get.toNamed(RouteName.changePassword);
+                      } else {
+                        authController.registerUser(
+                          user: UserModel(
+                            name: authController.nameController.text,
+                            lastName: authController.lastNameController.text,
+                            email: authController.emailController.text,
+                            password: authController.passwordController.text,
+                            phone: authController.phoneNumber.value,
+                            refId: authController.referralCode
+                                .value, // you can fill this after OTP
+                          ),
+                        );
+                      }
+                    },
+                    onError: (message) =>
+                        Get.snackbar("Error", message, colorText: Colors.white),
+                  );
+                } else {
+                  Get.snackbar("Invalid OTP", "Please enter a 6-digit OTP",
+                      colorText: Colors.white);
+                }
               },
-              isLoading: false.obs,
+              isLoading: authController.isLoading,
             ),
 
             SizedBox(height: screenSize.height * 0.04),
           ],
         ),
       ),
-    );
-  }
-}
-
-class PinCodeField extends StatelessWidget {
-  const PinCodeField({
-    super.key,
-    required this.otpControllerField,
-  });
-
-  final TextEditingController otpControllerField;
-
-  @override
-  Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
-    return PinCodeTextField(
-      length: 6,
-      controller: otpControllerField,
-      obscureText: false,
-      keyboardType: TextInputType.number,
-      animationType: AnimationType.fade,
-      pinTheme: PinTheme(
-        shape: PinCodeFieldShape.box,
-        borderRadius: BorderRadius.circular(8),
-        fieldHeight: screenSize.height * 0.06,
-        fieldWidth: screenSize.width * 0.12,
-        inactiveFillColor: const Color.fromARGB(255, 26, 25, 25),
-        inactiveColor: Colors.transparent,
-        selectedFillColor: Color(0xFF161622),
-        selectedColor: AppColors.primaryColor,
-        activeFillColor: AppColors.primaryColor,
-        activeColor: Colors.black,
-      ),
-      textStyle: TextStyle(
-        color: Colors.black,
-        fontSize: screenSize.width * 0.06,
-        fontWeight: FontWeight.bold,
-      ),
-      animationDuration: Duration(milliseconds: 300),
-      enableActiveFill: true,
-      appContext: context,
     );
   }
 }

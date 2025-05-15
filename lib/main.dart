@@ -1,38 +1,42 @@
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_routes.dart';
 import 'package:sky_diving/constants/routes_name.dart';
-import 'package:sky_diving/test.dart';
-import 'package:sky_diving/view/home/home_screen.dart';
+import 'package:sky_diving/firebase_options.dart';
+import 'package:sky_diving/services/api_client.dart';
+import 'package:sky_diving/services/auth_respository.dart';
+import 'package:sky_diving/services/referral_repository.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
-void main() {
-  //  Get.put(UserController());
-  runApp(
-MyApp(),
-    // DevicePreview(
-    //   enabled: true, // Enable DevicePreview for testing
-    //   builder: (context) =>  MyApp()
-    // ),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+  // DynamiclinkProvider.
+  Get.put(ApiClient());
+  Get.put(AuthRepository());
+  Get.put(ReferralRepository());
+  runApp(MyApp());
 }
- 
+
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-     debugShowCheckedModeBanner: false,
-        // debugPaintSizeEnabled = false; // Ensure this is not set to true
-  // debugShowMaterialGrid: false,
-        theme: ThemeData(
-        fontFamily: 'SofiaPro',  // Apply font globally
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Gilroy', // Apply Gilroy globally
         textTheme: TextTheme(
-          bodyMedium: TextStyle(fontFamily: 'SofiaPro'),
-          bodySmall: TextStyle(fontFamily: 'SofiaPro'),
+          bodyMedium: TextStyle(fontFamily: 'Gilroy'),
+          bodySmall: TextStyle(fontFamily: 'Gilroy'),
         ),
       ),
-      home:SplashScreen(),
+
+      home: SplashScreen(),
+
       initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
     );
