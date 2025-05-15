@@ -2,11 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/constants/app_routes.dart';
+import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/firebase_options.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/auth_respository.dart';
 import 'package:sky_diving/services/referral_repository.dart';
-import 'package:sky_diving/view/auth_screens/change_password.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() async {
@@ -14,19 +14,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // DynamiclinkProvider.
   Get.put(ApiClient());
   Get.put(AuthRepository());
   Get.put(ReferralRepository());
   runApp(MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // debugPaintSizeEnabled = false; // Ensure this is not set to true
-      // debugShowMaterialGrid: false,
       theme: ThemeData(
         fontFamily: 'Gilroy', // Apply Gilroy globally
         textTheme: TextTheme(
@@ -34,11 +34,10 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(fontFamily: 'Gilroy'),
         ),
       ),
-      // home: ChangePassword(),
 
       home: SplashScreen(),
 
-      // initialRoute: RouteName.splashScreen,
+      initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
     );
   }

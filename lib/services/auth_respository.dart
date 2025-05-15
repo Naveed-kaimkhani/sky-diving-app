@@ -102,8 +102,8 @@ class AuthRepository {
 
         final referralController =
             Get.put(ReferralController(), permanent: true);
+       
         await referralController.fetchReferralData();
-
         final UserRewardController _controller =
             Get.put(UserRewardController(), permanent: true);
         await _controller.fetchUserRewards(userController.token.value);
@@ -194,30 +194,6 @@ class AuthRepository {
     }
   }
 
-  // Future<Map<String, dynamic>> changePassword({
-  //   required String newPassword,
-  //   required int userId,
-  // }) async {
-  //   log("use rid is $userId");
-  //   final response = await apiClient.post(
-  //     url: ApiEndpoints.changePassword,
-  //     body: {
-  //       "user_id": userId,
-  //       "password": newPassword,
-  //     },
-  //   );
-  //   log(response.body);
-  //   final data = jsonDecode(response.body);
-
-  //   if (response.statusCode == 200) {
-  //     Get.snackbar("Success", "Password changed successfully",
-  //         colorText: Colors.white);
-  //     Get.toNamed(RouteName.login);
-  //     return {"success": true, "data": data};
-  //   } else {
-  //     return {"success": false, "data": data};
-  //   }
-  // }
   Future<Map<String, dynamic>> changePassword({
     required String newPassword,
     required int userId,

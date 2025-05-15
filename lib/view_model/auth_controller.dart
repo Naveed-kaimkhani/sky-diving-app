@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -159,8 +157,10 @@ class AuthController extends GetxController {
         isLoading.value = false;
 
         Get.snackbar("Success", "Login successful", colorText: Colors.white);
-        Get.offAllNamed(RouteName
-            .bottomNavigation); // Navigate to home or dashboard after login
+        // Get.offAllNamed(RouteName
+        //     .bottomNavigation); // Navigate to home or dashboard after login
+        Get.toNamed(RouteName
+            .bottomNavigation);
       },
       onError: (message) {
         isLoading.value = false;

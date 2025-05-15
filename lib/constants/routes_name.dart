@@ -14,6 +14,9 @@ class RouteName {
  static const String OTPVerificationToResetPassword = '/OTPVerificationToResetPassword';
 
  
+ static const String contactInfoScreen = '/ContactInfoScreen';
+
+ 
  static const String changePassword = '/ChangePassword';
 
  static const String forgetPassword = '/ForgetPassword';
