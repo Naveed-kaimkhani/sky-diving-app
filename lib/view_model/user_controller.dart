@@ -86,7 +86,6 @@ class UserController extends GetxController {
 
     // Assign the loaded user to the reactive user variable
     user.value = userModel;
-    log(user.value!.name);
   }
 
   // You can use the user's info throughout the app as follows:

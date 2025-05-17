@@ -5,6 +5,7 @@ import 'package:sky_diving/components/referral_card.dart';
 import 'package:sky_diving/components/reward_balance_card.dart';
 import 'package:sky_diving/components/scan_component.dart';
 import 'package:sky_diving/components/shimmer_home_placeholder.dart';
+import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/constants/routes_name.dart';
@@ -45,7 +46,8 @@ class HomeScreen extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics()),
           slivers: [
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 10.0 : 20.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: isSmallScreen ? 10.0 : 20.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   SizedBox(height: screenHeight * 0.02),
@@ -65,9 +67,9 @@ class HomeScreen extends StatelessWidget {
                     onTap: () => Get.toNamed(RouteName.contactInfoScreen),
                     width: screenWidth * 0.18,
                     height: screenHeight * 0.08,
-                    rewardText: "Contact Us for ",
+                    rewardText: "Contact Us For ",
                     balance: "More Information",
-                    confettiImage: null,
+                    confettiImage: AppImages.contractus,
                     coinImage: null,
                   ),
                   SizedBox(height: screenHeight * 0.02),
@@ -76,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                     width: screenWidth * 0.18,
                     height: screenHeight * 0.08,
                     coinImage: null,
-                    confettiImage: null,
+                    confettiImage: AppImages.ordernow,
                     rewardText: "Order Your Rental ",
                     balance: "Now",
                   ),
@@ -120,7 +122,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                       NavigationButton(
                         text: "Help & Support",
-                        onPressed: () => Get.toNamed(RouteName.emailSupportScreen),
+                        onPressed: () =>
+                            Get.toNamed(RouteName.emailSupportScreen),
                         width: screenWidth * 0.4,
                       ),
                     ],

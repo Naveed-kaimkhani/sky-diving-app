@@ -36,32 +36,39 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                        width: screenWidth * 0.24, 
-                        height: screenWidth * 0.24,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.green, width: 2),
-                        ),
-                        child: CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Colors.grey[300],
-                          backgroundImage:
-                              userController.user.value!.proiflePic != null &&
-                                      userController
-                                          .user.value!.proiflePic!.isNotEmpty
-                                  ? CachedNetworkImageProvider(userController
-                                      .user.value!.proiflePic!) as ImageProvider
-                                  : null,
-                          child: userController.user.value!.proiflePic ==
-                                      null ||
-                                  userController.user.value!.proiflePic!.isEmpty
-                              ? Icon(
-                                  Icons.person,
-                                  size: 40,
-                                  color: Colors.white,
-                                )
-                              : null,
-                        )),
+                      width: screenWidth * 0.24,
+                      height: screenWidth * 0.24,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.green, width: 2),
+                      ),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.transparent,
+                        child: userController.user.value!.proiflePic!.isNotEmpty
+                            ? ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      userController.user.value!.proiflePic!,
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.grey[300],
+                                    child: Icon(Icons.person,
+                                        size: 40, color: Colors.white),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Container(
+                                    color: Colors.grey[300],
+                                    child: Icon(Icons.person,
+                                        size: 40, color: Colors.white),
+                                  ),
+                                ),
+                              )
+                            : Icon(Icons.person, size: 40, color: Colors.white),
+                      ),
+                    ),
                     SizedBox(height: screenHeight * 0.015),
                     Text(
                       "Welcome",
@@ -95,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(RouteName.couponsScreen);
                   }),
-             
+
               ProfileMenuItem(
                   title: "FAQs",
                   onTap: () {

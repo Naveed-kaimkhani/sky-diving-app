@@ -21,6 +21,8 @@ class ApiEndpoints {
 
   static const String changePassword = "$baseUrl/change-password";
 
+  static const String notification = "$baseUrl/notifications";
+
 
   static const String sendMessage =
       "https://274934fb7af66daf.api-us.cometchat.io/v3/messages";

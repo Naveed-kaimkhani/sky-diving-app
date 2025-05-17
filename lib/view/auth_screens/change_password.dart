@@ -59,11 +59,13 @@ class ChangePassword extends StatelessWidget {
             // Input Fields
             CustomTextField(
               hintText: "Password",
+              obscureText: true,
               controller: passwrodcontroller,
             ),
             SizedBox(height: screenHeight * 0.02), // 2% of screen height
             CustomTextField(
               hintText: "Confirm Password",
+              obscureText: true,
               controller: confirmpasswrodcontroller,
             ),
 

@@ -9,6 +9,7 @@ class Referral {
     required this.referredName,
     required this.status,
     required this.referralDate,
+
   });
 
   factory Referral.fromJson(Map<String, dynamic> json) {

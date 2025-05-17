@@ -38,8 +38,7 @@ class SupportRepo {
 
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-    log(response.statusCode.toString());
-    log(response.body);
+  
     final data = jsonDecode(response.body);
     return {
       "success": response.statusCode == 200,

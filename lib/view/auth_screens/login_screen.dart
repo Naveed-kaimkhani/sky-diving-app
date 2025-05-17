@@ -125,21 +125,6 @@ class LoginScreen extends StatelessWidget {
                     isLoading: authController.isLoading,
                   ),
                   SizedBox(height: screenHeight * 0.05),
-                  // SocialLoginButton(
-                  //   text: "Login with Apple",
-                  //   iconPath: AppImages.apple,
-                  //   onPressed: () {},
-                  //   buttonColor: const Color.fromARGB(255, 26, 25, 25),
-                  //   textColor: Colors.white,
-                  // ),
-                  // SizedBox(height: screenHeight * 0.03),
-                  // SocialLoginButton(
-                  //   text: "Login with Google",
-                  //   iconPath: AppImages.google,
-                  //   onPressed: () {},
-                  //   textColor: Colors.black,
-                  // ),
-                  // SizedBox(height: screenHeight * 0.03),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(RouteName.signup);

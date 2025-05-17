@@ -134,7 +134,6 @@ class SignupScreen extends StatelessWidget {
                   SizedBox(height: screenSize.height * 0.02),
                   PhoneNumberField(
                     onPhoneChanged: (value) {
-                      log(value);
                       authController.phoneNumber.value = value;
                     },
                   ),

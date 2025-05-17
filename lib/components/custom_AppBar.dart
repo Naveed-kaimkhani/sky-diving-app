@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:sky_diving/components/profile_widget.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
@@ -26,37 +26,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          // ClipOval(
-          //     child: Icon(
-          //   Icons.person,
-          //   size: 34,
-          //   color: Colors.white,
-          // )),
-          ClipOval(
-            child: Container(
-              width: 34,
-              height: 34,
-              decoration: BoxDecoration(
-                color: Colors
-                    .grey[300], // Background color when no image is present
-                image: userController.user.value!.proiflePic != null &&
-                        userController.user.value!.proiflePic!.isNotEmpty
-                    ? DecorationImage(
-                        image: CachedNetworkImageProvider(
-                            userController.user.value!.proiflePic!),
-                        fit: BoxFit.cover,
-                      )
-                    : null,
-              ),
-              child: userController.user.value!.proiflePic == null ||
-                      userController.user.value!.proiflePic!.isEmpty
-                  ? Icon(
-                      Icons.person,
-                      size: 24, // Icon size adjusted to fit inside 34 size
-                      color: Colors.white,
-                    )
-                  : null,
-            ),
+          GestureDetector(
+            child: ProfileWidget(userController: userController),
+            onTap: () => Get.toNamed(RouteName.updateProfile),
           ),
           const SizedBox(width: 10),
           Column(
@@ -85,10 +57,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Stack(
             children: [
-              // IconButton(
-              //   icon: const Icon(Icons.notifications_none, color: Colors.white),
-              //   onPressed: () {},
-              // ),
               GestureDetector(
                 onTap: () => Get.toNamed(RouteName.notificationsScreen),
                 child: SvgPicture.asset(

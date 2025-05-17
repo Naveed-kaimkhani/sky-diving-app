@@ -21,7 +21,7 @@ class AuthButton extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     final buttonHeight = screenSize.height * 0.059;
     final buttonWidth = screenSize.width * 0.9;
-    final fontSize = screenSize.width * 0.048;
+    final fontSize = screenSize.width * 0.046;
     final spinnerSize = screenSize.width * 0.06;
 
     return SizedBox(
@@ -31,7 +31,7 @@ class AuthButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryColor,
               padding: EdgeInsets.symmetric(
-                  vertical: screenSize.height * 0.015,
+                  vertical: screenSize.height * 0.009,
                   horizontal: screenSize.width * 0.04),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

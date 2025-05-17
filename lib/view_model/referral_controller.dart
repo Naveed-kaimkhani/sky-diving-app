@@ -5,7 +5,8 @@ import 'package:sky_diving/services/referral_repository.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
 class ReferralController extends GetxController {
-  final ReferralRepository repository = ReferralRepository();
+  final ReferralRepository repository = Get.find<ReferralRepository>();
+
   final UserController userController = Get.find<UserController>();
 
   Rxn<ReferralData> referralData = Rxn<ReferralData>(); // nullable Rx

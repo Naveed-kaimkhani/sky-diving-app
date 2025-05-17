@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
@@ -41,7 +43,6 @@ class RewardScreen extends StatelessWidget {
           return const Center(
               child: CircularProgressIndicator(color: Colors.white));
         }
-
         if (error.isNotEmpty) {
           return Center(
               child: Text(error, style: const TextStyle(color: Colors.red)));

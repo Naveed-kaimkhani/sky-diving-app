@@ -47,7 +47,7 @@ if (couponController.text.isEmpty) {
         {
   rewardController.isLoading.value = false;
   final rentalVM = Get.find<RentalViewModel>();
-String discountStr = rewardMatch.discount;
+String discountStr = rewardMatch.discount.toString();
 int discount = double.parse(discountStr).toInt();
   if (rentalVM.subtotal.value < 0) rentalVM.subtotal.value = 0;
   rentalVM.subtotal.value  = rentalVM.subtotal.value-discount;

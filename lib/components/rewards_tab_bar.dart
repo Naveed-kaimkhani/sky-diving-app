@@ -4,14 +4,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:sky_diving/components/reward_card.dart';
 import 'package:sky_diving/constants/app_colors.dart';
-import 'package:sky_diving/view_model/user_reward_controller.dart';
 import '../constants/app_images.dart';
 import '../models/user_reward_model.dart'; // Import your model
 
 class RewardsTabBar extends StatelessWidget {
   final List<UserReward> rewardList;
 
-  // final userRewardController = Get.find<UserRewardController>(); 
   RewardsTabBar({super.key, required this.rewardList});
 
   @override

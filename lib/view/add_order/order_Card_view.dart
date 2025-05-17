@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/apply_coupon_button.dart';
@@ -139,7 +137,6 @@ String calculateSubTotal() {
   int rentalExtra = viewModel.extraRentalCost.value;
 
   viewModel.subtotal.value = baseCost + shippingCost + rentalExtra;
-  log(viewModel.subtotal.value.toString());
   return viewModel.subtotal.value.toString();
 }
 

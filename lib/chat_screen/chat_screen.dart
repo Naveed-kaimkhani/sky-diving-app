@@ -152,7 +152,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                       return ChatMessageWidget(
                         timestamp: messages[messageIndex].time,
                         message: messages[messageIndex].message,
-                        sender: "Admin",
+                        sender: "support",
                         isMe: messages[messageIndex].isMe,
                       );
                     },

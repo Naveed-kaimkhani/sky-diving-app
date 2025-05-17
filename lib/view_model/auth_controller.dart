@@ -76,7 +76,6 @@ class AuthController extends GetxController {
         Get.snackbar("Error", errorMsg, colorText: Colors.white);
       }
     } catch (e) {
-      log(e.toString());
       Get.snackbar("Error", "An unexpected error occurred",
           colorText: Colors.white);
     } finally {
@@ -159,7 +158,7 @@ class AuthController extends GetxController {
         Get.snackbar("Success", "Login successful", colorText: Colors.white);
         // Get.offAllNamed(RouteName
         //     .bottomNavigation); // Navigate to home or dashboard after login
-        Get.toNamed(RouteName
+        Get.offAllNamed(RouteName
             .bottomNavigation);
       },
       onError: (message) {
@@ -198,7 +197,6 @@ class AuthController extends GetxController {
   }
 
   void deleteUser(int userId) {
-    // log(userId.toString());
     _authRepo.deleteUser(
       token: userController.token.value,
       userId: userId,

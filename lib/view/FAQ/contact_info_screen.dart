@@ -80,16 +80,6 @@ class ContactInfoScreen extends StatelessWidget {
               onTap: () => ContactUtils.launchWebsite(context: context),
             ),
 
-            // Additional decorative elements
-            Spacer(),
-            Text(
-              "We're here to help!",
-              style: TextStyle(
-                color: Colors.white54,
-                fontSize: size.width * 0.04,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
             SizedBox(height: size.height * 0.02),
           ],
         ),
@@ -133,9 +123,9 @@ class ContactInfoScreen extends StatelessWidget {
                 color: color.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: color, size: size.width * 0.08),
+              child: Icon(icon, color: color, size: size.width * 0.07),
             ),
-            SizedBox(width: size.width * 0.05),
+            SizedBox(width: size.width * 0.04),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,18 +142,13 @@ class ContactInfoScreen extends StatelessWidget {
                     value,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: size.width * 0.045,
+                      fontSize: size.width * 0.043,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
             ),
-            // Icon(
-            //   Icons.chevron_right,
-            //   color: Colors.white54,
-            //   size: size.width * 0.06,
-            // ),
           ],
         ),
       ),

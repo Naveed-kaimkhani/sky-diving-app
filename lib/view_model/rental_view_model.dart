@@ -29,11 +29,4 @@ RxInt subtotal = 0.obs;
        quantity:quantityController.quantity.value.toString()
    );
  }
-// Other rental-related state and business logic would go here
-  // For example:
-  // - Selected rental options
-  // - Date selection
-  // - Delivery options
-  // - Form validation
-  // - API calls
 }

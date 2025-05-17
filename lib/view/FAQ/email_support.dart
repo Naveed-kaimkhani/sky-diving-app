@@ -96,6 +96,6 @@ class _EmailSupportScreenState extends State<EmailSupportScreen> {
 
   Widget _label(String text, double fontSize) => Text(
         text,
-        style: TextStyle(color: Colors.white, fontSize: fontSize),
+        style: TextStyle(color: Colors.black, fontSize: fontSize),
       );
 }

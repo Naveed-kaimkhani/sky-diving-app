@@ -11,6 +11,11 @@ class AppImages {
   
   static String email = "assets/png/email.svg";
 
+
+
+  static String contractus = "assets/png/Contract-us.png";
+  static String ordernow = "assets/png/order_now.png";
+
  static String message = "assets/png/message.svg";
   
     static String apple = "assets/png/apple.png";

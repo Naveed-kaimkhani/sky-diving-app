@@ -1,3 +1,4 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,13 +15,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // DynamiclinkProvider.
   Get.put(ApiClient());
   Get.put(AuthRepository());
   Get.put(ReferralRepository());
-  runApp(MyApp());
-}
+  // runApp(MyApp());
 
+  runApp(
+    MyApp(),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -34,9 +37,7 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(fontFamily: 'Gilroy'),
         ),
       ),
-
       home: SplashScreen(),
-
       initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
     );

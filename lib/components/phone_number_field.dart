@@ -28,8 +28,6 @@ class PhoneNumberField extends StatelessWidget {
       style: TextStyle(color: Colors.white),
       dropdownIcon: Icon(Icons.arrow_drop_down, color: Colors.white),
       onChanged: (phone) {
-        // print(phone.completeNumber);
-        log(phone.completeNumber);
                 onPhoneChanged(phone.completeNumber); // pass value to controller
 
       },

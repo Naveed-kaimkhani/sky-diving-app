@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -21,12 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
   final UserController userController = Get.put(UserController());
 
   void _checkAuthentication() async {
-     bool isConnected = await Utils.checkInternetConnection();
-  if (!isConnected) return;
+    bool isConnected = await Utils.checkInternetConnection();
+    if (!isConnected) return;
 
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
+      log(userController.token.value);
       final referralController = Get.put(ReferralController(), permanent: true);
       await referralController.fetchReferralData();
 

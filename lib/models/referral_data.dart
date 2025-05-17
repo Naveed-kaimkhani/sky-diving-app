@@ -3,7 +3,7 @@ import 'package:sky_diving/models/referral_model.dart';
 class ReferralData {
   final int totalReferrals;
   final int activeReferrals;
-  final String earnedPoints;
+  final dynamic earnedPoints;
   final List<Referral> referrals;
 
   ReferralData({
@@ -17,7 +17,7 @@ class ReferralData {
     return ReferralData(
       totalReferrals: json['total_referrals'] ?? 0,
       activeReferrals: json['active_referrals'] ?? 0,
-      earnedPoints: json['earned_points'] ?? 0,
+      earnedPoints: json['earned_points'].toString(),
       referrals: (json['referrals'] as List<dynamic>?)
               ?.map((item) => Referral.fromJson(item))
               .toList() ??

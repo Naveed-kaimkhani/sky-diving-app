@@ -1,7 +1,10 @@
 // user_reward_controller.dart
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:sky_diving/models/user_reward_model.dart';
 import 'package:sky_diving/services/referral_repository.dart';
+
 class UserRewardController extends GetxController {
   final ReferralRepository _repository = Get.find<ReferralRepository>();
   final RxBool isLoading = false.obs;
@@ -12,9 +15,8 @@ class UserRewardController extends GetxController {
     try {
       isLoading.value = true;
       error.value = '';
-      
+
       final response = await _repository.getUserRewards(token);
-      
       if (response != null) {
         rewards.assignAll(response.data);
       } else {

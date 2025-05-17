@@ -69,7 +69,6 @@ class ReactionModel {
 }
 
 List<MessageModel> parseMessages(List<dynamic> jsonList) {
-  log("parsed called");
   final messages = jsonList.map((json) => MessageModel.fromJson(json)).toList();
   return messages;
 }

@@ -87,16 +87,11 @@ class AuthRepository {
           'password': password,
         },
       ).timeout(const Duration(seconds: 15));
-      log(response.body);
-      log("login api hit");
       if (response.statusCode == 200 || response.statusCode == 201) {
         final responseData = jsonDecode(response.body);
         final token = responseData['token'];
         final userData = responseData['user'];
         final user = UserModel.fromJson(userData);
-        log(user
-            .toJson()
-            .toString()); // Save the session using the userController
         await userController.saveUserSessionFromResponse(user, token);
         await userController.getUserFromPrefs();
 
@@ -111,11 +106,11 @@ class AuthRepository {
 
         onSuccess(); // Trigger on success callback
       } else {
+
         final error = jsonDecode(response.body);
         onError(error['message'] ?? 'Login failed');
       }
     } catch (e) {
-      log(e.toString());
       onError("An error occurred during login.");
     }
   }
@@ -145,8 +140,6 @@ class AuthRepository {
     required Function(String message) onError,
   }) async {
     try {
-      log("before api hit");
-
       final response = await http.post(
         Uri.parse(ApiEndpoints.delete),
         headers: {
@@ -158,8 +151,6 @@ class AuthRepository {
         }),
       );
 
-      log("Response body: ${response.body}");
-      log("Status code: ${response.statusCode}");
 
       if (response.statusCode == 200) {
         onSuccess();
@@ -168,7 +159,6 @@ class AuthRepository {
         onError(data["message"] ?? "Failed to delete user.");
       }
     } catch (e) {
-      log(e.toString());
       onError("An error occurred while deleting the user.");
     }
   }
@@ -184,7 +174,6 @@ class AuthRepository {
         "phone_number": phoneNumber,
       },
     );
-    log(response.body);
     final data = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
@@ -199,7 +188,6 @@ class AuthRepository {
     required int userId,
   }) async {
     try {
-      log("user id is $userId");
 
       final response = await http.post(
         Uri.parse(ApiEndpoints.changePassword),
@@ -213,7 +201,6 @@ class AuthRepository {
         }),
       );
 
-      log(response.body);
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
@@ -225,7 +212,6 @@ class AuthRepository {
         return {"success": false, "data": data};
       }
     } catch (e) {
-      log("Error changing password: ${e.toString()}");
       return {
         "success": false,
         "data": {"message": "An error occurred"}

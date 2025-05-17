@@ -24,7 +24,7 @@ class ReferralServices {
 
     final ShortDynamicLink shortLink =
         await FirebaseDynamicLinks.instance.buildShortLink(parameters);
-    log(shortLink.shortUrl.toString());
+
     return shortLink
         .shortUrl; // Returns something like skydiving.page.link/abc123
   }

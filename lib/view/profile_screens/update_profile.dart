@@ -1,7 +1,4 @@
-
-
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/custom_textfield.dart';
 import 'package:sky_diving/components/title_appbar.dart';
-import 'package:sky_diving/view/splash_screen.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 import 'package:http/http.dart' as http;
@@ -63,18 +59,21 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
   }
 
-
   Future<void> updateUserProfile() async {
     if (!hasChanges) {
       Get.snackbar("Info", "No changes detected", colorText: Colors.white);
       return;
     }
-
+    if (firstName.text.length > 30 || lastname.text.length > 30) {
+      Get.snackbar("Validation Error",
+          "First and Last name must be under 30 characters.",
+          colorText: Colors.white);
+      return;
+    }
     authController.isLoading.value = true;
 // https://skydiverentalapp.com/api
     try {
-      var url =
-          Uri.parse('https://skydiverentalapp.com/api/update-profile');
+      var url = Uri.parse('https://skydiverentalapp.com/api/update-profile');
       var request = http.MultipartRequest('POST', url);
 
       request.headers.addAll({
@@ -110,9 +109,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
         await prefs.setString('last_name', lastName);
 
         await userController.getUserFromPrefs();
+        Get.back();
+
         Get.snackbar("Success", "Profile Updated Successfully",
             colorText: Colors.white);
-        Get.offAll(() => SplashScreen());
       } else {
         try {
           final errorData = jsonDecode(responseBody);
@@ -120,12 +120,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
               errorData['message'] ?? 'Failed to update profile';
           Get.snackbar("Error", errorMessage, colorText: Colors.white);
         } catch (e) {
-          // If responseBody is not a JSON object, display it directly
           Get.snackbar("Error", responseBody, colorText: Colors.white);
         }
       }
     } catch (e) {
-      log(e.toString());
       Get.snackbar("Error", "Failed to update profile: ${e.toString()}",
           colorText: Colors.white);
     } finally {
@@ -260,7 +258,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
             SizedBox(height: screenHeight * 0.04),
 
-           
             Center(
               child: Obx(() => AuthButton(
                     buttonText: "Update",

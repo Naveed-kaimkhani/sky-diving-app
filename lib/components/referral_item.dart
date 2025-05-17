@@ -91,7 +91,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 
@@ -99,7 +98,7 @@ class TransactionCard extends StatelessWidget {
   final String amount;
   final String name;
   final String date;
-  final String statusImagePath;  // Changed from IconData to String
+  final String statusImagePath; // Changed from IconData to String
   final String calendarImagePath; // New parameter for calendar icon
   final Color amountColor;
   final Color iconColor;
@@ -133,12 +132,26 @@ class TransactionCard extends StatelessWidget {
               color: amountColor.withOpacity(0.2),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
-              amount,
-              style: TextStyle(
-                color: amountColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: " $amount", // Dollar sign
+                    style: TextStyle(
+                      color: amountColor,
+                      fontSize: 14, // Smaller size for currency symbol
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "\n points", // Remove dollar sign if already present
+                    style: TextStyle(
+                      color: amountColor,
+                      fontSize: 8, // Larger size for amount
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -166,7 +179,11 @@ class TransactionCard extends StatelessWidget {
                     //   height: 16,
                     //   color: Colors.green,
                     // ),
-                    Icon(Icons.calendar_month_rounded, size: 16, color: iconColor,),
+                    Icon(
+                      Icons.calendar_month_rounded,
+                      size: 16,
+                      color: iconColor,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       date,

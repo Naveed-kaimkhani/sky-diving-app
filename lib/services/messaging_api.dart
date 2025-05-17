@@ -45,8 +45,6 @@ class GroupChatViewModel extends GetxController {
   }
 
   Future<void> _fetchInitialMessages() async {
-    log("in initial message");
-    log(userId.toString());
     try {
       final response = await ApiClient.getMessages(
         url: "https://274934fb7af66daf.api-us.cometchat.io/v3/users/1/messages",
@@ -57,16 +55,9 @@ class GroupChatViewModel extends GetxController {
           "onBehalfOf": userId,
         },
       );
-      // log("resposne body");
-      // log(response.body);
       if (response.statusCode == 200) {
         final dynamic responseData = jsonDecode(response.body);
         final List<dynamic> rawMessages = responseData['data'] ?? [];
-
-        // if (rawMessages.isEmpty) {
-        //   debugPrint("No messages found");
-        //   return;
-        // }
 
         final List<Map<String, dynamic>> cleanedRawMessages = rawMessages
             .map((msg) {
@@ -141,7 +132,6 @@ class GroupChatViewModel extends GetxController {
           "receiverType": "user",
         }),
       );
-      log(response.body);
       if (response.statusCode == 200) {
         _fetchInitialMessages(); // Refresh messages after sending a new one
       }
