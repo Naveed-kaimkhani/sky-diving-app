@@ -10,8 +10,8 @@ class ChangePassword extends StatelessWidget {
   final UserController userController = Get.find<UserController>();
   final AuthController authController = Get.put(AuthController());
   TextEditingController passwrodcontroller = TextEditingController();
-
   TextEditingController confirmpasswrodcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
