@@ -7,15 +7,7 @@ class ReferralServices {
   static Future<Uri> createReferralLink(String referralCode) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://skydivingrentalgear.page.link',
-
-      //  link: Uri.parse('https://www.sgras.com/'),
-
-      // link: Uri.parse(
-      //     'https://skydivingrentalgear.page.link/refferral?ref=$referralCode'),
-
-      link: Uri.parse(
-          'https://skydivingrentalgear.page.link/referral'),
-
+      link: Uri.parse('https://skydivingrentalgear.page.link'),
       iosParameters: IOSParameters(
         bundleId: 'com.zaygon.skydiving',
         appStoreId: '6743659100',

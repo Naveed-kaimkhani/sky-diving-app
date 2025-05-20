@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '208149054118',
     projectId: 'sgras-app',
     storageBucket: 'sgras-app.firebasestorage.app',
-    iosBundleId: 'com.example.skyDiving',
+    iosBundleId: 'com.zaygon.skydiving',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

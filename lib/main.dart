@@ -24,6 +24,8 @@ void main() async {
     MyApp(),
   );
 }
+//Sign karo
+//Where is share ? QR 
 
 class MyApp extends StatelessWidget {
   @override

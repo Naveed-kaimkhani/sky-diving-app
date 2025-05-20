@@ -7,6 +7,7 @@ import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
+import 'package:sky_diving/services/dynamic_linking.dart';
 import 'package:sky_diving/services/referral_services.dart';
 import 'package:sky_diving/utils/utils.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
@@ -40,13 +41,18 @@ class _SplashScreenState extends State<SplashScreen> {
       Get.offAllNamed(RouteName.bottomNavigation);
     }
   }
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-  ReferralServices.initDynamicLinks();
+  @override
+  void initState() {
+    super.initState();
+    // ReferralServices.initDynamicLinks();
+    _setNotifications();
   }
+
+  void _setNotifications() async {
+    DynamicLinkProvider().initDynamicLinks();
+  }
+
   @override
   Widget build(BuildContext context) {
     _checkAuthentication();
