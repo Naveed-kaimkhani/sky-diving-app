@@ -5,8 +5,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sky_diving/components/appbar_with_backicon.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/label_text.dart';
-import 'package:sky_diving/constants/app_svg_icons.dart';
-import 'package:sky_diving/components/custom_AppBar.dart';
+import 'package:sky_diving/services/referral_services.dart';
+import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
 class QrCode extends StatelessWidget {
@@ -80,22 +80,50 @@ class QrCode extends StatelessWidget {
                     ),
                     child: AuthButton(
                       buttonText: "Share QR Code",
-                      onPressed: () async {
-                        final box = context.findRenderObject() as RenderBox?;
-                        final code =
-                            userController.user.value?.refId ?? 'NO-CODE';
-                        final message =
-                            "Hey! Use my Sky Diving referral code: $code 🪂";
+                      // onPressed: () async {
+                      //   ReferralServices.createReferralLink(
+                      //       userController.user.value!.refId ?? "");
 
-                        await SharePlus.instance.share(
-                          ShareParams(
-                            text: message,
-                            subject: "Join Sky Diving App!",
-                            sharePositionOrigin:
-                                box!.localToGlobal(Offset.zero) & box.size,
-                          ),
-                        );
-                      },
+
+                      //   // final box = context.findRenderObject() as RenderBox?;
+                      //   // final code =
+                      //   //     userController.user.value?.refId ?? 'NO-CODE';
+                      //   // final message =
+                      //   //     "Hey! Use my Sky Diving referral code: $code 🪂";
+
+                      //   // await SharePlus.instance.share(
+                      //   //   ShareParams(
+                      //   //     text: message,
+                      //   //     subject: "Join Sky Diving App!",
+                      //   //     sharePositionOrigin:
+                      //   //         box!.localToGlobal(Offset.zero) & box.size,
+                      //   //   ),
+                      //   // );
+                      // },
+
+                      onPressed: () async {
+  final refId = userController.user.value?.refId ?? 'NO-CODE';
+
+  try {
+    final Uri dynamicLink = await ReferralServices.createReferralLink(refId);
+
+    final box = context.findRenderObject() as RenderBox?;
+    final message =
+        "Hey! Use my Sky Diving referral link to join: $dynamicLink 🪂";
+
+    await Share.share(
+      message,
+      subject: "Join Sky Diving App!",
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+  } catch (e) {
+    print("❌ Error generating referral link: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Failed to generate referral link")),
+    );
+  }
+},
+
 
                       isLoading: false.obs,
                       // width: screenSize.width * 0.9, // Responsive button width

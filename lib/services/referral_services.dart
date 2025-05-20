@@ -6,20 +6,21 @@ class ReferralServices {
   /// Generates a short dynamic link with a referral code.
   static Future<Uri> createReferralLink(String referralCode) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix:
-          'https://skydiving.page.link', // Your Firebase Dynamic Links domain
+      uriPrefix: 'https://skydivingrentalgear.page.link',
+
+      //  link: Uri.parse('https://www.sgras.com/'),
+
+      // link: Uri.parse(
+      //     'https://skydivingrentalgear.page.link/refferral?ref=$referralCode'),
+
       link: Uri.parse(
-          'https://www.sgras.com/?ref=$referralCode'), // Your referral logic
+          'https://skydivingrentalgear.page.link/referral'),
+
       iosParameters: IOSParameters(
         bundleId: 'com.zaygon.skydiving',
-        appStoreId: '1234567890', // Replace with your actual App Store ID
+        appStoreId: '6743659100',
         minimumVersion: '1.0.0',
       ),
-      // Uncomment this section if you plan to support Android in the future
-      // androidParameters: AndroidParameters(
-      //   packageName: 'com.zaygon.skydiving',
-      //   minimumVersion: 1,
-      // ),
     );
 
     final ShortDynamicLink shortLink =
@@ -33,8 +34,8 @@ class ReferralServices {
   static void _handleDeepLink(Uri deepLink) {
     final referralCode = deepLink.queryParameters['ref'];
     if (referralCode != null) {
-      print("🎉 Referral Code Detected: $referralCode");
-      // TODO: Save to local storage or send to backend to credit the referrer
+      log("Referral code detected: $referralCode");
+      // Store or send to backend
     }
   }
 

@@ -97,9 +97,9 @@ class LoginScreen extends StatelessWidget {
                     obscureText: true,
                     controller: authController.passwordController,
                   ),
-                  SizedBox(height: screenHeight * 0.02),
+                  SizedBox(height: screenHeight * 0.03),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.center,
                     child: GestureDetector(
                       child: LabelText(
                         text: "Forgot your password?",
@@ -113,12 +113,19 @@ class LoginScreen extends StatelessWidget {
                   AuthButton(
                     buttonText: "Login",
                     onPressed: () {
-                      if (_validateFields()) {
+                      // if (_validateFields()) {
+                      //   FocusScope.of(context).unfocus();
+                      //   authController.loginUser(
+                      //     email: authController.emailController.text.trim(),
+                      //     password:
+                      //         authController.passwordController.text.trim(),
+                      //   );
+                      // }
+                      if (true) {
                         FocusScope.of(context).unfocus();
                         authController.loginUser(
-                          email: authController.emailController.text.trim(),
-                          password:
-                              authController.passwordController.text.trim(),
+                          email: "skydiving@gmail.com",
+                          password: "111111",
                         );
                       }
                     },

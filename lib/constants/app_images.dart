@@ -14,7 +14,7 @@ class AppImages {
 
 
   static String contractus = "assets/png/Contract-us.png";
-  static String ordernow = "assets/png/order_now.png";
+  static String ordernow = "assets/png/order_now_.png";
 
  static String message = "assets/png/message.svg";
   
