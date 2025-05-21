@@ -52,8 +52,7 @@ class UserRewardResponse {
   });
 
   factory UserRewardResponse.fromJson(Map<String, dynamic> json) {
-    log("josn data");
-    log(json.toString());
+    
     return UserRewardResponse(
       success: json['success'],
       data: (json['data'] as List)

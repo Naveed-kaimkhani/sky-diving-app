@@ -18,14 +18,11 @@ void main() async {
   Get.put(ApiClient());
   Get.put(AuthRepository());
   Get.put(ReferralRepository());
-  // runApp(MyApp());
-
+  
   runApp(
     MyApp(),
   );
 }
-//Sign karo
-//Where is share ? QR 
 
 class MyApp extends StatelessWidget {
   @override

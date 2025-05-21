@@ -8,7 +8,6 @@ import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/services/dynamic_linking.dart';
-import 'package:sky_diving/services/referral_services.dart';
 import 'package:sky_diving/utils/utils.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import '../view_model/user_controller.dart';
@@ -31,7 +30,6 @@ class _SplashScreenState extends State<SplashScreen> {
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
-      log(userController.token.value);
       final referralController = Get.put(ReferralController(), permanent: true);
       await referralController.fetchReferralData();
 
@@ -45,7 +43,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // ReferralServices.initDynamicLinks();
     _setNotifications();
   }
 

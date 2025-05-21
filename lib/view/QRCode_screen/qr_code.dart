@@ -6,8 +6,6 @@ import 'package:sky_diving/components/appbar_with_backicon.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/label_text.dart';
 import 'package:sky_diving/services/dynamic_linking.dart';
-import 'package:sky_diving/services/referral_services.dart';
-import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
 //Ap link kaha se create karte ho jo share karte ho dosre user ko ?
@@ -63,17 +61,42 @@ class QrCode extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: screenSize.height * 0.02),
+                      // SizedBox(
+                      //   width: shortestSide * 0.8,
+                      //   height: shortestSide * 0.8,
+                      //   child: QrImageView(
+                      //     data: userController.user.value!.refId ??
+                      //         "", // or use your dynamic value
+                      //     version: QrVersions.auto,
+                      //     size: shortestSide * 0.8,
+                      //     backgroundColor: Colors.white,
+                      //   ),
+                      // ),
                       SizedBox(
-                        width: shortestSide * 0.8,
-                        height: shortestSide * 0.8,
-                        child: QrImageView(
-                          data: userController.user.value!.refId ??
-                              "", // or use your dynamic value
-                          version: QrVersions.auto,
-                          size: shortestSide * 0.8,
-                          backgroundColor: Colors.white,
-                        ),
-                      ),
+  width: shortestSide * 0.8,
+  height: shortestSide * 0.8,
+  child: FutureBuilder<String>(
+    future: DynamicLinkProvider().createLink(
+      refCode: userController.user.value?.refId ?? 'NO-CODE',
+    ),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      } else if (snapshot.hasError || !snapshot.hasData) {
+        return Center(child: Text("Failed to generate QR"));
+      }
+
+      final dynamicLink = snapshot.data!;
+      return QrImageView(
+        data: dynamicLink,
+        version: QrVersions.auto,
+        size: shortestSide * 0.8,
+        backgroundColor: Colors.white,
+      );
+    },
+  ),
+),
+
                     ],
                   ),
                   Padding(
@@ -83,59 +106,15 @@ class QrCode extends StatelessWidget {
                     ),
                     child: AuthButton(
                       buttonText: "Share QR Code",
-                      // onPressed: () async {
-                      //   ReferralServices.createReferralLink(
-                      //       userController.user.value!.refId ?? "");
-
-                      //   // final box = context.findRenderObject() as RenderBox?;
-                      //   // final code =
-                      //   //     userController.user.value?.refId ?? 'NO-CODE';
-                      //   // final message =
-                      //   //     "Hey! Use my Sky Diving referral code: $code 🪂";
-
-                      //   // await SharePlus.instance.share(
-                      //   //   ShareParams(
-                      //   //     text: message,
-                      //   //     subject: "Join Sky Diving App!",
-                      //   //     sharePositionOrigin:
-                      //   //         box!.localToGlobal(Offset.zero) & box.size,
-                      //   //   ),
-                      //   // );
-                      // },
-
+                     
                       onPressed: () async {
                         final refId =
                             userController.user.value?.refId ?? 'NO-CODE';
-                        //Hassam
-
-                        // try {
-                        //   final Uri dynamicLink =
-                        //       await ReferralServices.createReferralLink(refId); // ye rhi
-
-                        //   final box = context.findRenderObject() as RenderBox?;
-                        //   final message =
-                        //       "Hey! Use my Sky Diving referral link to join: $dynamicLink 🪂";
-
-                        //   await Share.share(
-                        //     message,
-                        //     subject: "Join Sky Diving App!",
-                        //     sharePositionOrigin:
-                        //         box!.localToGlobal(Offset.zero) & box.size,
-                        //   );
-                        // } catch (e) {
-                        //   print("❌ Error generating referral link: $e");
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(
-                        //         content:
-                        //             Text("Failed to generate referral link")),
-                        //   );
-                        // }
-                        //
+                       
                         shareProduct(refCode: refId);
                       },
 
                       isLoading: false.obs,
-                      // width: screenSize.width * 0.9, // Responsive button width
                     ),
                   ),
                   SizedBox(height: screenSize.height * 0.3),
@@ -148,15 +127,20 @@ class QrCode extends StatelessWidget {
     );
   }
 
-  //where is this tap ?
-  //Tap kaha hota hai UI me?
-
   void shareProduct({required String refCode}) async {
-    print("shareProduct Running: $refCode");
+
     DynamicLinkProvider().createLink(refCode: refCode).then((value) async {
-      print("DynamicLinkProvider called: $value");
-      await Share.share(value);
+    
+      final String message = '''
+Hey! 👋
+
+Check out this amazing skydiving gear app. Use my referral code to sign up and get started: **$refCode**
+
+Download the app using this link:
+$value
+''';
+
+      await Share.share(message);
     });
-    //
   }
 }

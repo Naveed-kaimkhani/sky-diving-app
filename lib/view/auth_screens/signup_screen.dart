@@ -160,12 +160,7 @@ class SignupScreen extends StatelessWidget {
                         }
                       },
                       isLoading: authController.isLoading),
-                  // SizedBox(height: screenSize.height * 0.02),
-                  // SizedBox(height: screenSize.height * 0.02),
-                  // ScanQRCodeButton(
-                  //     buttonWidth: buttonWidth,
-                  //     buttonHeight: buttonHeight,
-                  //     screenSize: screenSize),
+                 
                   SizedBox(height: screenSize.height * 0.03),
 
                   Center(

@@ -17,7 +17,9 @@ class ReferralRepository {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json', // optional, but recommended
         },
-      ).timeout(const Duration(seconds: 15));
+      );
+      log("referral history");
+      log(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['status'] == true) {
@@ -25,9 +27,8 @@ class ReferralRepository {
         }
       }
     } catch (e) {
-      log(e.toString());
-      // Get.snackbar("Error", "Failed to fetch referral",
-      //     colorText: Colors.white);
+      Get.snackbar("Error", "Failed to fetch referral",
+          colorText: Colors.white);
     }
     return null;
   }
@@ -48,7 +49,6 @@ class ReferralRepository {
         }
       }
     } catch (e) {
-      log(e.toString());
       Get.snackbar("Error", "Failed to fetch referral",
           colorText: Colors.white);
     }

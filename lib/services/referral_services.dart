@@ -26,8 +26,7 @@ class ReferralServices {
   static void _handleDeepLink(Uri deepLink) {
     final referralCode = deepLink.queryParameters['ref'];
     if (referralCode != null) {
-      log("Referral code detected: $referralCode");
-      // Store or send to backend
+    
     }
   }
 

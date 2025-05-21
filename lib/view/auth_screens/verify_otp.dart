@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/pincode_field.dart';
 import 'package:sky_diving/components/resend_button.dart';
@@ -17,6 +18,7 @@ class OTPScreen extends StatelessWidget {
     final verificationId = args['verificationId'];
     final isComingFromForgetPassword =
         args['isComingFromForgetPassword'] as bool;
+
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -72,17 +74,18 @@ class OTPScreen extends StatelessWidget {
                       if (isComingFromForgetPassword) {
                         Get.toNamed(RouteName.changePassword);
                       } else {
-                        authController.registerUser(
-                          user: UserModel(
-                            name: authController.nameController.text,
-                            lastName: authController.lastNameController.text,
-                            email: authController.emailController.text,
-                            password: authController.passwordController.text,
-                            phone: authController.phoneNumber.value,
-                            refId: authController.referralCode
-                                .value, // you can fill this after OTP
-                          ),
-                        );
+                        // authController.registerUser(
+                        //   user: UserModel(
+                        //     name: authController.nameController.text,
+                        //     lastName: authController.lastNameController.text,
+                        //     email: authController.emailController.text,
+                        //     password: authController.passwordController.text,
+                        //     phone: authController.phoneNumber.value,
+                        //     refId: authController.referralCode
+                        //         .value, // you can fill this after OTP
+                        //   ),
+                        // );
+                        registerUserWithReferral();
                       }
                     },
                     onError: (message) =>
@@ -99,6 +102,22 @@ class OTPScreen extends StatelessWidget {
             SizedBox(height: screenSize.height * 0.04),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> registerUserWithReferral() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedRefId = prefs.getString('referral_code');
+
+    authController.registerUser(
+      user: UserModel(
+        name: authController.nameController.text,
+        lastName: authController.lastNameController.text,
+        email: authController.emailController.text,
+        password: authController.passwordController.text,
+        phone: authController.phoneNumber.value,
+        refId: storedRefId ?? '', // Use empty string if no referral is found
       ),
     );
   }
