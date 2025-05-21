@@ -1,5 +1,3 @@
-// user_reward_model.dart
-import 'dart:developer';
 
 class UserReward {
   final int id;
@@ -9,6 +7,8 @@ class UserReward {
   final DateTime createdAt;
   final DateTime updatedAt;
   final int userId;
+
+  final int userReferalId;
   final dynamic points;
   final dynamic discount;
   final dynamic couponValue;
@@ -16,6 +16,7 @@ class UserReward {
   UserReward({
     required this.id,
     required this.couponCode,
+    required this .userReferalId,
     required this.userId,
     required this.points,
     required this.discount,
@@ -31,6 +32,8 @@ class UserReward {
       id: json['id'],
       couponCode: json['coupon_code'].toString(),
       userId: json['user_id'],
+
+      userReferalId: json['user_referral_id'],
       points: json['points'],
       discount: json['discount'],
       couponValue: json['coupon_value'],

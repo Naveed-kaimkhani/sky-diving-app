@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sky_diving/utils/app_strings.dart';
 import 'package:sky_diving/view_model/auth_controller.dart';
-
 
 class DynamicLinkProvider {
   final AuthController authController = Get.put(AuthController());

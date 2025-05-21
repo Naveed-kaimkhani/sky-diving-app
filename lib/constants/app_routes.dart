@@ -6,7 +6,6 @@ import 'package:sky_diving/view/FAQ/contact_info_screen.dart';
 import 'package:sky_diving/view/FAQ/email_support.dart';
 import 'package:sky_diving/view/FAQ/faq_screen.dart';
 import 'package:sky_diving/view/FAQ/terms_and_privacy.dart';
-import 'package:sky_diving/view/QRCode_screen/QRCode_scanner.dart';
 import 'package:sky_diving/view/QRCode_screen/qr_code.dart';
 import 'package:sky_diving/view/QRCode_screen/referral_history.dart';
 import 'package:sky_diving/view/QRCode_screen/reward_screen.dart';
@@ -23,7 +22,6 @@ import 'package:sky_diving/view/profile_screens/profile.dart';
 import 'package:sky_diving/view/profile_screens/update_profile.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
-import '../view/add_order/order_card_view.dart';
 import '../view/check_out/check_out.dart';
 
 class AppRoutes {
@@ -44,10 +42,7 @@ class AppRoutes {
             name: RouteName.qrCode,
             page: () => QrCode(),
             transition: Transition.cupertino),
-        GetPage(
-            name: RouteName.qRCodeScanner,
-            page: () => QRCodeScanner(),
-            transition: Transition.cupertino),
+       
         GetPage(
             name: RouteName.checkOut,
             page: () => CheckOut(),
@@ -56,10 +51,7 @@ class AppRoutes {
             name: RouteName.emailSupportScreen,
             page: () => EmailSupportScreen(),
             transition: Transition.cupertino),
-        GetPage(
-            name: RouteName.addOrderCard,
-            page: () => AddOrderCard(),
-            transition: Transition.cupertino),
+   
                     GetPage(
             name: RouteName.contactInfoScreen,
             page: () => ContactInfoScreen(),

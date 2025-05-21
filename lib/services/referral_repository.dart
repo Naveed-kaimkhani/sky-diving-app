@@ -18,8 +18,6 @@ class ReferralRepository {
           'Content-Type': 'application/json', // optional, but recommended
         },
       );
-      log("referral history");
-      log(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['status'] == true) {

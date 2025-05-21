@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -149,8 +147,7 @@ class CustomTabBar extends StatelessWidget {
           // Find the matching referral by comparing IDs
           final matchingReferral =
               referralController.referralData.value?.referrals.firstWhereOrNull(
-            (referral) => referral.id == reward.id,
-            // orElse: () => null, // Return null if no match found
+            (referral) => referral.id == reward.userReferalId,
           );
           final name = matchingReferral?.referredName ?? "Unknown";
 
@@ -201,13 +198,10 @@ class CustomTabBar extends StatelessWidget {
         itemCount: filteredRewards.length,
         itemBuilder: (context, index) {
           final reward = filteredRewards[index];
-          // Find the matching referral by comparing IDs
           final matchingReferral =
               referralController.referralData.value?.referrals.firstWhereOrNull(
             (referral) {
-              log(referral.id.toString());
-              log(reward.id.toString());
-              return referral.id == reward.id;
+              return referral.id == reward.userReferalId;
             },
           );
           final name = matchingReferral?.referredName ?? "Unknown";
