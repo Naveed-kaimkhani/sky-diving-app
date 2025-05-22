@@ -53,7 +53,7 @@ class TransactionCard extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: "\n points", // Remove dollar sign if already present
+                    text: "\n  points", // Remove dollar sign if already present
                     style: TextStyle(
                       color: amountColor,
                       fontSize: 8, // Larger size for amount

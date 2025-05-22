@@ -280,8 +280,8 @@ class HomeScreen extends StatelessWidget {
                       width: screenWidth * 0.27,
                     ),
                     ReferralCard(
-                      count: data.earnedPoints,
-                      text: "Earned Points",
+                      count: data.remainingPoints,
+                      text: "Remaining Points",
                       width: screenWidth * 0.27,
                     ),
                   ],

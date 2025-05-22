@@ -3,6 +3,7 @@ class ApiEndpoints {
 
   static const String register = "$baseUrl/register";
 
+  static const String redeemPoints = "$baseUrl/redeem-points";
   static const String login = "$baseUrl/login";
   static const String verifyOtp = "$baseUrl/otp/verify";
 

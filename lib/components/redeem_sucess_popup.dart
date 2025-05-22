@@ -77,7 +77,7 @@ class _RedeemSuccessPopupState extends State<RedeemSuccessPopup> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    'Your coupon has been successfully redeem. see coupons in profile screens',
+                    'Your points redemption request has been sent to the sky diving team — get ready to cash in!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,

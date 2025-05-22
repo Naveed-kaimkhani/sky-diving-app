@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -60,10 +58,10 @@ class CouponsScreen extends StatelessWidget {
                       final reward = _controller.rewards[index];
                       return CouponCard(
                         status: reward.status,
-                        expiryDate: reward.expiryDate, // assumed already formatted
+                        expiryDate:
+                            reward.expiryDate, // assumed already formatted
                         code: reward.couponCode,
-                        description:
-                            '${reward.discount}% discount (Value: \$${reward.couponValue})',
+                        description: '${reward.points} points ',
                       );
                     },
                   ),

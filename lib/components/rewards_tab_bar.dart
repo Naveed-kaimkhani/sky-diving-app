@@ -44,8 +44,10 @@ class RewardsTabBar extends StatelessWidget {
             child: TabBarView(
               children: [
                 _buildRewardList(rewardList),
-                _buildRewardList(rewardList.where((r) => r.status == 'active').toList()),
-                _buildRewardList(rewardList.where((r) => r.status != 'active').toList()),
+                _buildRewardList(
+                    rewardList.where((r) => r.status == 'active').toList()),
+                _buildRewardList(
+                    rewardList.where((r) => r.status != 'active').toList()),
               ],
             ),
           ),
@@ -56,7 +58,9 @@ class RewardsTabBar extends StatelessWidget {
 
   Widget _buildRewardList(List<UserReward> rewards) {
     if (rewards.isEmpty) {
-      return const Center(child: Text("No rewards found", style: TextStyle(color: Colors.white)));
+      return const Center(
+          child:
+              Text("No rewards found", style: TextStyle(color: Colors.white)));
     }
 
     return Padding(
@@ -67,11 +71,13 @@ class RewardsTabBar extends StatelessWidget {
         itemBuilder: (context, index) {
           final reward = rewards[index];
           return RewardCard(
-            title: "\$${reward.discount} cash back",
+            title: "${reward.points} points earned",
             status: reward.status,
             date: DateFormat('MMM dd, yyyy').format(reward.createdAt),
-            statusIcon: reward.status == 'active' ? AppImages.done : AppImages.timer,
-            statusColor: reward.status == 'active' ? Colors.green : Colors.yellow,
+            statusIcon:
+                reward.status == 'active' ? AppImages.done : AppImages.timer,
+            statusColor:
+                reward.status == 'active' ? Colors.green : Colors.yellow,
           );
         },
       ),

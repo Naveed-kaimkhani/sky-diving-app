@@ -1,17 +1,18 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/label_text.dart';
+import 'package:sky_diving/components/redeem_points_popup.dart';
 import 'package:sky_diving/components/reward_balance_card.dart';
 import 'package:sky_diving/components/rewards_tab_bar.dart';
+import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/constants/routes_name.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 import '../../view_model/user_reward_controller.dart';
+// import 'package:sky_diving/components/_showRedeemDialog.dart'; // Adjust path as needed
 
 class RewardScreen extends StatelessWidget {
   RewardScreen({super.key});
@@ -19,6 +20,17 @@ class RewardScreen extends StatelessWidget {
   final referralController = Get.find<ReferralController>();
   final userController = Get.find<UserController>();
   final userRewardController = Get.find<UserRewardController>();
+
+  final TextEditingController _pointsController = TextEditingController();
+  void _showRedeemDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => RedeemDialog(
+        pointsController: _pointsController,
+        referralController: referralController,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +70,7 @@ class RewardScreen extends StatelessWidget {
                 RewardBalanceCard(
                   height: screenHeight * 0.10,
                   width: screenWidth * 0.52,
-                  balance: referralData.earnedPoints,
+                  balance: referralData.remainingPoints,
                   coinImage: AppSvgIcons.coin,
                   confettiImage: AppSvgIcons.confettiImage,
                 ),
@@ -71,7 +83,8 @@ class RewardScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.015),
                 AuthButton(
                   buttonText: "Redeem",
-                  onPressed: () => Get.toNamed(RouteName.couponsScreen),
+                  // onPressed: () => Get.toNamed(RouteName.couponsScreen),
+                  onPressed: () => _showRedeemDialog(context),
                   isLoading: false.obs,
                 ),
                 SizedBox(height: screenHeight * 0.025),
