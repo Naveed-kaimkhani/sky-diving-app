@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:sky_diving/models/user_reward_model.dart';
+import 'package:sky_diving/models/user_rewardedpoints.dart';
 import 'package:sky_diving/services/referral_repository.dart';
 
 class UserRewardController extends GetxController {

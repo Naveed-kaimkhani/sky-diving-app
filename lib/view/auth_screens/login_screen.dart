@@ -95,7 +95,9 @@ class LoginScreen extends StatelessWidget {
                   CustomTextField(
                     hintText: "Password",
                     obscureText: true,
+                    showToggleVisibilityIcon: true,
                     controller: authController.passwordController,
+                    isObscureRx: authController.isPasswordHidden,
                   ),
                   SizedBox(height: screenHeight * 0.03),
                   Align(
@@ -121,7 +123,6 @@ class LoginScreen extends StatelessWidget {
                               authController.passwordController.text.trim(),
                         );
                       }
-                    
                     },
                     isLoading: authController.isLoading,
                   ),

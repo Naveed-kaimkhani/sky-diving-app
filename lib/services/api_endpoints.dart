@@ -11,6 +11,7 @@ class ApiEndpoints {
 
   static const String referral = "$baseUrl/referral";
 
+  static const String userPoints = "$baseUrl/user-view-points";
   static const String delete = "$baseUrl/delete-user";
 
   static const String userReward = "$baseUrl/user-reward";

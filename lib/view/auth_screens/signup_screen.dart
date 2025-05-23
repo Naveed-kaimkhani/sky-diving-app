@@ -116,7 +116,6 @@ class SignupScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: screenSize.height * 0.04),
-
                   CustomTextField(
                     hintText: "First Name",
                     controller: authController.nameController,
@@ -141,12 +140,16 @@ class SignupScreen extends StatelessWidget {
                   CustomTextField(
                     hintText: "Password",
                     obscureText: true,
+                    showToggleVisibilityIcon: true,
                     controller: authController.passwordController,
+                    isObscureRx: authController.isPasswordHidden,
                   ),
                   SizedBox(height: screenSize.height * 0.02),
                   CustomTextField(
                       hintText: "Confirm Password",
                       obscureText: true,
+                      showToggleVisibilityIcon: true,
+                      isObscureRx: authController.isPasswordHidden,
                       controller: authController.confirmPasswordController),
                   SizedBox(height: screenSize.height * 0.03),
                   AuthButton(
@@ -160,9 +163,7 @@ class SignupScreen extends StatelessWidget {
                         }
                       },
                       isLoading: authController.isLoading),
-                 
                   SizedBox(height: screenSize.height * 0.03),
-
                   Center(
                     child: GestureDetector(
                       onTap: () {

@@ -27,7 +27,8 @@ class AppImages {
     static String done = "assets/png/done.png";
     
     static String timer = "assets/png/timer.png";
-    // static String qr= "assets/png/qr.svg";
+
+    static String close = "assets/png/close.png";
     
     static String qr= "assets/png/qr.png";
     static String google = "assets/png/google.png";

@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:sky_diving/components/appbar_with_backicon.dart';
 import 'package:sky_diving/components/auth_button.dart';
 import 'package:sky_diving/components/label_text.dart';
+import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/services/dynamic_linking.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 
@@ -61,42 +62,36 @@ class QrCode extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: screenSize.height * 0.02),
-                      // SizedBox(
-                      //   width: shortestSide * 0.8,
-                      //   height: shortestSide * 0.8,
-                      //   child: QrImageView(
-                      //     data: userController.user.value!.refId ??
-                      //         "", // or use your dynamic value
-                      //     version: QrVersions.auto,
-                      //     size: shortestSide * 0.8,
-                      //     backgroundColor: Colors.white,
-                      //   ),
-                      // ),
                       SizedBox(
-  width: shortestSide * 0.8,
-  height: shortestSide * 0.8,
-  child: FutureBuilder<String>(
-    future: DynamicLinkProvider().createLink(
-      refCode: userController.user.value?.refId ?? 'NO-CODE',
-    ),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(child: CircularProgressIndicator());
-      } else if (snapshot.hasError || !snapshot.hasData) {
-        return Center(child: Text("Failed to generate QR"));
-      }
+                        width: shortestSide * 0.8,
+                        height: shortestSide * 0.8,
+                        child: FutureBuilder<String>(
+                          future: DynamicLinkProvider().createLink(
+                            refCode:
+                                userController.user.value?.refId ?? 'NO-CODE',
+                          ),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                  child: CircularProgressIndicator.adaptive(
+                                backgroundColor: Colors.white,
+                              ));
+                            } else if (snapshot.hasError || !snapshot.hasData) {
+                              return Center(
+                                  child: Text("Failed to generate QR"));
+                            }
 
-      final dynamicLink = snapshot.data!;
-      return QrImageView(
-        data: dynamicLink,
-        version: QrVersions.auto,
-        size: shortestSide * 0.8,
-        backgroundColor: Colors.white,
-      );
-    },
-  ),
-),
-
+                            final dynamicLink = snapshot.data!;
+                            return QrImageView(
+                              data: dynamicLink,
+                              version: QrVersions.auto,
+                              size: shortestSide * 0.8,
+                              backgroundColor: Colors.white,
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   Padding(
@@ -106,14 +101,12 @@ class QrCode extends StatelessWidget {
                     ),
                     child: AuthButton(
                       buttonText: "Share QR Code",
-                     
                       onPressed: () async {
                         final refId =
                             userController.user.value?.refId ?? 'NO-CODE';
-                       
+
                         shareProduct(refCode: refId);
                       },
-
                       isLoading: false.obs,
                     ),
                   ),
@@ -128,9 +121,7 @@ class QrCode extends StatelessWidget {
   }
 
   void shareProduct({required String refCode}) async {
-
     DynamicLinkProvider().createLink(refCode: refCode).then((value) async {
-    
       final String message = '''
 Hey! 👋
 

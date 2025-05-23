@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/models/redeem_response_model.dart';
@@ -38,7 +37,7 @@ class ReferralRepository {
         url: ApiEndpoints.userReward,
         headers: {
           'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json', // optional, but recommended
+          'Content-Type': 'application/json',
         },
       );
       if (response.statusCode == 200) {

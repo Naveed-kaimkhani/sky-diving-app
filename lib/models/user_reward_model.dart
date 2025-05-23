@@ -1,4 +1,5 @@
 
+
 class UserReward {
   final int id;
   final String couponCode;

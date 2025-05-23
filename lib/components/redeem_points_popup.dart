@@ -92,6 +92,8 @@ class RedeemDialog extends StatelessWidget {
                         hintStyle: TextStyle(color: Colors.grey),
                         border: InputBorder.none,
                       ),
+                      onChanged: referralController
+                          .updateDeductedPoints, // 👈 Add this line
                     ),
                   ),
                 ],
@@ -100,13 +102,29 @@ class RedeemDialog extends StatelessWidget {
 
             SizedBox(height: screenHeight * 0.03),
 
-            Text(
-              'Available: ${referralController.referralData.value?.remainingPoints ?? 0} points',
-              style: TextStyle(
-                color: AppColors.primaryColor,
-                fontSize: screenWidth * 0.04,
-              ),
-            ),
+            // Text(
+            //   'Available: ${referralController.referralData.value?.remainingPoints ?? 0} points',
+            //   style: TextStyle(
+            //     color: AppColors.primaryColor,
+            //     fontSize: screenWidth * 0.04,
+            //   ),
+            // ),
+            Obx(() {
+              final remaining = int.tryParse(
+                      referralController.referralData.value?.remainingPoints ??
+                          '0') ??
+                  0;
+              final afterDeduction =
+                  (remaining - referralController.deductedPoints.value)
+                      .clamp(0, remaining);
+              return Text(
+                'Available after redeem: $afterDeduction points',
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: screenWidth * 0.04,
+                ),
+              );
+            }),
 
             SizedBox(height: screenHeight * 0.04),
 
@@ -151,12 +169,12 @@ class RedeemDialog extends StatelessWidget {
                         if (points > 0 &&
                             points <=
                                 int.parse(referralController
-                                        .referralData.value?.earnedPoints ??
+                                        .referralData.value?.remainingPoints ??
                                     '0')) {
                           await referralController.redeemUserPoints(
-                              points,
-                              userController
-                                  .token.value); // ✅ Redeem via controller
+                              points, userController.token.value);
+                          referralController.deductedPoints.value = 0;
+
                           Navigator.pop(context);
                           _showRedeemDialog(context);
                         } else {
@@ -200,14 +218,6 @@ class RedeemDialog extends StatelessWidget {
                         ],
                       ),
                       child: Center(
-                        // child: Text(
-                        //   'Redeem Now',
-                        //   style: TextStyle(
-                        //     color: Colors.black,
-                        //     fontSize: screenWidth * 0.04,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
                         child: Obx(() {
                           return referralController.isRedeeming.value
                               ? const SizedBox(

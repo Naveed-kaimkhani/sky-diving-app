@@ -8,29 +8,31 @@ class DynamicLinkProvider {
   final AuthController authController = Get.put(AuthController());
 
   Future<String> createLink({required String refCode}) async {
-  final String deepLink =
-      "https://skydivingrentalgear.com/?refId=$refCode";
+    final String deepLink = "https://skydivingrentalgear.com/?refId=$refCode";
 
-  final DynamicLinkParameters parameters = DynamicLinkParameters(
-    androidParameters: const AndroidParameters(
-      packageName: AppStrings.APP_PACKAGE_NAME,
-      minimumVersion: AppStrings.ANDROID_MINIMUM_VERSION,
-    ),
-    iosParameters: IOSParameters(
-      bundleId: AppStrings.APP_BUNDLE_ID,
-      minimumVersion: AppStrings.IOS_MINIMUM_VERSION,
-      appStoreId: '6743659100',
-      fallbackUrl: Uri.parse('https://apps.apple.com/pk/app/sky-diving-app/id6743659100'),
-    ),
-    link: Uri.parse(deepLink),
-    uriPrefix: AppStrings.DYNAMIC_URL,
-  );
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      androidParameters: const AndroidParameters(
+        packageName: AppStrings.APP_PACKAGE_NAME,
+        minimumVersion: AppStrings.ANDROID_MINIMUM_VERSION,
+      ),
+      iosParameters: IOSParameters(
+        bundleId: AppStrings.APP_BUNDLE_ID,
+        minimumVersion: AppStrings.IOS_MINIMUM_VERSION,
+        appStoreId: '6743659100',
+        fallbackUrl: Uri.parse(
+            'https://apps.apple.com/pk/app/sky-diving-app/id6743659100'),
+      ),
+      navigationInfoParameters: NavigationInfoParameters(
+        forcedRedirectEnabled: true, // <-- This is important!
+      ),
+      link: Uri.parse(deepLink),
+      uriPrefix: AppStrings.DYNAMIC_URL,
+    );
 
-  final FirebaseDynamicLinks link = await FirebaseDynamicLinks.instance;
-  final refLink = await link.buildShortLink(parameters);
-  return refLink.shortUrl.toString();
-}
-
+    final FirebaseDynamicLinks link = await FirebaseDynamicLinks.instance;
+    final refLink = await link.buildShortLink(parameters);
+    return refLink.shortUrl.toString();
+  }
 
   /// Initialize dynamic link
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
@@ -62,13 +64,12 @@ class DynamicLinkProvider {
   void handleDeepLink({Map<String, dynamic>? queryParam}) async {
     if (queryParam != null) {
       final refId = queryParam['refId'];
-     
+
       authController.referralCode.value = refId;
 
       // Store in SharedPreferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('referral_code', refId);
-      
     }
   }
 }

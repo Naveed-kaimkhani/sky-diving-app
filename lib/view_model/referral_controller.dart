@@ -11,6 +11,7 @@ class ReferralController extends GetxController {
   final RxBool isRedeeming = false.obs;
 
   final UserController userController = Get.find<UserController>();
+  var deductedPoints = 0.obs; // 👈 This will track the deducted amount from the input field
 
   Rxn<ReferralData> referralData = Rxn<ReferralData>(); // nullable Rx
 
@@ -20,15 +21,17 @@ class ReferralController extends GetxController {
       referralData.value = data;
     }
   }
-
+ void updateDeductedPoints(String value) {
+    int points = int.tryParse(value) ?? 0;
+    deductedPoints.value = points;
+  }
   Future<void> redeemUserPoints(int points, String token) async {
     isRedeeming.value = true;
     final result = await repository.redeemPoints(token, points);
     isRedeeming.value = false;
 
     if (result != null && result.success) {
-      Get.snackbar("Success", result.message, colorText: Colors.white);
-    } else {
+   } else {
       Get.snackbar("Error", result?.message ?? "Redemption failed",
           colorText: Colors.white);
     }

@@ -21,6 +21,8 @@ class AuthController extends GetxController {
   var phoneNumber = ''.obs;
   var referralCode = ''.obs;
   RxBool isLoading = false.obs;
+  final isPasswordHidden = true.obs;
+
 
   final UserController userController = Get.find<UserController>();
 
