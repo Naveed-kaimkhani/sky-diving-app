@@ -32,11 +32,15 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _onRefresh() async {
     bool isConnected = await Utils.checkInternetConnection();
-    if (!isConnected)  return;
+    if (!isConnected) return;
 
     await referralController.fetchReferralData();
 
     await rewardController.fetchUserRewards(userController.token.value);
+    final UserPointsController userRewardController =
+        Get.put(UserPointsController());
+    userRewardController.fetchRewards();
+    _refreshController.refreshCompleted();
   }
 
   @override
@@ -137,7 +141,6 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-               
                     ReferralCard(
                       count: data.totalReferrals.toString(),
                       text: "Total Referrals",
