@@ -63,7 +63,7 @@ class CustomTabBar extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -85,7 +85,6 @@ class CustomTabBar extends StatelessWidget {
               unselectedLabelColor: Colors.white,
               tabs: const [
                 Tab(text: '   All   '),
-                Tab(text: '   Signed Up   '),
                 Tab(text: ' Pending  '),
               ],
             ),
@@ -97,11 +96,6 @@ class CustomTabBar extends StatelessWidget {
               children: [
                 // All tab
                 _buildRewardList(userRewardController.rewards),
-
-                // Signed Up tab - filter rewards where status is "Signed Up"
-                _buildRewardListWithFilter(
-                    userRewardController.rewards, "active"),
-
                 // Pending tab - filter rewards where status is "Pending"
                 _buildRewardListWithFilter(
                     userRewardController.rewards, "Pending"),

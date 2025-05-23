@@ -32,10 +32,7 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _onRefresh() async {
     bool isConnected = await Utils.checkInternetConnection();
-    if (!isConnected) {
-      userRewardController.fetchRewards();
-      return;
-    }
+    if (!isConnected)  return;
 
     await referralController.fetchReferralData();
 
@@ -49,7 +46,7 @@ class HomeScreen extends StatelessWidget {
     final isSmallScreen = screenWidth < 400;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: CustomAppBar(
         username: userController.user.value!.name,
         profileImage: AppSvgIcons.profile,
@@ -140,23 +137,22 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+               
                     ReferralCard(
                       count: data.totalReferrals.toString(),
                       text: "Total Referrals",
-                      width: screenWidth * 0.42,
-                      height: screenWidth * 0.28,
+                      width: screenWidth * 0.27,
                     ),
                     ReferralCard(
                       count: (earnedPoints - remainingPoints).toString(),
+                      // count: "343427",
                       text: "Used Points",
-                      width: screenWidth * 0.42,
-                      height: screenWidth * 0.28,
+                      width: screenWidth * 0.27,
                     ),
                     ReferralCard(
                       count: data.remainingPoints,
-                      text: "Remaining Points",
-                      width: screenWidth * 0.42,
-                      height: screenWidth * 0.28,
+                      text: "Earned Points",
+                      width: screenWidth * 0.27,
                     ),
                   ],
                 ),

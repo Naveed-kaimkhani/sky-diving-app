@@ -32,7 +32,7 @@ class RewardsTabBar extends StatelessWidget {
               labelColor: Colors.black,
               unselectedLabelColor: Colors.white,
               tabs: const [
-                Tab(text: ' Pending  '),
+                Tab(text: '  Pending  '),
                 Tab(text: '  Approved  '),
                 Tab(text: '  Rejected  '),
               ],
