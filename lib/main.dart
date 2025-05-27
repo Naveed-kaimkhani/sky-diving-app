@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +7,7 @@ import 'package:sky_diving/firebase_options.dart';
 import 'package:sky_diving/services/api_client.dart';
 import 'package:sky_diving/services/auth_respository.dart';
 import 'package:sky_diving/services/referral_repository.dart';
+import 'package:sky_diving/view/referral_history/user_points_detail_screen.dart';
 import 'package:sky_diving/view/splash_screen.dart';
 
 void main() async {
@@ -18,7 +18,7 @@ void main() async {
   Get.put(ApiClient());
   Get.put(AuthRepository());
   Get.put(ReferralRepository());
-  
+
   runApp(
     MyApp(),
   );

@@ -19,8 +19,10 @@ class UserPoints {
       redeemPoints: json['redeem_points'],
       status: json['status'],
       // createdAt: json['created_at'],
-            createdAt: DateFormat("MMM dd, yyyy").parse(json['created_at']),
-
+      // createdAt: DateFormat().parse(json['created_at']),
+      createdAt: DateFormat("yyyy-MM-ddTHH:mm:ss.SSSSSS'Z'")
+              .parseUtc(json['created_at'])
+              .toLocal(),
     );
   }
 }

@@ -6,6 +6,8 @@ class ReferralData {
   final dynamic earnedPoints;
 
    dynamic remainingPoints;
+
+   dynamic usedPoints;
   final List<Referral> referrals;
 
   ReferralData({
@@ -14,11 +16,14 @@ class ReferralData {
     required this.earnedPoints,
     required this.referrals,
     required this.remainingPoints,
+    required this.usedPoints,
   });
 
   factory ReferralData.fromJson(Map<String, dynamic> json) {
     return ReferralData(
       totalReferrals: json['total_referrals'] ?? 0,
+
+      usedPoints: json['used_points'] ?? 0,
       activeReferrals: json['active_referrals'] ?? 0,
       earnedPoints: json['earned_points'].toString(),
       remainingPoints: json['remaining_points'].toString(),

@@ -19,6 +19,7 @@ class RewardRepository {
         'Content-Type': 'application/json', // optional, but recommended
       },
     );
+    log("in reward repo");
     log(response.body);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -29,6 +30,8 @@ class RewardRepository {
         throw Exception("API returned success: false");
       }
     } else {
+      log("exception aai");
+      log(response.body);
       throw Exception("Failed to fetch rewards. Code: ${response.statusCode}");
     }
   }

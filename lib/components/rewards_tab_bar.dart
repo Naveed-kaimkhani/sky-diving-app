@@ -79,23 +79,20 @@ class RewardsTabBar extends StatelessWidget {
                 "${reward.redeemPoints} Points ${reward.status[0].toUpperCase()}${reward.status.substring(1)}",
 
             status: reward.status,
-            date: DateFormat('MMM dd, yyyy').format(reward.createdAt),
-          //   statusIcon:
-          //       reward.status == 'approved' ? AppImages.done : AppImages.timer,
-          //   statusColor:
-          //       reward.status == 'approved' ? Colors.green : Colors.yellow,
-          statusIcon: reward.status == 'approved'
-    ? AppImages.done
-    : reward.status == 'pending'
-        ? AppImages.timer
-        : AppImages.close, // assuming AppImages.error exists for 'rejected'
-statusColor: reward.status == 'approved'
-    ? Colors.green
-    : reward.status == 'pending'
-        ? Colors.orange
-        : Colors.red,
 
-           );
+            date: DateFormat('MMMM d, y').format(reward.createdAt),
+            statusIcon: reward.status == 'approved'
+                ? AppImages.done
+                : reward.status == 'pending'
+                    ? AppImages.timer
+                    : AppImages
+                        .close, // assuming AppImages.error exists for 'rejected'
+            statusColor: reward.status == 'approved'
+                ? Colors.green
+                : reward.status == 'pending'
+                    ? Colors.orange
+                    : Colors.red,
+          );
         },
       ),
     );

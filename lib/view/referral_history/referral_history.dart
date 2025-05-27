@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +10,7 @@ import 'package:sky_diving/constants/app_images.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
 import 'package:sky_diving/models/user_reward_model.dart';
+import 'package:sky_diving/view/referral_history/user_points_detail_screen.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 import 'package:sky_diving/view_model/user_reward_controller.dart';
@@ -38,7 +41,7 @@ class ReferralHistory extends StatelessWidget {
           children: [
             SizedBox(height: screenHeight * 0.02),
             LabelText(
-              text: "Referral History",
+              text: "Referral Points History",
               fontSize: screenWidth * 0.045,
             ),
             SizedBox(height: screenHeight * 0.015),
@@ -134,25 +137,32 @@ class CustomTabBar extends StatelessWidget {
       }
 
       return ListView.builder(
-        itemCount: rewards.length,
+        itemCount: referralController.referralData.value!.referrals.length,
         itemBuilder: (context, index) {
           final reward = rewards[index];
-
-          // Find the matching referral by comparing IDs
           final matchingReferral =
               referralController.referralData.value?.referrals.firstWhereOrNull(
             (referral) => referral.id == reward.userReferalId,
           );
           final name = matchingReferral?.referredName ?? "Unknown";
-
-          return TransactionCard(
-            amount: "${reward.points}",
-            name: name,
-            date: DateFormat('MMM dd, yyyy').format(reward.createdAt),
-            statusImagePath: AppImages.done,
-            calendarImagePath: AppImages.timer,
-            amountColor: AppColors.primaryColor,
-            iconColor: Colors.green,
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => UserPointsDetailScreen(
+                        userId: 17.toString(),
+                        userName: name,
+                        totalPoints: 200,
+                      )));
+            },
+            child: TransactionCard(
+              amount: "${reward.points}",
+              name: name,
+              date: reward.createdAt.toString(),
+              statusImagePath: AppImages.done,
+              calendarImagePath: AppImages.timer,
+              amountColor: AppColors.primaryColor,
+              iconColor: Colors.green,
+            ),
           );
         },
       );
@@ -174,7 +184,6 @@ class CustomTabBar extends StatelessWidget {
           child: CircularProgressIndicator(color: Colors.white),
         );
       }
-
       if (error.isNotEmpty) {
         return Center(
           child: Text(error, style: const TextStyle(color: Colors.red)),
@@ -200,15 +209,26 @@ class CustomTabBar extends StatelessWidget {
           );
           final name = matchingReferral?.referredName ?? "Unknown";
 
-          return TransactionCard(
-            amount: "${reward.points}",
-            name: name,
-            date: DateFormat('MMM dd, yyyy').format(reward.createdAt),
-            statusImagePath:
-                statusFilter == "active" ? AppImages.done : AppImages.timer,
-            calendarImagePath: AppImages.timer,
-            amountColor: AppColors.primaryColor,
-            iconColor: statusFilter == "active" ? Colors.green : Colors.yellow,
+          return GestureDetector(
+            // onTap: () => Get.to(() => UserPointsDetailScreen(
+            //       userName: name,
+            //       userId: "34", // Pass the user ID
+            //       points: reward.points,
+            //     )),
+            onTap: () => log("fdfldskjflsjflksj"),
+            child: TransactionCard(
+              amount: "${reward.points}",
+              name: name,
+              date: DateFormat('MM dd, yyyy').format(reward.createdAt),
+              // date: reward.createdAt.toString(),
+
+              statusImagePath:
+                  statusFilter == "active" ? AppImages.done : AppImages.timer,
+              calendarImagePath: AppImages.timer,
+              amountColor: AppColors.primaryColor,
+              iconColor:
+                  statusFilter == "active" ? Colors.green : Colors.yellow,
+            ),
           );
         },
       );

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,6 +47,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(userController.token.value);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final isSmallScreen = screenWidth < 400;
@@ -58,10 +61,6 @@ class HomeScreen extends StatelessWidget {
       body: Obx(() {
         final data = referralController.referralData.value;
         final isLoading = data == null;
-        final int earnedPoints =
-            int.tryParse(data!.earnedPoints.toString()) ?? 0;
-        final int remainingPoints =
-            int.tryParse(data.remainingPoints.toString()) ?? 0;
 
         if (isLoading) {
           return ShimmerHomePlaceholder(
@@ -147,14 +146,14 @@ class HomeScreen extends StatelessWidget {
                       width: screenWidth * 0.27,
                     ),
                     ReferralCard(
-                      count: (earnedPoints - remainingPoints).toString(),
+                      count: data.usedPoints,
                       // count: "343427",
                       text: "Used Points",
                       width: screenWidth * 0.27,
                     ),
                     ReferralCard(
                       count: data.remainingPoints,
-                      text: "Earned Points",
+                      text: "Remaining Points",
                       width: screenWidth * 0.27,
                     ),
                   ],
