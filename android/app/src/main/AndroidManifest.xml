@@ -4,7 +4,8 @@
         android:label="sky_diving"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-         android:usesCleartextTraffic="true"> <!-- Moved inside application -->
+         android:usesCleartextTraffic="true"
+         android:enableOnBackInvokedCallback="true">
 
         <activity
             android:name=".MainActivity"
