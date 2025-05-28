@@ -4,7 +4,6 @@ import 'package:sky_diving/components/reward_card.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/models/user_rewardedpoints.dart';
 import '../constants/app_images.dart';
-import '../models/user_reward_model.dart'; // Import your model
 
 class RewardsTabBar extends StatelessWidget {
   final List<UserPoints> rewardList;
@@ -67,7 +66,10 @@ class RewardsTabBar extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      padding: const EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+      ),
       child: ListView.separated(
         itemCount: rewards.length,
         separatorBuilder: (_, __) => const SizedBox(height: 10),

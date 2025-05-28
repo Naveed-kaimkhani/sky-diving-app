@@ -4,6 +4,7 @@ import 'package:sky_diving/components/redeem_sucess_popup.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
+import 'package:flutter/services.dart';
 
 class RedeemDialog extends StatelessWidget {
   final TextEditingController pointsController;
@@ -248,6 +249,7 @@ class RedeemDialog extends StatelessWidget {
   }
 
   void _showRedeemDialog(BuildContext context) {
+    HapticFeedback.mediumImpact();
     showDialog(context: context, builder: (context) => RedeemSuccessPopup());
   }
 }
