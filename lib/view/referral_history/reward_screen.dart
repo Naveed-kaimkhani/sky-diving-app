@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/components/auth_button.dart';
@@ -10,10 +8,10 @@ import 'package:sky_diving/components/reward_list_shimmer.dart';
 import 'package:sky_diving/components/rewards_tab_bar.dart';
 import 'package:sky_diving/constants/app_svg_icons.dart';
 import 'package:sky_diving/components/custom_AppBar.dart';
+import 'package:sky_diving/utils/utils.dart';
 import 'package:sky_diving/view_model/referral_controller.dart';
 import 'package:sky_diving/view_model/user_controller.dart';
 import 'package:sky_diving/view_model/user_points_controller.dart';
-import '../../view_model/user_reward_controller.dart';
 
 class RewardScreen extends StatelessWidget {
   RewardScreen({super.key});
@@ -25,7 +23,9 @@ class RewardScreen extends StatelessWidget {
 
   final TextEditingController _pointsController = TextEditingController();
 
-  void _showRedeemDialog(BuildContext context) {
+  void _showRedeemDialog(BuildContext context) async {
+    bool isConnected = await Utils.checkInternetConnection();
+    if (!isConnected) return;
     showDialog(
       context: context,
       builder: (context) => RedeemDialog(
@@ -78,6 +78,7 @@ class RewardScreen extends StatelessWidget {
                 RewardBalanceCard(
                   height: screenHeight * 0.10,
                   width: screenWidth * 0.52,
+                  rewardText: "Remaining Points",
                   balance: referralData.remainingPoints,
                   coinImage: AppSvgIcons.coin,
                   confettiImage: AppSvgIcons.confettiImage,

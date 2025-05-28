@@ -22,7 +22,6 @@ class ReferralData {
   factory ReferralData.fromJson(Map<String, dynamic> json) {
     return ReferralData(
       totalReferrals: json['total_referrals'] ?? 0,
-
       usedPoints: json['used_points'] ?? 0,
       activeReferrals: json['active_referrals'] ?? 0,
       earnedPoints: json['earned_points'].toString(),

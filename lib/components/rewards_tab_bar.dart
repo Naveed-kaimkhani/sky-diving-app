@@ -32,8 +32,8 @@ class RewardsTabBar extends StatelessWidget {
               labelColor: Colors.black,
               unselectedLabelColor: Colors.white,
               tabs: const [
-                Tab(text: '  Pending  '),
                 Tab(text: '  Approved  '),
+                Tab(text: '  Pending  '),
                 Tab(text: '  Rejected  '),
               ],
             ),
@@ -45,9 +45,9 @@ class RewardsTabBar extends StatelessWidget {
                 // _buildRewardList(rewardList,),
 
                 _buildRewardList(
-                    rewardList.where((r) => r.status == 'pending').toList()),
-                _buildRewardList(
                     rewardList.where((r) => r.status == 'approved').toList()),
+                _buildRewardList(
+                    rewardList.where((r) => r.status == 'pending').toList()),
 
                 _buildRewardList(
                     rewardList.where((r) => r.status == 'rejected').toList()),

@@ -15,7 +15,8 @@ class RewardBalanceCard extends StatelessWidget {
     required this.width,
     required this.balance,
     required this.height,
-    this.rewardText = "Total Points",
+    required this.rewardText,
+    // this.rewardText = "Remaining Points",
     required this.coinImage,
     required this.confettiImage,
   });

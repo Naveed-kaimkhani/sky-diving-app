@@ -1,13 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sky_diving/constants/app_colors.dart';
 import 'package:sky_diving/models/user_reward_model.dart';
+import 'package:sky_diving/utils/utils.dart';
 import 'package:sky_diving/view_model/user_reward_controller.dart';
 
 class UserPointsDetailScreen extends StatelessWidget {
   final String userName;
-  final String userId;
+  final String url;
+  final int userId;
   final int totalPoints;
 
   const UserPointsDetailScreen({
@@ -15,26 +18,28 @@ class UserPointsDetailScreen extends StatelessWidget {
     required this.userName,
     required this.userId,
     required this.totalPoints,
+    required this.url,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final userRewardController = Get.find<UserRewardController>();
-    
+    String name = Utils.capitalizeFirstLetter(userName);
     // Filter rewards for this specific user
     final userRewards = userRewardController.rewards
-        .where((reward) => reward.userReferalId == userId)
+        .where((reward) => reward.userReferalId.isEqual(userId))
         .toList();
-    
+    final reversedRewards = userRewards.reversed.toList();
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('$userName\'s Points', 
-            style: TextStyle(color: Colors.white)),
+        title: Text('$name\'s Points', style: TextStyle(color: Colors.white)),
+
+        // Text('${} \'s Points', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Get.back(),
         ),
       ),
@@ -52,26 +57,41 @@ class UserPointsDetailScreen extends StatelessWidget {
 
         return Column(
           children: [
-            // Header with total points
             Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColors.primaryColor.withOpacity(0.7), Colors.black],
+                  colors: [
+                    AppColors.primaryColor.withOpacity(0.7),
+                    Colors.black
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
               ),
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: AppColors.primaryColor.withOpacity(0.2),
-                    child: Icon(Icons.person, size: 40, color: Colors.white),
+                  ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: url,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[300],
+                        child:
+                            Icon(Icons.person, size: 40, color: Colors.white),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.grey[300],
+                        child:
+                            Icon(Icons.person, size: 40, color: Colors.white),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 16),
                   Text(
-                    userName,
+                    name,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
@@ -121,7 +141,8 @@ class UserPointsDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       child: Text(
                         'Points History',
                         style: TextStyle(
@@ -144,9 +165,12 @@ class UserPointsDetailScreen extends StatelessWidget {
                     else
                       Expanded(
                         child: ListView.builder(
-                          itemCount: userRewards.length,
+                          itemCount: reversedRewards.length,
+                          // reverse: true,
+                          // shrinkWrap: true, // Shrinks to fit content
+
                           itemBuilder: (context, index) {
-                            final reward = userRewards[index];
+                            final reward = reversedRewards[index];
                             return _buildPointItem(reward);
                           },
                         ),
@@ -163,7 +187,8 @@ class UserPointsDetailScreen extends StatelessWidget {
 
   Widget _buildPointItem(UserReward reward) {
     final date = DateFormat('dd MMM yyyy').format(reward.createdAt);
-    final isBonus = reward.status == 'bonus'; // Adjust based on your status values
+    final isBonus =
+        reward.status == 'bonus'; // Adjust based on your status values
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
@@ -193,7 +218,7 @@ class UserPointsDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isBonus ? 'Bonus Points' : 'Activity Points',
+                  'Referral Points',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

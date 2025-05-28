@@ -133,6 +133,7 @@ class HomeScreen extends StatelessWidget {
                   height: screenHeight * 0.08,
                   width: screenWidth * 0.56,
                   balance: data.earnedPoints,
+                  rewardText: "Total Points",
                   coinImage: AppSvgIcons.coin,
                   confettiImage: AppSvgIcons.confettiImage,
                 ),

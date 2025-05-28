@@ -34,36 +34,6 @@ class TransactionCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Amount Badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: amountColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: " $amount", // Dollar sign
-                    style: TextStyle(
-                      color: amountColor,
-                      fontSize: 14, // Smaller size for currency symbol
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "\n  points", // Remove dollar sign if already present
-                    style: TextStyle(
-                      color: amountColor,
-                      fontSize: 8, // Larger size for amount
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           const SizedBox(width: 12),
 
           // Name and Date
@@ -99,14 +69,6 @@ class TransactionCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-
-          // Status Icon
-          Image.asset(
-            statusImagePath,
-            width: 24,
-            height: 24,
-            color: iconColor,
           ),
         ],
       ),

@@ -18,6 +18,10 @@ class Utils {
 
   return true;
 }
+static String capitalizeFirstLetter(String input) {
+  if (input.isEmpty) return input;
+  return input[0].toUpperCase() + input.substring(1);
+}
 
  static Future<void> launchWebUrl(context) async {
     final url = Uri.parse('https://www.sgras.com/product/skydiving-gear-rental/3');

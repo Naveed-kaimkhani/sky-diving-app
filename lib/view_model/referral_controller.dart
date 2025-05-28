@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/models/referral_data.dart';
@@ -25,6 +24,8 @@ class ReferralController extends GetxController {
     int points = int.tryParse(value) ?? 0;
     deductedPoints.value = points;
   }
+
+
   Future<void> redeemUserPoints(int points, String token) async {
     isRedeeming.value = true;
     final result = await repository.redeemPoints(token, points);

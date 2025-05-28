@@ -102,13 +102,6 @@ class RedeemDialog extends StatelessWidget {
 
             SizedBox(height: screenHeight * 0.03),
 
-            // Text(
-            //   'Available: ${referralController.referralData.value?.remainingPoints ?? 0} points',
-            //   style: TextStyle(
-            //     color: AppColors.primaryColor,
-            //     fontSize: screenWidth * 0.04,
-            //   ),
-            // ),
             Obx(() {
               final remaining = int.tryParse(
                       referralController.referralData.value?.remainingPoints ??
@@ -135,7 +128,12 @@ class RedeemDialog extends StatelessWidget {
                 // Cancel button
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    // onTap: () => Navigator.pop(context),
+                    onTap: () {
+                      pointsController.clear();
+                      referralController.deductedPoints.value = 0;
+                      Navigator.pop(context);
+                    },
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         vertical: screenHeight * 0.015,
