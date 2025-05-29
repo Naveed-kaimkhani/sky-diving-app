@@ -92,13 +92,14 @@ class UserController extends GetxController {
   UserModel? get currentUser => user.value;
 
   Future<void> logout() async {
+    log("in logout");
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     user.value = null;
     token.value = '';
     showGetStarted.value = true;
 
-    // Delete permanently registered controllers
+    // // Delete permanently registered controllers
     Get.delete<ReferralController>();
     Get.delete<UserRewardController>();
 
