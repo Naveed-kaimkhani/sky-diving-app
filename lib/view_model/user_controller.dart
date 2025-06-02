@@ -92,10 +92,8 @@ class UserController extends GetxController {
   UserModel? get currentUser => user.value;
 
   Future<void> logout() async {
-    log("in logout");
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    user.value = null;
     token.value = '';
     showGetStarted.value = true;
 
@@ -103,6 +101,7 @@ class UserController extends GetxController {
     Get.delete<ReferralController>();
     Get.delete<UserRewardController>();
 
+    // user.value = null;
     Get.offAllNamed(RouteName.login);
   }
 }

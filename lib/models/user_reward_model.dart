@@ -9,7 +9,7 @@ class UserReward {
   final DateTime updatedAt;
   final int userId;
 
-  final int userReferalId;
+  final int? userReferalId;
   final dynamic points;
   final dynamic discount;
   final dynamic couponValue;

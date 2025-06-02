@@ -70,13 +70,11 @@ class RewardsTabBar extends StatelessWidget {
         left: 8.0,
         right: 8.0,
       ),
-      child: ListView.separated(
+      child: ListView.builder(
         itemCount: rewards.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 10),
         itemBuilder: (context, index) {
           final reward = rewards[index];
           return RewardCard(
-            // title: "${reward.redeemPoints} Points ${reward.status}",
             title:
                 "${reward.redeemPoints} Points ${reward.status[0].toUpperCase()}${reward.status.substring(1)}",
 

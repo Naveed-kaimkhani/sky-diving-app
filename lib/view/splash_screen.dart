@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await userController.getUserFromPrefs();
 
     if (userController.token.value.isNotEmpty) {
+      log(userController.token.value);
       final referralController = Get.put(ReferralController(), permanent: true);
       await referralController.fetchReferralData();
 

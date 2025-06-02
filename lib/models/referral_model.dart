@@ -1,6 +1,6 @@
 class Referral {
   final int id;
-  final String referredName;
+  final String? referredName;
   final String status;
   final String referralDate;
 

@@ -77,7 +77,7 @@ class RewardScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.02),
                 RewardBalanceCard(
                   height: screenHeight * 0.10,
-                  width: screenWidth * 0.52,
+                  width: screenWidth * 0.50,
                   rewardText: "Remaining Points",
                   balance: referralData.remainingPoints,
                   coinImage: AppSvgIcons.coin,

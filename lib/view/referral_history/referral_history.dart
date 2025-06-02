@@ -83,7 +83,7 @@ class ReferralHistory extends StatelessWidget {
           final reward = rewards[index];
           return TransactionCard(
             amount: reward.totalPoints,
-            name: reward.referredName,
+            name: reward.referredName??"Unknown",
             date: reward.referralDate.toString(),
             statusImagePath: AppImages.done,
             calendarImagePath: AppImages.timer,

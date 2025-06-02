@@ -12,7 +12,20 @@
           "package_name": "com.example.sky_diving"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "208149054118-iqs7dbiinfnok7au8v2ormqa46hvo0qv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sky_diving",
+            "certificate_hash": "97f3bf447850c63696689433dd4cc706264eee9a"
+          }
+        },
+        {
+          "client_id": "208149054118-1u1j6e9asu74raulknq4tu9gaepdojv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDeBJk1sE4jICBEnoxV27CTDOdXxqRMFQI"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208149054118-1u1j6e9asu74raulknq4tu9gaepdojv0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "208149054118-dmomc3vb0ftqosbnms1gidep076c35b5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zaygon.skydiving"
+              }
+            }
+          ]
         }
       }
     }

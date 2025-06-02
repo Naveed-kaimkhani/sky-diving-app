@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sky_diving/models/redeem_response_model.dart';
@@ -18,6 +19,7 @@ class ReferralRepository {
           'Content-Type': 'application/json', // optional, but recommended
         },
       );
+      log(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['status'] == true) {
@@ -40,6 +42,7 @@ class ReferralRepository {
           'Content-Type': 'application/json',
         },
       );
+      log(response.body);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['success'] == true) {
