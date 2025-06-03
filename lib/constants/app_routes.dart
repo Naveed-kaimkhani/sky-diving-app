@@ -16,7 +16,6 @@ import 'package:sky_diving/view/auth_screens/forget_password.dart';
 import 'package:sky_diving/view/auth_screens/login_screen.dart';
 import 'package:sky_diving/view/auth_screens/signup_screen.dart';
 import 'package:sky_diving/view/auth_screens/verify_otp.dart';
-import 'package:sky_diving/view/home/rental_screen.dart';
 import 'package:sky_diving/view/notification_screen/notification_screen.dart';
 import 'package:sky_diving/view/profile_screens/profile.dart';
 import 'package:sky_diving/view/profile_screens/update_profile.dart';
@@ -68,10 +67,7 @@ class AppRoutes {
             name: RouteName.notificationsScreen,
             page: () => NotificationsScreen(),
             transition: Transition.cupertino),
-        GetPage(
-            name: RouteName.rentalScreen,
-            page: () => RentalScreen(),
-            transition: Transition.cupertino),
+       
         GetPage(
             name: RouteName.fAQScreen,
             page: () => FAQScreen(),

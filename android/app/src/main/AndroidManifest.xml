@@ -1,5 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
       <uses-permission android:name="android.permission.INTERNET" />
+        <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="false"
+        android:xlargeScreens="false"
+        android:anyDensity="true" />
+
+        <uses-feature
+        android:name="android.hardware.screen.portrait"
+        android:required="true" />
     <application
         android:label="sky_diving"
         android:name="${applicationName}"
